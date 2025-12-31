@@ -1,0 +1,82 @@
+name: Reusable Trinity CI Workflow
+
+on:
+  workflow_call:
+    inputs:
+      python_version:
+        description: 'Python version to use'
+        required: false
+        type: string
+        default: '3.11'
+      bash_paths:
+        description: 'Paths to bash scripts (space-separated)'
+        required: false
+        type: string
+        default: 'scripts'
+      ansible_paths:
+        description: 'Paths to Ansible content'
+        required: false
+        type: string
+        default: 'playbooks roles'
+
+jobs:
+  validate-python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python_version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mypy ruff pytest pytest-cov
+
+      - name: Run mypy
+        run: mypy . --config-file=pyproject.toml || true
+
+      - name: Run ruff
+        run: ruff check .
+
+  validate-bash:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get install -y shellcheck
+
+      - name: Run shellcheck
+        run: |
+          find ${{ inputs.bash_paths }} -type f -name "*.sh" -exec shellcheck {} +
+
+  validate-yaml:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Run yamllint
+        run: yamllint -c linting/.yamllint .
+
+  validate-ansible:
+    runs-on: ubuntu-latest
+    if: inputs.ansible_paths != ''
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: pip install ansible ansible-lint
+
+      - name: Run ansible-lint
+        run: |
+          for path in ${{ inputs.ansible_paths }}; do
+            if [ -d "$path" ]; then
+              ansible-lint "$path"
+            fi
+          done

@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Device Manifest Schema",
+  "description": "Canonical schema for device inventory manifests in RylanLabs infrastructure",
+  "version": "2.2.0",
+  "type": "object",
+  "required": ["version", "devices"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "enum": ["2.2.0"],
+      "description": "Schema version for this manifest"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "environment": {
+          "type": "string",
+          "enum": ["production", "staging", "development"],
+          "description": "Deployment environment"
+        },
+        "region": {
+          "type": "string",
+          "description": "Geographic region identifier"
+        },
+        "owner": {
+          "type": "string",
+          "description": "Team or contact owning this manifest"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp"
+        }
+      }
+    },
+    "devices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "hostname", "type"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]+$",
+            "description": "Unique device identifier"
+          },
+          "hostname": {
+            "type": "string",
+            "description": "FQDN or hostname"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["server", "workstation", "router", "switch", "firewall"],
+            "description": "Device type classification"
+          },
+          "ip_address": {
+            "type": "string",
+            "format": "ipv4",
+            "description": "IPv4 address"
+          },
+          "role": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Assigned roles/tags"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "inactive", "deprecated"],
+            "default": "active",
+            "description": "Device operational status"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Tandem Contract Schema",
+  "description": "Contract specification for Tandem protocol implementations",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["contract_id", "version", "parties"],
+  "properties": {
+    "contract_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$",
+      "description": "Unique contract identifier"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version of contract"
+    },
+    "parties": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["name", "role"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Party identifier/name"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["provider", "consumer", "validator"],
+            "description": "Role in tandem relationship"
+          },
+          "endpoint": {
+            "type": "string",
+            "format": "uri",
+            "description": "Service endpoint URL"
+          }
+        }
+      }
+    },
+    "obligations": {
+      "type": "object",
+      "description": "Mutual obligations and SLAs",
+      "properties": {
+        "availability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Availability SLA percentage"
+        },
+        "response_time_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum response time in milliseconds"
+        },
+        "error_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Maximum acceptable error rate percentage"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "active", "deprecated", "archived"],
+      "default": "draft",
+      "description": "Contract lifecycle status"
+    }
+  }
+}

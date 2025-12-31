@@ -1,0 +1,27 @@
+name: Reusable Ansible Linting
+
+on:
+  workflow_call:
+    inputs:
+      ansible_paths:
+        description: 'Paths to Ansible content'
+        required: false
+        type: string
+        default: 'playbooks roles'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: pip install ansible ansible-lint
+
+      - name: Run ansible-lint
+        run: |
+          for path in ${{ inputs.ansible_paths }}; do
+            if [ -d "$path" ]; then
+              ansible-lint "$path"
+            fi
+          done

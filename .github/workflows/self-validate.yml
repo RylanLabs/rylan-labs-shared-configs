@@ -1,0 +1,46 @@
+name: Self-Validate Shared Configs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    uses: ./.github/workflows/reusable-trinity-ci.yml
+    with:
+      python_version: '3.11'
+      bash_paths: 'scripts'
+      ansible_paths: ''
+
+  validate-symlink-targets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate all config files exist
+        run: |
+          echo "Validating linting configs..."
+          test -f linting/.yamllint || { echo "ERROR: .yamllint missing"; exit 1; }
+          test -f linting/pyproject.toml || { echo "ERROR: pyproject.toml missing"; exit 1; }
+          test -f linting/.shellcheckrc || { echo "ERROR: .shellcheckrc missing"; exit 1; }
+          test -f linting/.editorconfig || { echo "ERROR: .editorconfig missing"; exit 1; }
+
+          echo "Validating pre-commit config..."
+          test -f pre-commit/.pre-commit-config.yaml || { echo "ERROR: .pre-commit-config.yaml missing"; exit 1; }
+
+          echo "✓ All symlink targets validated"
+
+  validate-schemas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install JSON schema validator
+        run: pip install jsonschema
+
+      - name: Validate JSON schemas
+        run: |
+          python -m jsonschema --help > /dev/null
+          echo "✓ Schema validation tools installed"

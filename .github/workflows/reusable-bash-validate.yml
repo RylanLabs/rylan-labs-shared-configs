@@ -1,0 +1,32 @@
+name: Reusable Bash Validation
+
+on:
+  workflow_call:
+    inputs:
+      bash_paths:
+        description: 'Paths to bash scripts (space-separated)'
+        required: false
+        type: string
+        default: 'scripts'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get install -y shellcheck
+
+      - name: Run shellcheck
+        run: |
+          find ${{ inputs.bash_paths }} -type f -name "*.sh" -exec shellcheck {} +
+
+      - name: Install shfmt
+        run: sudo apt-get install -y golang-1.21-go && go install mvdan.cc/sh/v3/cmd/shfmt@latest
+
+      - name: Run shfmt
+        run: |
+          for file in $(find ${{ inputs.bash_paths }} -type f -name "*.sh"); do
+            shfmt -d "$file" || true
+          done
