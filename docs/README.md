@@ -23,7 +23,7 @@ Tier 0 foundation repository providing single source of truth for:
 ## Architecture
 
 ### Consumption Pattern
-```
+```text
 rylan-labs-shared-configs (v1.0.0) ← Source of Truth
   ↓ (symlinks)
 rylan-labs-common
@@ -32,7 +32,8 @@ rylan-canon-library
 rylan-labs-network-iac
   ↓ (inherits standards)
 ✓ Zero duplication, single update propagates to all repos
-```bash
+```
+
 
 ### Trinity Alignment
 - **Carter**: Identity enforcement via symlinks, standard propagation
@@ -43,7 +44,7 @@ rylan-labs-network-iac
 
 ## Repository Structure
 
-```
+```text
 rylan-labs-shared-configs/
 ├── linting/              # Symlink targets for lint configs
 │   ├── .yamllint         # 140-char line length

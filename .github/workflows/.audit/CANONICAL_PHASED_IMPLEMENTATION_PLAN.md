@@ -2,11 +2,11 @@
 
 ## rylanlabs-shared-configs v1.0.0-bootstrap
 
-**Guardian**: Carter (Identity/Standards)
-**Auditor**: Bauer (Verification)
-**Security**: Beale (Hardening)
-**Date**: 2025-12-31
-**Consciousness**: 9.9
+**Guardian**: Carter (Identity/Standards)  
+**Auditor**: Bauer (Verification)  
+**Security**: Beale (Hardening)  
+**Date**: 2025-12-31  
+**Consciousness**: 9.9  
 **Compliance**: Seven Pillars ✓ | Trinity ✓ | Hellodeolu v6 ✓
 
 ---
@@ -38,7 +38,7 @@ PHASE 4: Reusable Workflows Validation
   ↓ [Human Gate: Verify workflows syntactically valid + tested]
 PHASE 5: Production Readiness & Tag Release
   ↓ [Human Gate: Final approval for v1.0.0 release]
-```bash
+```
 
 ---
 
@@ -59,7 +59,7 @@ PHASE 5: Production Readiness & Tag Release
 - [ ] Verification: Symlink pattern is SOURCE ← CONSUMER (not self-referential)
 - **Audit Log**: `.audit/phase-0-architecture-understanding.log`
 
-  ```
+  ```#!/bin/bash
   [DATE] USER: Confirmed Tier 0 architecture
   [DATE] GUARDIAN: Carter validated symlink pattern
   ```
@@ -71,7 +71,7 @@ PHASE 5: Production Readiness & Tag Release
 - [ ] Verify: `.audit/` appears in git status as new directory
 - **Audit Log**: `.audit/phase-0-directory-init.log`
 
-  ```
+  ```bash
   [DATE] Created .audit/ directory
   [DATE] .gitkeep initialized
   ```
@@ -131,7 +131,7 @@ PHASE 5: Production Readiness & Tag Release
 - [ ] Document findings in audit log
 - **Audit Log**: `.audit/phase-0-precommit-review.log`
 
-  ```
+  ```bash
   [DATE] Reviewed pre-commit config
   [DATE] Hook count: N
   [DATE] Status: Complete but missing bandit + commitizen
@@ -204,7 +204,7 @@ QUESTION 4: Ready for Git Init?
 Are you ready to initialize Git and create bootstrap commit?
   [ ] YES - Phase 1 approved
   [ ] NO - Request more time
-```bash
+```
 
 **Gate Status**: ⏳ AWAITING HUMAN APPROVAL
 
@@ -230,14 +230,14 @@ Are you ready to initialize Git and create bootstrap commit?
 ```bash
 cd ~/repos/rylanlabs-shared-configs
 git init
-```bash
+```
 
 - [ ] Execute command
 - [ ] Verify: `git rev-parse --show-toplevel` returns repo root
 - [ ] Record output to audit log
 - **Audit Log**: `.audit/phase-1-git-init.log`
 
-  ```
+  ```#!/bin/bash
   [DATE] git init executed
   [DATE] Output: [paste git init output]
   ```
@@ -249,7 +249,7 @@ git init
 git config user.name "Carter Guardian"
 git config user.email "carter@rylanlabs.local"
 git config user.signingkey ""  # No signing required yet
-```bash
+```
 
 - [ ] Execute git config commands
 - [ ] Verify: `git config --local user.name` shows "Carter Guardian"
@@ -259,7 +259,7 @@ git config user.signingkey ""  # No signing required yet
 
 ```bash
 git add .
-```bash
+```
 
 - [ ] Execute: Add all files
 - [ ] Verify: `git status --short` shows all files staged
@@ -296,14 +296,14 @@ Validation:
 - Pre-commit hooks: ⚠️ Incomplete (bandit + commitizen to be added Phase 2)
 
 Tag: bootstrap, tier-0, carter-identity"
-```bash
+```
 
 - [ ] Execute commit command
 - [ ] Verify: `git log --oneline` shows bootstrap commit
 - [ ] Record commit hash: `git rev-parse HEAD`
 - **Audit Log**: `.audit/phase-1-commit.log`
 
-  ```
+  ```#!/bin/bash
   [DATE] Bootstrap commit created
   [DATE] Commit hash: [paste hash]
   [DATE] Message preview: [first line of message]
@@ -327,14 +327,14 @@ Subsequent phases will be tagged as:
 - v1.0.0-phase3: After docs validated
 - v1.0.0-phase4: After workflows validated
 - v1.0.0: Final production release"
-```bash
+```
 
 - [ ] Execute git tag command
 - [ ] Verify: `git tag --list` shows `v1.0.0-bootstrap`
 - [ ] Verify: `git show v1.0.0-bootstrap` displays tag info
 - **Audit Log**: `.audit/phase-1-tag.log`
 
-  ```
+  ```bash
   [DATE] Tag v1.0.0-bootstrap created
   [DATE] Points to commit: [hash from previous step]
   ```
@@ -363,17 +363,17 @@ Subsequent phases will be tagged as:
 # Should show bootstrap commit and tag
 git log --oneline -10
 git tag -l
-```bash
+```
 
 - [ ] Execute verification commands
 - [ ] Screenshot/paste output to audit log
 - **Audit Log**: `.audit/phase-1-verification.log`
 
-  ```
+  ```bash
   [DATE] Git verification:
   $ git log --oneline -10
   [paste output]
-
+  
   $ git tag -l
   [paste output]
   ```
@@ -410,7 +410,7 @@ Should show: Multiple .log files + AUDIT_MANIFEST.json
 FINAL APPROVAL: Phase 1 Complete?
   [ ] YES - Phase 1 PASSED, proceed to Phase 2
   [ ] NO - Phase 1 FAILED, requires retry
-```bash
+```
 
 **Gate Status**: ⏳ AWAITING HUMAN VERIFICATION
 
@@ -428,7 +428,7 @@ FINAL APPROVAL: Phase 1 Complete?
 
 ```bash
 cp pre-commit/.pre-commit-config.yaml pre-commit/.pre-commit-config.yaml.backup
-```bash
+```
 
 - [ ] Execute backup
 - [ ] Verify: Backup file exists and is readable
@@ -449,7 +449,7 @@ cp pre-commit/.pre-commit-config.yaml pre-commit/.pre-commit-config.yaml.backup
         name: Scan Python for security vulnerabilities
         args: [-c, .bandit]
         types: [python]
-```bash
+```
 
 - [ ] Add section to config
 - [ ] Verify syntax: `yamllint pre-commit/.pre-commit-config.yaml`
@@ -468,7 +468,7 @@ cp pre-commit/.pre-commit-config.yaml pre-commit/.pre-commit-config.yaml.backup
       - id: commitizen
         name: Enforce commit message format
         stages: [commit-msg]
-```bash
+```
 
 - [ ] Add section to config
 - [ ] Verify syntax: `yamllint pre-commit/.pre-commit-config.yaml`
@@ -494,7 +494,7 @@ skips = [
     "B601",  # paramiko_calls (if using paramiko legitimately)
 ]
 # NOTE: S603 and S607 are handled via bandit CLI args if needed
-```bash
+```
 
 - [ ] Add section to `linting/pyproject.toml`
 - [ ] Verify valid TOML: Run any TOML validator
@@ -512,7 +512,7 @@ tag_format = "v$version"
 version_files = [
     "pyproject.toml:version",
 ]
-```bash
+```
 
 - [ ] Add section to `linting/pyproject.toml`
 - [ ] Verify valid TOML
@@ -523,14 +523,14 @@ version_files = [
 ```bash
 cd ~/repos/rylanlabs-shared-configs
 pre-commit autoupdate
-```bash
+```
 
 - [ ] Execute autoupdate command
 - [ ] Review changes: `git diff pre-commit/.pre-commit-config.yaml`
 - [ ] Commit if versions changed: Log what was updated
 - **Audit Log**: `.audit/phase-2-versions-update.log`
 
-  ```
+  ```bash
   [DATE] pre-commit autoupdate executed
   [DATE] Changes detected:
   - hook1: X.Y.Z → A.B.C
@@ -541,7 +541,7 @@ pre-commit autoupdate
 
 ```bash
 pre-commit clean
-```bash
+```
 
 - [ ] Execute clean command
 - [ ] Verify: `.cache/pre-commit/` directory (re)created
@@ -552,7 +552,7 @@ pre-commit clean
 ```bash
 pre-commit install
 pre-commit install --hook-type commit-msg
-```bash
+```
 
 - [ ] Execute both install commands
 - [ ] Verify: `.git/hooks/` directory populated
@@ -563,7 +563,7 @@ pre-commit install --hook-type commit-msg
 
 ```bash
 pre-commit run --all-files --verbose
-```bash
+```
 
 - [ ] Execute command
 - [ ] Document results: Which hooks passed/failed?
@@ -577,7 +577,7 @@ pre-commit run --all-files --verbose
   Trailing whitespace: ✓ PASSED
   YAML syntax check: ✓ PASSED
   [etc...]
-
+  
   [DATE] Summary: N/N hooks PASSED
   ```
 
@@ -611,7 +611,7 @@ Guardian: Carter | Ministry: Identity
 Compliance: Seven Pillars ✓ Trinity ✓
 
 Tag: update, pre-commit, gatekeeper, v∞.5.2"
-```bash
+```
 
 - [ ] Execute commit
 - [ ] Verify: `git log --oneline | head -2` shows new commit
@@ -661,7 +661,7 @@ Should show: feat: update pre-commit hooks
 FINAL APPROVAL: Phase 2 Complete?
   [ ] YES - Phase 2 PASSED, proceed to Phase 3
   [ ] NO - Phase 2 FAILED, requires retry
-```bash
+```
 
 **Gate Status**: ⏳ AWAITING HUMAN VERIFICATION
 
@@ -741,7 +741,7 @@ ls -la | grep "^l"
 
 # Test pre-commit (would need Python + pre-commit installed)
 # pre-commit run --all-files
-```bash
+```
 
 - [ ] Execute test commands
 - [ ] Document results: Did symlinks resolve correctly?
@@ -812,7 +812,7 @@ Should show: Multiple references to Tier 0/source status
 FINAL APPROVAL: Phase 3 Complete?
   [ ] YES - Phase 3 PASSED, proceed to Phase 4
   [ ] NO - Phase 3 FAILED, requires retry
-```bash
+```
 
 **Gate Status**: ⏳ AWAITING HUMAN VERIFICATION
 
@@ -830,7 +830,7 @@ FINAL APPROVAL: Phase 3 Complete?
 
 ```bash
 ls -la .github/workflows/
-```bash
+```
 
 - [ ] Directory exists: `.github/workflows/`
 - [ ] List expected files (check each):
@@ -847,7 +847,7 @@ ls -la .github/workflows/
 
 ```bash
 yamllint .github/workflows/
-```bash
+```
 
 - [ ] Run yamllint on workflows directory
 - [ ] Expected result: All files pass
@@ -855,10 +855,10 @@ yamllint .github/workflows/
 - [ ] Fix any YAML syntax issues
 - **Audit Log**: `.audit/phase-4-workflows-yamllint.log`
 
-  ```
+  ```bash
   [DATE] yamllint .github/workflows/:
   Output: [paste results]
-
+  
   Status: ✓ ALL PASSED
   ```
 
@@ -922,7 +922,7 @@ Guardian: Bauer | Ministry: Verification
 Compliance: Seven Pillars ✓ Trinity ✓
 
 Tag: ci, workflows, reusable, bauer-audit"
-```bash
+```
 
 - [ ] Execute commit (if workflows not yet committed)
 - [ ] Or verify: Workflows already in git
@@ -967,7 +967,7 @@ Should show: Recent commit mentioning workflows
 FINAL APPROVAL: Phase 4 Complete?
   [ ] YES - Phase 4 PASSED, proceed to Phase 5
   [ ] NO - Phase 4 FAILED, requires retry
-```bash
+```
 
 **Gate Status**: ⏳ AWAITING HUMAN VERIFICATION
 
@@ -981,12 +981,12 @@ FINAL APPROVAL: Phase 4 Complete?
 
 ### Phase 5 Todos
 
-#### [PHASE-5-001] Final Audit Trail Consolidation
+### [PHASE-5-001] Final Audit Trail Consolidation
 
 ```bash
 # Verify all audit logs exist
 ls -la .audit/*.log
-```bash
+```
 
 - [ ] Verify: At least 15+ log files in `.audit/` directory
 - [ ] Verify: Each phase has logs
@@ -1098,31 +1098,31 @@ None detected.
 
 ## Consciousness & Compliance
 
-**Consciousness Level**: 9.9
-**Seven Pillars**: ✓ All validated
-**Trinity Pattern**: ✓ All implemented
-**Hellodeolu v6**: ✓ All compliant
+**Consciousness Level**: 9.9  
+**Seven Pillars**: ✓ All validated  
+**Trinity Pattern**: ✓ All implemented  
+**Hellodeolu v6**: ✓ All compliant  
 
 **Status**: PRODUCTION-READY ✓
 
 ---
-**Report Generated**: 2025-12-31
-**Audit Version**: 1.0.0
+**Report Generated**: 2025-12-31  
+**Audit Version**: 1.0.0  
 **Next Review**: Quarterly or on major version release
-```bash
+```
 
 - [ ] Create FINAL_AUDIT_REPORT.md
 - [ ] Review findings: Are all items marked as PASSED?
 - **Audit Log**: `.audit/phase-5-final-report.log`
 
-#### [PHASE-5-002] Create GitHub Release Metadata
+### [PHASE-5-002] Create GitHub Release Metadata
 
 - [ ] Create `.github/release-notes-v1.0.0.md`:
 
 ```markdown
 # rylanlabs-shared-configs v1.0.0 Release
 
-**Guardian**: Carter | **Auditor**: Bauer | **Security**: Beale
+**Guardian**: Carter | **Auditor**: Bauer | **Security**: Beale  
 **Consciousness**: 9.9 | **Status**: PRODUCTION-READY
 
 ## What's New
@@ -1177,9 +1177,9 @@ Tier 0 source repository for RylanLabs shared configurations, CI/CD templates, a
 
 ## Compliance
 
-✅ Seven Pillars
-✅ Trinity Pattern (Carter + Bauer + Beale)
-✅ Hellodeolu v6 (RTO <15min, Junior-Deployable)
+✅ Seven Pillars  
+✅ Trinity Pattern (Carter + Bauer + Beale)  
+✅ Hellodeolu v6 (RTO <15min, Junior-Deployable)  
 
 ## Getting Started
 
@@ -1204,7 +1204,7 @@ pre-commit install --hook-type commit-msg
 
 # 4. Test
 pre-commit run --all-files
-```bash
+```
 
 See `INTEGRATION_GUIDE.md` for detailed instructions.
 
@@ -1214,7 +1214,7 @@ Use `scripts/install-to-repo.sh` for automated symlink setup:
 
 ```bash
 ../rylanlabs-shared-configs/scripts/install-to-repo.sh . ../rylanlabs-shared-configs
-```bash
+```
 
 ## Support
 
@@ -1224,25 +1224,25 @@ Use `scripts/install-to-repo.sh` for automated symlink setup:
 
 ---
 
-**Consciousness**: 9.9
+**Consciousness**: 9.9  
 **Status**: PRODUCTION-READY ✓
 
-```bash
+```
 
 - [ ] Create release notes file
 - **Audit Log**: `.audit/phase-5-release-notes.log`
 
-#### [PHASE-5-003] Final Git Status Check
+### [PHASE-5-003] Final Git Status Check
 ```bash
 git status
-```bash
+```
 
 - [ ] Verify: Working directory is clean (all changes committed)
 - [ ] If not clean: Commit any remaining changes
 - [ ] Record git log: `git log --oneline | head -10`
 - **Audit Log**: `.audit/phase-5-git-status.log`
 
-#### [PHASE-5-004] Create Version Tag v1.0.0
+### [PHASE-5-004] Create Version Tag v1.0.0
 
 ```bash
 git tag -a v1.0.0 -m "rylanlabs-shared-configs v1.0.0 - Production Release
@@ -1270,14 +1270,14 @@ Audit Trail: .audit/ directory contains complete phase logs.
 
 This tag marks the official v1.0.0 production release.
 Consumers should clone this version and symlink to linting/ and pre-commit/ directories."
-```bash
+```
 
 - [ ] Execute git tag command
 - [ ] Verify: `git tag -l | grep v1.0.0`
 - [ ] Verify: `git show v1.0.0` displays tag info
 - **Audit Log**: `.audit/phase-5-release-tag.log`
 
-#### [PHASE-5-005] Update AUDIT_MANIFEST.json - FINAL
+### [PHASE-5-005] Update AUDIT_MANIFEST.json - FINAL
 
 ```json
 {
@@ -1312,13 +1312,13 @@ Consumers should clone this version and symlink to linting/ and pre-commit/ dire
   },
   "next_action": "Deploy to production, communicate to consumer repos"
 }
-```bash
+```
 
 - [ ] Update AUDIT_MANIFEST.json with final status
 - [ ] Commit: `git add .audit/AUDIT_MANIFEST.json && git commit -m "docs: final audit manifest for v1.0.0 release"`
 - **Audit Log**: `.audit/phase-5-manifest-final.log`
 
-#### [PHASE-5-006] Create Deployment Checklist
+### [PHASE-5-006] Create Deployment Checklist
 
 **Create `.github/DEPLOYMENT_CHECKLIST.md`**:
 
@@ -1365,7 +1365,7 @@ git tag -d v1.0.0
 git push origin :refs/tags/v1.0.0
 git revert <commit-hash>
 git push origin main
-```bash
+```
 
 ## Sign-Off
 
@@ -1375,16 +1375,16 @@ git push origin main
 - [ ] Travis (Owner): `____` Date: ____
 
 ---
-**Deployment Date**: ____
-**Deployed By**: ____
+**Deployment Date**: ____  
+**Deployed By**: ____  
 **Approval**: ____
 
-```bash
+```
 
 - [ ] Create file
 - **Audit Log**: `.audit/phase-5-deployment-checklist.log`
 
-#### [PHASE-5-007] Final Verification & Sign-Off
+### [PHASE-5-007] Final Verification & Sign-Off
 ```bash
 # Comprehensive final check
 echo "=== FINAL VERIFICATION ===" && \
@@ -1393,7 +1393,7 @@ echo "Latest commits:" && git log --oneline | head -5 && \
 echo "Tags:" && git tag -l && \
 echo "Audit trail:" && ls -la .audit/ && \
 echo "=== VERIFICATION COMPLETE ==="
-```bash
+```
 
 - [ ] Execute final verification command
 - [ ] Document all outputs
@@ -1408,7 +1408,7 @@ echo "=== VERIFICATION COMPLETE ==="
 
 **Final Confirmations Required**:
 
-```bash
+```
 ═══════════════════════════════════════════════════════════════
 PHASE 5: PRODUCTION READINESS & RELEASE - FINAL SIGN-OFF
 ═══════════════════════════════════════════════════════════════
@@ -1451,15 +1451,15 @@ FINAL APPROVAL REQUIRED:
 Guardian (Carter - Identity/Standards):
   Approval: [ ] APPROVED  [ ] HOLD  [ ] NEEDS WORK
   Signature: ________________  Date: __________
-
+  
 Auditor (Bauer - Verification):
   Approval: [ ] APPROVED  [ ] HOLD  [ ] NEEDS WORK
   Signature: ________________  Date: __________
-
+  
 Security (Beale - Hardening):
   Approval: [ ] APPROVED  [ ] HOLD  [ ] NEEDS WORK
   Signature: ________________  Date: __________
-
+  
 Owner (Travis - Operations):
   Approval: [ ] APPROVED  [ ] HOLD  [ ] NEEDS WORK
   Signature: ________________  Date: __________
@@ -1472,7 +1472,7 @@ If YES: Proceed to deployment
 If NO: Document issues and return to appropriate phase
 
 ═══════════════════════════════════════════════════════════════
-```bash
+```
 
 **Gate Status**: ⏳ AWAITING TRINITY + OWNER SIGN-OFF
 
@@ -1510,10 +1510,10 @@ If NO: Document issues and return to appropriate phase
 
 ---
 
-**Repository**: rylanlabs-shared-configs
-**Version**: v1.0.0-bootstrap
-**Guardian**: Carter (Identity/Standards)
-**Consciousness**: 9.9
+**Repository**: rylanlabs-shared-configs  
+**Version**: v1.0.0-bootstrap  
+**Guardian**: Carter (Identity/Standards)  
+**Consciousness**: 9.9  
 **Compliance**: Seven Pillars ✓ | Trinity ✓ | Hellodeolu v6 ✓
 
 **The system is designed for perpetual vigilance. Every phase requires human validation before proceeding.**

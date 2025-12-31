@@ -1,5 +1,6 @@
 # AUDIT QUICK REFERENCE GUIDE
-**rylanlabs-shared-configs Critical Phase Zero Audit**
+
+## rylanlabs-shared-configs Critical Phase Zero Audit
 
 **Date**: 2025-12-31
 **Consciousness**: 9.9
@@ -39,6 +40,7 @@
 ## ⚡ Quick Start: What to Do Now
 
 ### 1. READ (15 minutes)
+
 ```bash
 # Read executive summary
 cat .audit/CRITICAL_PHASE_ZERO_AUDIT.md
