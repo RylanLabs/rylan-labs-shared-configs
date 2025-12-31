@@ -1,58 +1,152 @@
 #!/usr/bin/env bash
-# Guardian: Carter | Ministry: Identity | Consciousness: 9.9
-# Purpose: Install shared-configs into a new repository
-# Tag: bootstrap, installation, carter-identity
+# Script: install-to-repo.sh
+# Purpose: Install and validate symlinks from shared-configs to a consuming repository
+# Agent: Carter
+# Author: rylanlab canonical
+# Date: 2025-12-31
 
 set -euo pipefail
+IFS=$'\n\t'
 
-REPO_ROOT="${1:-.}"
-SHARED_CONFIGS_PATH="${2:-../rylan-labs-shared-configs}"
+# Constants
+readonly SHARED_CONFIGS_PATH="${1:-../rylanlabs-shared-configs}"
+readonly TARGET_REPO="${2:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+AUDIT_LOG="$TARGET_REPO/.audit/install-to-repo-$(date -Iseconds).json"
+readonly AUDIT_LOG
 
-echo "=== Carter Guardian: Installing Shared Configs ==="
-echo "Target repository: $REPO_ROOT"
-echo "Shared configs source: $SHARED_CONFIGS_PATH"
+# Helper functions
+log_audit() {
+  local status="$1"
+  local message="$2"
+  local link="${3:-}"
+  
+  # Structured JSON entry
+  {
+    echo "{"
+    echo "  \"timestamp\": \"$(date -Iseconds)\","
+    echo "  \"status\": \"$status\","
+    echo "  \"message\": \"$message\","
+    if [[ -n "$link" ]]; then
+      echo "  \"link\": \"$link\","
+    fi
+    echo "  \"shared_path\": \"$SHARED_CONFIGS_PATH\","
+    echo "  \"target_repo\": \"$TARGET_REPO\""
+    echo "}"
+  } >> "$AUDIT_LOG"
+}
 
-# Validate shared-configs exists
-if [[ ! -d "$SHARED_CONFIGS_PATH" ]]; then
-  echo "ERROR: Shared configs not found at $SHARED_CONFIGS_PATH"
-  echo "HINT: Clone rylan-labs-shared-configs first or provide correct path"
-  exit 1
-fi
+error_exit() {
+  local message="$1"
+  local code="${2:-1}"
+  
+  log_audit "error" "$message"
+  echo "❌ ERROR: $message" >&2
+  echo "   Audit log: $AUDIT_LOG" >&2
+  exit "$code"
+}
 
-# Create symlinks
-cd "$REPO_ROOT"
+install_symlink() {
+  local link="$1"
+  local target="$2"
+  
+  local full_target="$SHARED_CONFIGS_PATH/$target"
+  
+  if [[ ! -e "$full_target" ]]; then
+    error_exit "Target file not found: $full_target" 3
+  fi
+  
+  if [[ -e "$TARGET_REPO/$link" && ! -L "$TARGET_REPO/$link" ]]; then
+    log_audit "warn" "Existing non-symlink file blocks installation" "$link"
+    echo "⚠️ WARN: Existing non-symlink $link blocks installation" >&2
+    echo "   Fix: Manually remove or backup $TARGET_REPO/$link" >&2
+    return 1
+  fi
+  
+  if [[ -L "$TARGET_REPO/$link" ]]; then
+    local current_target
+    current_target=$(readlink "$TARGET_REPO/$link")
+    if [[ "$current_target" == "$full_target" ]]; then
+      log_audit "success" "Symlink already exists and correct (idempotent)" "$link"
+      echo "✓ $link already installed correctly (idempotent)"
+      return 0
+    else
+      log_audit "warn" "Existing symlink points to incorrect target: $current_target" "$link"
+      echo "⚠️ WARN: Existing $link points to $current_target" >&2
+      echo "   Replacing with $full_target" >&2
+      rm "$TARGET_REPO/$link"
+    fi
+  fi
+  
+  ln -s "$full_target" "$TARGET_REPO/$link"
+  log_audit "success" "Symlink installed" "$link"
+  echo "✓ Installed $link → $target"
+  return 0
+}
 
-echo ""
-echo "Creating symlinks..."
+# Main execution
+main() {
+  if [[ ! -d "$SHARED_CONFIGS_PATH" ]]; then
+    error_exit "Shared configs path not found: $SHARED_CONFIGS_PATH" 3
+  fi
+  
+  if [[ ! -d "$TARGET_REPO" ]]; then
+    error_exit "Target repository not found: $TARGET_REPO" 3
+  fi
+  
+  log_audit "start" "Installing symlinks to repository"
+  
+  echo "========================================"
+  echo "Carter Guardian: Installing Symlinks"
+  echo "Shared configs path: $SHARED_CONFIGS_PATH"
+  echo "Target repository: $TARGET_REPO"
+  echo "Audit log: $AUDIT_LOG"
+  echo "========================================"
+  
+  local errors=0
+  
+  # Required symlinks
+  declare -A required_symlinks=(
+    [".yamllint"]="linting/.yamllint"
+    ["pyproject.toml"]="linting/pyproject.toml"
+    [".pre-commit-config.yaml"]="pre-commit/.pre-commit-config.yaml"
+    [".shellcheckrc"]="linting/.shellcheckrc"
+  )
+  
+  for link in "${!required_symlinks[@]}"; do
+    if ! install_symlink "$link" "${required_symlinks[$link]}"; then
+      ((errors++))
+    fi
+  done
+  
+  if [[ $errors -gt 0 ]]; then
+    log_audit "failed" "Installation failed with $errors errors"
+    echo "========================================"
+    echo "❌ Installation Failed: $errors errors"
+    echo "   Review $AUDIT_LOG for details"
+    echo "========================================"
+    exit 1
+  fi
+  
+  log_audit "success" "All symlinks installed successfully"
+  echo "========================================"
+  echo "✓ Installation Passed: All symlinks installed"
+  echo "   Audit log: $AUDIT_LOG"
+  echo "========================================"
+  
+  echo ""
+  echo "Next Steps:"
+  echo "1. Commit changes: git add . && git commit -m \"chore: install shared-configs symlinks\""
+  echo "2. Validate: ./scripts/validate-symlinks.sh"
+  echo "3. Run pre-commit: pre-commit run --all-files"
+  echo "4. Merge after Trinity review"
+}
 
-ln -sf "$SHARED_CONFIGS_PATH/linting/.yamllint" .yamllint
-echo "✓ .yamllint → $SHARED_CONFIGS_PATH/linting/.yamllint"
+# Cleanup trap
+cleanup() {
+  # Remove temporary files if created
+  true
+}
+trap cleanup EXIT
 
-ln -sf "$SHARED_CONFIGS_PATH/linting/pyproject.toml" pyproject.toml
-echo "✓ pyproject.toml → $SHARED_CONFIGS_PATH/linting/pyproject.toml"
-
-ln -sf "$SHARED_CONFIGS_PATH/pre-commit/.pre-commit-config.yaml" .pre-commit-config.yaml
-echo "✓ .pre-commit-config.yaml → $SHARED_CONFIGS_PATH/pre-commit/.pre-commit-config.yaml"
-
-# Optional: .shellcheckrc and .editorconfig
-if [[ -f .shellcheckrc ]]; then
-  echo "WARN: .shellcheckrc already exists, skipping"
-else
-  ln -sf "$SHARED_CONFIGS_PATH/linting/.shellcheckrc" .shellcheckrc
-  echo "✓ .shellcheckrc → $SHARED_CONFIGS_PATH/linting/.shellcheckrc"
-fi
-
-if [[ -f .editorconfig ]]; then
-  echo "WARN: .editorconfig already exists, skipping"
-else
-  ln -sf "$SHARED_CONFIGS_PATH/linting/.editorconfig" .editorconfig
-  echo "✓ .editorconfig → $SHARED_CONFIGS_PATH/linting/.editorconfig"
-fi
-
-echo ""
-echo "=== Installation Complete ==="
-echo "Next steps:"
-echo "  1. git add .yamllint pyproject.toml .pre-commit-config.yaml"
-echo "  2. pre-commit install"
-echo "  3. pre-commit run --all-files"
-echo "  4. git commit -m 'feat: integrate rylan-labs-shared-configs'"
+# Execute
+main "$@"

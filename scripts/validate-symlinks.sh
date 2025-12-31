@@ -1,52 +1,113 @@
 #!/usr/bin/env bash
-# Guardian: Carter | Ministry: Identity | Consciousness: 9.9
-# Purpose: Validate symlink integrity in consuming repos
-# Tag: validation, symlinks, carter-identity
+# Script: validate-symlinks.sh
+# Purpose: Validate symlink integrity and compliance in consuming repositories
+# Agent: Carter
+# Author: rylanlab canonical
+# Date: 2025-12-31
 
 set -euo pipefail
+IFS=$'\n\t'
 
-SHARED_CONFIGS_PATH="${1:-.}"
-REPO_ROOT="${2:-.}"
+# Failure recovery (Pillar 5)
+trap 'echo "❌ INTERRUPTED" >&2; exit 130' INT TERM
 
-echo "=== Carter Guardian: Symlink Validation ==="
-echo "Shared configs: $SHARED_CONFIGS_PATH"
-echo "Repository root: $REPO_ROOT"
+# Constants
+readonly SHARED_CONFIGS_PATH="${1:-../rylanlabs-shared-configs}"
+readonly REPO_ROOT="${2:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+readonly AUDIT_LOG="$REPO_ROOT/.audit/symlink-validation-$(date -Iseconds).json"
 
-ERRORS=0
+# Helper functions
+log_audit() {
+  local status="$1"
+  local message="$2"
+  
+  # Structured JSON audit entry
+  cat << EOF >> "$AUDIT_LOG"
+{
+  "timestamp": "$(date -Iseconds)",
+  "status": "$status",
+  "message": "$message",
+  "shared_path": "$SHARED_CONFIGS_PATH",
+  "repo_root": "$REPO_ROOT"
+}
+EOF
+}
 
-# Check required symlinks
-declare -a REQUIRED_SYMLINKS=(
-  ".yamllint:linting/.yamllint"
-  "pyproject.toml:linting/pyproject.toml"
-  ".pre-commit-config.yaml:pre-commit/.pre-commit-config.yaml"
-)
-
-for entry in "${REQUIRED_SYMLINKS[@]}"; do
-  IFS=':' read -r link target <<< "$entry"
-
+validate_symlink() {
+  local link="$1"
+  local target="$2"
+  
   if [[ ! -L "$REPO_ROOT/$link" ]]; then
-    echo "ERROR: $link is not a symlink"
-    ((ERRORS++))
-    continue
+    log_audit "error" "$link is not a symlink"
+    echo "❌ ERROR: $link is not a symlink" >&2
+    echo "   Fix: ln -s $SHARED_CONFIGS_PATH/$target $REPO_ROOT/$link" >&2
+    return 1
   fi
-
-  LINK_TARGET=$(readlink "$REPO_ROOT/$link")
-  EXPECTED_TARGET="$SHARED_CONFIGS_PATH/$target"
-
-  if [[ "$LINK_TARGET" != *"$target" ]]; then
-    echo "ERROR: $link points to $LINK_TARGET, expected $EXPECTED_TARGET"
-    ((ERRORS++))
-  else
-    echo "✓ $link → $target"
+  
+  local link_target
+  link_target=$(readlink "$REPO_ROOT/$link")
+  local expected_target="$SHARED_CONFIGS_PATH/$target"
+  
+  if [[ "$link_target" != "$expected_target" ]]; then
+    log_audit "error" "$link points to incorrect target: $link_target (expected $expected_target)"
+    echo "❌ ERROR: $link points to $link_target" >&2
+    echo "   Expected: $expected_target" >&2
+    echo "   Fix: rm $REPO_ROOT/$link && ln -s $expected_target $REPO_ROOT/$link" >&2
+    return 1
   fi
-done
+  
+  log_audit "success" "$link → $target validated"
+  echo "✓ $link → $target"
+  return 0
+}
 
-if [[ $ERRORS -gt 0 ]]; then
-  echo ""
-  echo "=== Validation Failed: $ERRORS errors ==="
-  exit 1
-fi
+# Main execution
+main() {
+  local errors=0
+  
+  echo "========================================"
+  echo "Carter Guardian: Symlink Validation"
+  echo "Shared configs path: $SHARED_CONFIGS_PATH"
+  echo "Repository root: $REPO_ROOT"
+  echo "========================================"
+  
+  # Required symlinks (updated for 160-char line length configs)
+  declare -A required_symlinks=(
+    [".yamllint"]="linting/.yamllint"
+    ["pyproject.toml"]="linting/pyproject.toml"
+    [".pre-commit-config.yaml"]="pre-commit/.pre-commit-config.yaml"
+    [".shellcheckrc"]="linting/.shellcheckrc"
+  )
+  
+  for link in "${!required_symlinks[@]}"; do
+    if ! validate_symlink "$link" "${required_symlinks[$link]}"; then
+      ((errors++))
+    fi
+  done
+  
+  if [[ $errors -gt 0 ]]; then
+    log_audit "failed" "Validation failed with $errors errors"
+    echo "========================================"
+    echo "❌ Validation Failed: $errors errors"
+    echo "   Review $AUDIT_LOG for details"
+    echo "========================================"
+    exit 1
+  fi
+  
+  log_audit "success" "All symlinks validated successfully"
+  echo "========================================"
+  echo "✓ Validation Passed: All symlinks valid"
+  echo "   Audit log: $AUDIT_LOG"
+  echo "========================================"
+  exit 0
+}
 
-echo ""
-echo "=== Validation Passed: All symlinks valid ==="
-exit 0
+# Cleanup trap (reversibility)
+cleanup() {
+  # Optional: Remove temporary files if any
+  true
+}
+trap cleanup EXIT
+
+# Execute
+main "$@"
