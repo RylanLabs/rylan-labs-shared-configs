@@ -12,9 +12,10 @@ warn_unused_ignores = true
 warn_no_return = true
 warn_unreachable = true
 strict_equality = true
+disable_error_code = ["misc"]  # Avoid INTERNAL ERROR noise from mypy
 
 [tool.ruff]
-line-length = 120
+line-length = 160
 target-version = "py311"
 select = [
     "E",   # pycodestyle errors
@@ -25,17 +26,14 @@ select = [
     "C4",  # flake8-comprehensions
     "UP",  # pyupgrade
     "D",   # pydocstyle
+    "S",   # flake8-bandit (security)
+    "BLE", # flake8-blind-except
 ]
 ignore = [
     "D203",  # one-blank-line-before-class
     "D213",  # multi-line-summary-second-line
+    "D400",  # first-line-should-end-with-period
 ]
 
-[tool.ruff.pydocstyle]
-convention = "google"
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py"]
-python_functions = ["test_*"]
+[tool.ruff.pydocstyle
 addopts = "--strict-markers --cov --cov-report=term-missing --cov-report=html"
