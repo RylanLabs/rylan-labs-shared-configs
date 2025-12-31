@@ -34,7 +34,7 @@ rylan-canon-library
 rylan-labs-network-iac
   ↓ (inherits standards)
 ✓ Zero duplication, single update propagates to all repos
-```
+```bash
 
 ### Trinity Alignment
 
@@ -97,7 +97,7 @@ pre-commit run --all-files
 # 4. Commit
 git add .yamllint pyproject.toml .pre-commit-config.yaml
 git commit -m "feat: integrate rylan-labs-shared-configs v1.0.0"
-```
+```bash
 
 ### For Existing Repositories
 
@@ -153,7 +153,7 @@ jobs:
       python_version: '3.11'
       bash_paths: 'scripts'
       ansible_paths: 'playbooks roles'
-```
+```bash
 
 ### Available Workflows
 
@@ -208,7 +208,7 @@ cd rylan-labs-common
 # ✓ .yamllint → linting/.yamllint
 # ✓ pyproject.toml → linting/pyproject.toml
 # ✓ .pre-commit-config.yaml → pre-commit/.pre-commit-config.yaml
-```
+```bash
 
 ---
 

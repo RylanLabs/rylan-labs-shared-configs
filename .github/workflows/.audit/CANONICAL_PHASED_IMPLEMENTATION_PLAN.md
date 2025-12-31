@@ -62,7 +62,7 @@ PHASE 5: Production Readiness & Tag Release
   ```#!/bin/bash
   [DATE] USER: Confirmed Tier 0 architecture
   [DATE] GUARDIAN: Carter validated symlink pattern
-  ```
+```
 
 #### [PHASE-0-002] Create .audit/ Directory Structure
 
@@ -74,7 +74,7 @@ PHASE 5: Production Readiness & Tag Release
   ```bash
   [DATE] Created .audit/ directory
   [DATE] .gitkeep initialized
-  ```
+```
 
 #### [PHASE-0-003] Initialize AUDIT_MANIFEST.json
 
@@ -118,7 +118,7 @@ PHASE 5: Production Readiness & Tag Release
     },
     "next_action": "Complete Phase 0 todos, obtain human gate approval"
   }
-  ```
+```
 
 - **Audit Log**: `.audit/phase-0-manifest-init.log`
 
@@ -136,7 +136,7 @@ PHASE 5: Production Readiness & Tag Release
   [DATE] Hook count: N
   [DATE] Status: Complete but missing bandit + commitizen
   [DATE] Next: Will add in Phase 2
-  ```
+```
 
 #### [PHASE-0-005] Review pyproject.toml
 
@@ -240,7 +240,7 @@ git init
   ```#!/bin/bash
   [DATE] git init executed
   [DATE] Output: [paste git init output]
-  ```
+```
 
 #### [PHASE-1-002] Configure Git Identity (Local)
 
@@ -307,7 +307,7 @@ Tag: bootstrap, tier-0, carter-identity"
   [DATE] Bootstrap commit created
   [DATE] Commit hash: [paste hash]
   [DATE] Message preview: [first line of message]
-  ```
+```
 
 #### [PHASE-1-005] Create Version Tag
 
@@ -337,7 +337,7 @@ Subsequent phases will be tagged as:
   ```bash
   [DATE] Tag v1.0.0-bootstrap created
   [DATE] Points to commit: [hash from previous step]
-  ```
+```
 
 #### [PHASE-1-006] Update AUDIT_MANIFEST.json
 
@@ -352,7 +352,7 @@ Subsequent phases will be tagged as:
     "initial_tag": "v1.0.0-bootstrap",
     "timestamp": "[ISO 8601 timestamp]"
   }
-  ```
+```
 
 - [ ] Commit AUDIT_MANIFEST.json update
 - **Audit Log**: `.audit/phase-1-manifest-update.log`
@@ -376,7 +376,7 @@ git tag -l
   
   $ git tag -l
   [paste output]
-  ```
+```
 
 ---
 
@@ -535,7 +535,7 @@ pre-commit autoupdate
   [DATE] Changes detected:
   - hook1: X.Y.Z → A.B.C
   - hook2: X.Y.Z → A.B.C
-  ```
+```
 
 #### [PHASE-2-007] Clean Pre-Commit Cache
 
@@ -572,14 +572,14 @@ pre-commit run --all-files --verbose
 - [ ] Re-run until all pass: `pre-commit run --all-files`
 - **Audit Log**: `.audit/phase-2-hooks-test.log`
 
-  ```
+```json
   [DATE] Hook tests executed:
   Trailing whitespace: ✓ PASSED
   YAML syntax check: ✓ PASSED
   [etc...]
   
   [DATE] Summary: N/N hooks PASSED
-  ```
+```
 
 #### [PHASE-2-010] Commit Pre-Commit Config Changes
 
@@ -860,7 +860,7 @@ yamllint .github/workflows/
   Output: [paste results]
   
   Status: ✓ ALL PASSED
-  ```
+```
 
 #### [PHASE-4-003] Document Workflow Inputs/Outputs
 
@@ -1185,7 +1185,7 @@ Tier 0 source repository for RylanLabs shared configurations, CI/CD templates, a
 
 ### For New Repositories
 
-```bash
+```
 # 1. Clone shared-configs
 cd ~/RylanLabs
 git clone git@github.com:RylanLabs/rylanlabs-shared-configs.git
@@ -1204,7 +1204,7 @@ pre-commit install --hook-type commit-msg
 
 # 4. Test
 pre-commit run --all-files
-```
+```text
 
 See `INTEGRATION_GUIDE.md` for detailed instructions.
 
@@ -1212,9 +1212,9 @@ See `INTEGRATION_GUIDE.md` for detailed instructions.
 
 Use `scripts/install-to-repo.sh` for automated symlink setup:
 
-```bash
-../rylanlabs-shared-configs/scripts/install-to-repo.sh . ../rylanlabs-shared-configs
 ```
+../rylanlabs-shared-configs/scripts/install-to-repo.sh . ../rylanlabs-shared-configs
+```text
 
 ## Support
 
@@ -1360,12 +1360,12 @@ Consumers should clone this version and symlink to linting/ and pre-commit/ dire
 ## Rollback (If Needed)
 
 If critical issues found:
-```bash
+```
 git tag -d v1.0.0
 git push origin :refs/tags/v1.0.0
 git revert <commit-hash>
 git push origin main
-```
+```text
 
 ## Sign-Off
 
@@ -1408,7 +1408,7 @@ echo "=== VERIFICATION COMPLETE ==="
 
 **Final Confirmations Required**:
 
-```
+```text
 ═══════════════════════════════════════════════════════════════
 PHASE 5: PRODUCTION READINESS & RELEASE - FINAL SIGN-OFF
 ═══════════════════════════════════════════════════════════════

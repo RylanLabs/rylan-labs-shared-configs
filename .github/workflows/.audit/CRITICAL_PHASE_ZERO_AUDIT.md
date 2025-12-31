@@ -39,7 +39,7 @@
 
 **Copilot's Error**:
 
-```
+```text
 "ERROR: .yamllint is not a symlink"
 ```
 
@@ -47,7 +47,7 @@
 
 **Correct Interpretation**:
 
-```
+```text
 Tier 0 (Source):
   rylanlabs-shared-configs/linting/.yamllint          ← LIVES HERE (regular file)
                             ↓ (symlinked by consumers)
@@ -184,7 +184,7 @@ version_files = ["pyproject.toml:version"]
      "warnings": ["precommit-config", "pyproject-toml", "docs-validation"],
      "next_action": "Phase 1: Git Initialization"
    }
-   ```
+```
 
 **Action Required**:
 

@@ -47,7 +47,7 @@ git add -A
 git commit -m "feat: initialize with rylan-labs-shared-configs v1.0.0"
 git remote add origin https://github.com/RylanLabs/my-new-repo.git
 git push -u origin main
-```
+```bash
 
 ### Method 2: Existing Repository (Gradual Migration)
 
@@ -110,7 +110,7 @@ git push origin main
 ```bash
 # In WSL2 or Git Bash
 /mnt/c/path/to/repo $ bash ../rylan-labs-shared-configs/scripts/install-to-repo.sh . ../rylan-labs-shared-configs
-```
+```bash
 
 ### Issue: Pre-commit Hooks Fail After Installation
 
@@ -145,7 +145,7 @@ readlink -f .yamllint
 # Reinstall if necessary
 rm .yamllint .pre-commit-config.yaml pyproject.toml
 ../rylan-labs-shared-configs/scripts/install-to-repo.sh . ../rylan-labs-shared-configs
-```
+```bash
 
 ### Issue: Pre-commit Can't Find Hooks
 
@@ -187,7 +187,7 @@ EOF
 
 # Update your CI to use both:
 # ruff check . --config .ruff.local.toml
-```
+```bash
 
 ### Disabling Specific Pre-commit Hooks
 
@@ -220,7 +220,7 @@ cd ../your-repo
 pre-commit run --all-files
 
 # If conflicts arise, create an issue
-```
+```bash
 
 ---
 
