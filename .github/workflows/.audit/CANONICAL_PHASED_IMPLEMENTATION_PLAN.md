@@ -59,10 +59,11 @@ PHASE 5: Production Readiness & Tag Release
 - [ ] Verification: Symlink pattern is SOURCE ← CONSUMER (not self-referential)
 - **Audit Log**: `.audit/phase-0-architecture-understanding.log`
 
-  ```#!/bin/bash
+  ```bash
+  #!/bin/bash
   [DATE] USER: Confirmed Tier 0 architecture
   [DATE] GUARDIAN: Carter validated symlink pattern
-```
+  ```
 
 #### [PHASE-0-002] Create .audit/ Directory Structure
 
@@ -74,7 +75,7 @@ PHASE 5: Production Readiness & Tag Release
   ```bash
   [DATE] Created .audit/ directory
   [DATE] .gitkeep initialized
-```
+  ```
 
 #### [PHASE-0-003] Initialize AUDIT_MANIFEST.json
 
@@ -118,7 +119,7 @@ PHASE 5: Production Readiness & Tag Release
     },
     "next_action": "Complete Phase 0 todos, obtain human gate approval"
   }
-```
+  ```
 
 - **Audit Log**: `.audit/phase-0-manifest-init.log`
 
@@ -136,7 +137,7 @@ PHASE 5: Production Readiness & Tag Release
   [DATE] Hook count: N
   [DATE] Status: Complete but missing bandit + commitizen
   [DATE] Next: Will add in Phase 2
-```
+  ```
 
 #### [PHASE-0-005] Review pyproject.toml
 
@@ -237,10 +238,11 @@ git init
 - [ ] Record output to audit log
 - **Audit Log**: `.audit/phase-1-git-init.log`
 
-  ```#!/bin/bash
+  ```bash
+  #!/bin/bash
   [DATE] git init executed
   [DATE] Output: [paste git init output]
-```
+  ```
 
 #### [PHASE-1-002] Configure Git Identity (Local)
 
@@ -303,11 +305,12 @@ Tag: bootstrap, tier-0, carter-identity"
 - [ ] Record commit hash: `git rev-parse HEAD`
 - **Audit Log**: `.audit/phase-1-commit.log`
 
-  ```#!/bin/bash
+  ```bash
+  #!/bin/bash
   [DATE] Bootstrap commit created
   [DATE] Commit hash: [paste hash]
   [DATE] Message preview: [first line of message]
-```
+  ```
 
 #### [PHASE-1-005] Create Version Tag
 
@@ -337,7 +340,7 @@ Subsequent phases will be tagged as:
   ```bash
   [DATE] Tag v1.0.0-bootstrap created
   [DATE] Points to commit: [hash from previous step]
-```
+  ```
 
 #### [PHASE-1-006] Update AUDIT_MANIFEST.json
 
@@ -352,7 +355,7 @@ Subsequent phases will be tagged as:
     "initial_tag": "v1.0.0-bootstrap",
     "timestamp": "[ISO 8601 timestamp]"
   }
-```
+  ```
 
 - [ ] Commit AUDIT_MANIFEST.json update
 - **Audit Log**: `.audit/phase-1-manifest-update.log`
@@ -376,7 +379,7 @@ git tag -l
   
   $ git tag -l
   [paste output]
-```
+  ```
 
 ---
 
@@ -535,7 +538,7 @@ pre-commit autoupdate
   [DATE] Changes detected:
   - hook1: X.Y.Z → A.B.C
   - hook2: X.Y.Z → A.B.C
-```
+  ```
 
 #### [PHASE-2-007] Clean Pre-Commit Cache
 
@@ -860,7 +863,7 @@ yamllint .github/workflows/
   Output: [paste results]
   
   Status: ✓ ALL PASSED
-```
+  ```
 
 #### [PHASE-4-003] Document Workflow Inputs/Outputs
 
@@ -1185,7 +1188,7 @@ Tier 0 source repository for RylanLabs shared configurations, CI/CD templates, a
 
 ### For New Repositories
 
-```
+```bash
 # 1. Clone shared-configs
 cd ~/RylanLabs
 git clone git@github.com:RylanLabs/rylanlabs-shared-configs.git
@@ -1204,7 +1207,7 @@ pre-commit install --hook-type commit-msg
 
 # 4. Test
 pre-commit run --all-files
-```text
+```
 
 See `INTEGRATION_GUIDE.md` for detailed instructions.
 
@@ -1212,9 +1215,9 @@ See `INTEGRATION_GUIDE.md` for detailed instructions.
 
 Use `scripts/install-to-repo.sh` for automated symlink setup:
 
-```
+```bash
 ../rylanlabs-shared-configs/scripts/install-to-repo.sh . ../rylanlabs-shared-configs
-```text
+```
 
 ## Support
 
@@ -1227,12 +1230,13 @@ Use `scripts/install-to-repo.sh` for automated symlink setup:
 **Consciousness**: 9.9  
 **Status**: PRODUCTION-READY ✓
 
-```
+```text
 
 - [ ] Create release notes file
 - **Audit Log**: `.audit/phase-5-release-notes.log`
 
 ### [PHASE-5-003] Final Git Status Check
+
 ```bash
 git status
 ```
@@ -1360,12 +1364,13 @@ Consumers should clone this version and symlink to linting/ and pre-commit/ dire
 ## Rollback (If Needed)
 
 If critical issues found:
-```
+
+```bash
 git tag -d v1.0.0
 git push origin :refs/tags/v1.0.0
-git revert <commit-hash>
+git revert COMMIT_HASH
 git push origin main
-```text
+```
 
 ## Sign-Off
 
@@ -1379,12 +1384,13 @@ git push origin main
 **Deployed By**: ____  
 **Approval**: ____
 
-```
+```text
 
 - [ ] Create file
 - **Audit Log**: `.audit/phase-5-deployment-checklist.log`
 
 ### [PHASE-5-007] Final Verification & Sign-Off
+
 ```bash
 # Comprehensive final check
 echo "=== FINAL VERIFICATION ===" && \
