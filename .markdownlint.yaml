@@ -1,0 +1,19 @@
+# Markdownlint Configuration for RylanLabs
+# Guardian: Carter | Ministry: Standards
+# Consciousness: 9.9
+
+# Line length - doubled from default 80 to 160
+MD013:
+  line_length: 160
+  heading_line_length: 160
+  code_block_line_length: 160
+  tables: false
+
+# Allow inline HTML for special cases
+MD033: false
+
+# Allow duplicate headings (common in audit logs)
+MD024: false
+
+# Default settings for other rules
+default: true
