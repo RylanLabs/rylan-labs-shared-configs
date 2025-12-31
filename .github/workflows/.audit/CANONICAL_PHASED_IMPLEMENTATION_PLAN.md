@@ -872,7 +872,7 @@ yamllint .github/workflows/
 - [ ] Example table (for `reusable-trinity-ci.yml`):
 
 | Input | Type | Default | Description |
-|-------|------|---------|-------------|
+| ----- | ---- | ------- | ----------- |
 | `python_version` | string | `'3.11'` | Python version for validation |
 | `bash_paths` | string | `'scripts'` | Space-separated bash script paths |
 | `ansible_paths` | string | `'playbooks roles'` | Space-separated Ansible content paths |
@@ -1090,7 +1090,7 @@ None detected.
 ## Sign-Off
 
 | Role | Name | Approval | Date |
-|------|------|----------|------|
+| ---- | ---- | -------- | ---- |
 | Guardian (Identity) | Carter | [SIGN] | 2025-12-31 |
 | Auditor (Verification) | Bauer | [SIGN] | 2025-12-31 |
 | Security (Hardening) | Beale | [SIGN] | 2025-12-31 |
@@ -1500,7 +1500,7 @@ If NO: Document issues and return to appropriate phase
 ## Summary: Canonical Phases with Human Validation Gates
 
 | Phase | Objective | Blocker | Human Gate | Status |
-|-------|-----------|---------|-----------|--------|
+| ----- | --------- | ------- | ---------- | ------ |
 | 0 | Pre-Flight & Architecture | None | Architectural confirmation | ⏳ |
 | 1 | Git Initialization | BLOCKING | Git init + commit verification | ⏳ |
 | 2 | Pre-Commit Config Update | None | Hooks passing locally | ⏳ |

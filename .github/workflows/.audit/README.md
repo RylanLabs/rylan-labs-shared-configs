@@ -16,6 +16,7 @@
 ## 🎯 Documents (After Phase 6 Completion)
 
 ### Canonical Docs (~750 lines, 15KB total)
+
 1. **ARCHITECTURE_DECISIONS.md** — Why Tier 0 SOURCE, symlink rationale, Trinity alignment
 2. **BOOTSTRAP_GUIDE.md** — One-time setup for THIS repo (summarized, not full detail)
 3. **CONSUMER_INTEGRATION_GUIDE.md** — How Tier 1+ repos consume this
@@ -23,6 +24,7 @@
 5. **README.md** — This navigation file
 
 ### Archive (Temporary Scaffolding)
+
 - `archive/bootstrap-2025-12-31/` — Temporary working drafts from Phase 0-5
   - EXECUTIVE_SUMMARY.md
   - CRITICAL_PHASE_ZERO_AUDIT.md
@@ -86,7 +88,7 @@ git show v1.0.0-phase-2-complete  # Full commit + diffs
 **Audit Rigor WITHOUT Bloat**
 
 | Metric | Before (Copilot) | After (Canonical) | Reduction |
-|--------|-----------------|------------------|-----------|
+| ------ | ---------------- | ----------------- | --------- |
 | Documents | 6 + 48 logs | 5 + archive | 89% fewer |
 | Size | ~240KB | ~15KB | 94% smaller |
 | Bloat Score | 75/100 | 15/100 | 80% improvement |

@@ -56,7 +56,7 @@ Copilot reported: **`.yamllint is not a symlink`**
 ## Time Commitment
 
 | Phase | Est. Time | Blocker | Status |
-|-------|-----------|---------|--------|
+| ----- | --------- | ------- | ------ |
 | 0 | 30-60 min | No | In Progress |
 | 1 | 30 min | **YES** | Not Started |
 | 2 | 45 min | No | Not Started |
@@ -116,7 +116,7 @@ Each phase has a **HUMAN VALIDATION GATE** — you must approve before proceedin
 All findings, plans, and phase logs stored in: **`.audit/` directory**
 
 | Document | Purpose |
-|----------|---------|
+| -------- | ------- |
 | `CRITICAL_PHASE_ZERO_AUDIT.md` | Detailed findings + architecture analysis |
 | `CANONICAL_PHASED_IMPLEMENTATION_PLAN.md` | Step-by-step execution plan (48 todos across 6 phases) |
 | `AUDIT_MANIFEST.json` | Machine-readable metadata |
@@ -174,7 +174,7 @@ When COMPLETE:
 ## Risks & Mitigations
 
 | Risk | Impact | Mitigation |
-|------|--------|-----------|
+| ---- | ------ | ---------- |
 | Phase delays | Timeline slip | Each phase has clear exit criteria |
 | Human gate rejection | Rework required | Early detection via gates prevents large mistakes |
 | Pre-commit issues | CI failures | Phase 2 tests locally before committing |
@@ -197,7 +197,7 @@ When COMPLETE:
 ## Questions?
 
 | Question | Answer Location |
-|----------|------------------|
+| -------- | --------------- |
 | What went wrong? | Section 1 of `CRITICAL_PHASE_ZERO_AUDIT.md` |
 | Why Tier 0? | Section 2 of `CRITICAL_PHASE_ZERO_AUDIT.md` |
 | How do I proceed? | `CANONICAL_PHASED_IMPLEMENTATION_PLAN.md` |

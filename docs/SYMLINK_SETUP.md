@@ -11,6 +11,7 @@ rylan-labs-shared-configs uses **symbolic links (symlinks)** to establish a sing
 ### Problem: Configuration Duplication
 
 Without symlinks, each repository maintains its own copy of:
+
 - `.yamllint` (740 bytes × 50 repos = 37 KB wasted)
 - `pyproject.toml` (1.2 KB × 50 repos = 60 KB wasted)
 - `.pre-commit-config.yaml` (2.1 KB × 50 repos = 105 KB wasted)
@@ -268,7 +269,7 @@ mklink /J .yamllint C:\path\to\rylan-labs-shared-configs\linting\.yamllint
 ## Troubleshooting Symlink Issues
 
 | Problem | Symptom | Solution |
-|---------|---------|----------|
+| ------- | ------- | -------- |
 | Symlink broken | Red text in `ls -la` | Reinstall shared-configs or fix target path |
 | Path not found | `cat .yamllint` fails | Clone shared-configs in correct location |
 | Wrong target | `readlink` shows wrong path | Delete and recreate symlink |

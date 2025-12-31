@@ -20,7 +20,7 @@
 ## 🗂️ Audit Documents in `.audit/` Directory
 
 | File | Purpose | Audience |
-|------|---------|----------|
+| ---- | ------- | -------- |
 | **`CRITICAL_PHASE_ZERO_AUDIT.md`** | Executive summary of findings | Everyone |
 | **`CANONICAL_PHASED_IMPLEMENTATION_PLAN.md`** | Step-by-step action plan (ALL phases) | Implementation team |
 | **`AUDIT_MANIFEST.json`** | Machine-readable audit metadata | Automation/CI |
@@ -112,7 +112,7 @@ Follow `CANONICAL_PHASED_IMPLEMENTATION_PLAN.md` step by step:
 ## 🗣️ Who's Responsible?
 
 | Guardian | Role | Responsibility |
-|----------|------|-----------------|
+| -------- | ---- | -------------- |
 | **Carter** | Identity/Standards | Validate architecture, enforce symlink standards |
 | **Bauer** | Audit/Verification | Track changes, maintain audit trail |
 | **Beale** | Security/Hardening | Security scanning, prevent vulnerabilities |

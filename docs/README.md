@@ -11,6 +11,7 @@
 ## Purpose
 
 Tier 0 foundation repository providing single source of truth for:
+
 - **Linting configurations** (.yamllint, pyproject.toml, .shellcheckrc, .editorconfig)
 - **Pre-commit hooks** (Gatekeeper v∞.5.2)
 - **Reusable CI workflows** (Trinity pattern validation)
@@ -23,6 +24,7 @@ Tier 0 foundation repository providing single source of truth for:
 ## Architecture
 
 ### Consumption Pattern
+
 ```text
 rylan-labs-shared-configs (v1.0.0) ← Source of Truth
   ↓ (symlinks)
@@ -34,8 +36,8 @@ rylan-labs-network-iac
 ✓ Zero duplication, single update propagates to all repos
 ```
 
-
 ### Trinity Alignment
+
 - **Carter**: Identity enforcement via symlinks, standard propagation
 - **Bauer**: Audit via reusable workflows, cross-repo validation
 - **Beale**: Security via centralized hardening configs
@@ -156,7 +158,7 @@ jobs:
 ### Available Workflows
 
 | Workflow | Purpose | Inputs |
-|----------|---------|--------|
+| -------- | ------- | ------ |
 | `reusable-trinity-ci.yml` | Full Trinity validation (Python, Bash, YAML, Ansible) | `python_version`, `bash_paths`, `ansible_paths` |
 | `reusable-python-validate.yml` | mypy + ruff only | `python_version` |
 | `reusable-bash-validate.yml` | shellcheck + shfmt only | `bash_paths` |
