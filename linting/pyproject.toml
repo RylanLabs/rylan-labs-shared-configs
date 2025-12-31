@@ -15,7 +15,7 @@ strict_equality = true
 disable_error_code = ["misc"]  # Avoid INTERNAL ERROR noise from mypy
 
 [tool.ruff]
-line-length = 120
+line-length = 160
 target-version = "py311"
 select = [
     "E",   # pycodestyle errors

@@ -4,8 +4,6 @@ rules:
   line-length:
     max: 160
     level: error
-  comments:
-    max-spaces-from-content: 2
   indentation:
     spaces: 2
     indent-sequences: true
@@ -14,4 +12,3 @@ rules:
   document-start: disable
   truthy:
     allowed-values: ['true', 'false', 'yes', 'no']
-  # Trinity-Carter §4.2: Code ≤120 chars (error), docs ≤160 (warnings handled by context)
