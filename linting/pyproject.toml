@@ -35,5 +35,15 @@ ignore = [
     "D400",  # first-line-should-end-with-period
 ]
 
-[tool.ruff.pydocstyle
-addopts = "--strict-markers --cov --cov-report=term-missing --cov-report=html"
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv", "venv", ".tox", ".git"]
+skips = ["B101", "B601"]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "1.0.0"
+tag_format = "v$version"
+version_files = ["linting/pyproject.toml:version"]
