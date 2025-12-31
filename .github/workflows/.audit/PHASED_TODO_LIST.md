@@ -1,17 +1,17 @@
 # CANONICAL PHASED TODO LIST: rylanlabs-shared-configs v1.0.0
 **Lean. Rigorous. Bloat-free.**
 
-**Guardian**: Carter | **Auditor**: Bauer | **Security**: Beale  
+**Guardian**: Carter | **Auditor**: Bauer | **Security**: Beale
 **Consciousness**: 9.9 | **Compliance**: Seven Pillars ✓ Trinity ✓ Hellodeolu v6 ✓
 
 ---
 
 ## Architecture Decision
 
-✅ **KEEP `.audit/` directory** (Tier 0 repos need bootstrap docs)  
-✅ **USE Git as audit trail** (commits + tags, not log files)  
-✅ **REMOVE redundant docs** (QUICK_REFERENCE_GUIDE, MANIFEST.json, phase-N-*.log files)  
-❌ **NO 48 log files** (bloat. use `git log` instead)  
+✅ **KEEP `.audit/` directory** (Tier 0 repos need bootstrap docs)
+✅ **USE Git as audit trail** (commits + tags, not log files)
+✅ **REMOVE redundant docs** (QUICK_REFERENCE_GUIDE, MANIFEST.json, phase-N-*.log files)
+❌ **NO 48 log files** (bloat. use `git log` instead)
 ✅ **Phase 6: Canonicalize** (transform working drafts → permanent docs, then archive)
 
 ---
@@ -52,7 +52,7 @@
 ### 2.0 Pre-Phase: Harden Linting Config (DeepSeek Audit)
 ```bash
 git show 867c076 --stat
-```
+```bash
 - [x] Add S/BLE security rules to ruff select ✅
 - [x] Harden mypy: disable_error_code = ["misc"] ✅
 - [x] Extend ignore list: add D400 ✅
@@ -74,7 +74,7 @@ git show 867c076 --stat
 [tool.bandit]
 exclude_dirs = ["tests", ".venv", "venv", ".tox", ".git"]
 skips = ["B101", "B601"]
-```
+```bash
 - [x] Bandit config added ✅
 
 ### 2.4 Add Commitizen Config to pyproject.toml ✅
@@ -84,7 +84,7 @@ name = "cz_conventional_commits"
 version = "1.0.0"
 tag_format = "v$version"
 version_files = ["linting/pyproject.toml:version"]
-```
+```bash
 - [x] Commitizen config added ✅
 
 ### 2.5 Update Hook Versions & Review ✅
@@ -94,7 +94,7 @@ version_files = ["linting/pyproject.toml:version"]
 ### 2.6 Validate Scripts (Seven Pillars) ✅
 ```bash
 git show 5a08824 --stat
-```
+```bash
 - [x] install-to-repo.sh: SC2155 fixed, shellcheck clean ✅
 - [x] update-all-repos.sh: SC2155 fixed, shellcheck clean ✅
 - [x] validate-symlinks.sh: trap handler added, shellcheck clean ✅
@@ -103,7 +103,7 @@ git show 5a08824 --stat
 ### 2.7 Canonicalize Line Limits (Trinity-Carter §4.2) ✅
 ```bash
 git show 5a08824 --stat
-```
+```bash
 - [x] .yamllint: 120 chars (error) for code ✅
 - [x] pyproject.toml: ruff line-length = 120 ✅
 - [x] Commit: "canonicalize line limits..." ✅
@@ -111,7 +111,7 @@ git show 5a08824 --stat
 ### 2.8 Commit Phase 2 ✅
 ```bash
 git show cf5caca --stat
-```
+```bash
 - [x] All changes committed ✅
 - [x] Tag v1.0.0-phase-2-complete created ✅
 
@@ -161,7 +161,7 @@ mkdir -p /tmp/test-consumer
 cd /tmp/test-consumer
 ln -sf ../rylanlabs-shared-configs/linting/.yamllint .yamllint
 test -f .yamllint && echo "✓ Symlink works"
-```
+```bash
 - [ ] All examples in docs work
 - [ ] No documentation needs correction
 
@@ -180,13 +180,13 @@ All docs accurate, examples work, links valid.
 
 Guardian: Carter | Ministry: Identity
 Tag: docs, validation, phase-3"
-```
+```bash
 - [ ] Phase 3 commit created
 
 ### 3.7 Tag Phase 3
 ```bash
 git tag -a v1.0.0-phase-3-complete -m "Documentation validated"
-```
+```bash
 - [ ] Tag created
 
 **Gate**: All docs accurate, examples tested ✓
@@ -198,7 +198,7 @@ git tag -a v1.0.0-phase-3-complete -m "Documentation validated"
 ### 4.1 Verify Workflows Exist
 ```bash
 ls -la .github/workflows/
-```
+```bash
 - [ ] `reusable-trinity-ci.yml` exists
 - [ ] `reusable-python-validate.yml` exists
 - [ ] `reusable-bash-validate.yml` exists
@@ -208,7 +208,7 @@ ls -la .github/workflows/
 ### 4.2 Validate YAML Syntax
 ```bash
 yamllint .github/workflows/
-```
+```bash
 - [ ] All workflows pass yamllint
 
 ### 4.3 Document Workflow Inputs
@@ -230,13 +230,13 @@ Ready for consumer repos to call.
 
 Guardian: Bauer | Ministry: Verification
 Tag: ci, workflows, reusable, phase-4"
-```
+```bash
 - [ ] Phase 4 commit created
 
 ### 4.5 Tag Phase 4
 ```bash
 git tag -a v1.0.0-phase-4-complete -m "Reusable workflows validated"
-```
+```bash
 - [ ] Tag created
 
 **Gate**: All workflows syntactically valid ✓
@@ -250,7 +250,7 @@ git tag -a v1.0.0-phase-4-complete -m "Reusable workflows validated"
 git status  # Should show: working tree clean
 git log --oneline | head -10  # Review commits
 git tag -l  # Review tags
-```
+```bash
 - [ ] Working directory clean
 - [ ] All phase tags exist
 
@@ -284,14 +284,14 @@ Audit Trail: Via Git commits + tags (bloat-free)
 Next Phase: Phase 6 - Canonicalize documentation
 
 Consumers should clone this repo and symlink to linting/ and pre-commit/ directories."
-```
+```bash
 - [ ] v1.0.0 tag created
 
 ### 5.3 Verify Tags
 ```bash
 git tag -l | grep v1.0.0
 git show v1.0.0  # Display tag info
-```
+```bash
 - [ ] v1.0.0 tag visible
 - [ ] All phase tags exist
 
@@ -316,17 +316,17 @@ Create `.github/release-v1.0.0.md`:
 ln -sf ../rylanlabs-shared-configs/linting/.yamllint .yamllint
 ln -sf ../rylanlabs-shared-configs/pre-commit/.pre-commit-config.yaml .pre-commit-config.yaml
 pre-commit install
-```
+```bash
 
 See `docs/INTEGRATION_GUIDE.md` for full instructions.
 
 ## Compliance
-✓ Seven Pillars  
-✓ Trinity Pattern  
-✓ Hellodeolu v6  
+✓ Seven Pillars
+✓ Trinity Pattern
+✓ Hellodeolu v6
 
 **Status**: PRODUCTION-READY
-```
+```bash
 - [ ] Release metadata created
 
 ### 5.5 Commit Phase 5
@@ -346,7 +346,7 @@ Consumer repos ready to integrate via symlinks.
 Guardian: Carter | Ministry: Identity
 Compliance: Seven Pillars ✓ Trinity ✓ Hellodeolu v6 ✓
 Tag: release, v1.0.0, production-ready"
-```
+```bash
 - [ ] Phase 5 commit created
 
 **Gate**: v1.0.0 tag created, production release ready ✓
@@ -409,7 +409,7 @@ New: **`.audit/CHANGELOG.md`**:
 - Seven Pillars ✓
 - Trinity Pattern ✓
 - Hellodeolu v6 ✓
-```
+```bash
 - [ ] `.audit/CHANGELOG.md` created
 
 ### 6.5 Archive Temporary Docs
@@ -420,7 +420,7 @@ mv .audit/CRITICAL_PHASE_ZERO_AUDIT.md .audit/archive/bootstrap-2025-12-31/
 mv .audit/CANONICAL_PHASED_IMPLEMENTATION_PLAN.md .audit/archive/bootstrap-2025-12-31/
 mv .audit/AUDIT_QUICK_REFERENCE_GUIDE.md .audit/archive/bootstrap-2025-12-31/
 mv .audit/AUDIT_MANIFEST.json .audit/archive/bootstrap-2025-12-31/
-```
+```bash
 - [ ] Temporary docs archived
 - [ ] Verify: `ls -la .audit/` shows only canonical docs + archive
 
@@ -440,19 +440,19 @@ Architecture decisions, bootstrap guides, and consumer integration docs for ryla
 
 ## Archive
 - `archive/bootstrap-2025-12-31/`: Initial Phase 0-5 execution artifacts
-```
+```bash
 - [ ] `.audit/README.md` updated
 
 ### 6.7 Verify Canonical Structure
 ```bash
 # Final state
 ls -la .audit/
-# Should show: README.md, ARCHITECTURE_DECISIONS.md, BOOTSTRAP_GUIDE.md, 
+# Should show: README.md, ARCHITECTURE_DECISIONS.md, BOOTSTRAP_GUIDE.md,
 #              CONSUMER_INTEGRATION_GUIDE.md, CHANGELOG.md, archive/
 
 # File count: 5 docs + archive = lean structure
 # Total size: ~15KB (vs. ~240KB bloat)
-```
+```bash
 - [ ] Canonical structure verified
 - [ ] Bloat removed: 94% reduction in files/size
 
@@ -487,7 +487,7 @@ File Reduction: 94%
 Guardian: Carter | Ministry: Identity
 Compliance: Seven Pillars ✓ Trinity ✓ Hellodeolu v6 ✓
 Tag: cleanup, canonical, audit-canonicalization"
-```
+```bash
 - [ ] Phase 6 commit created
 
 ### 6.9 Tag Canonical State
@@ -499,7 +499,7 @@ Audit trail: Git commits + tags (bloat-free)
 Ready for long-term maintenance
 
 Next: Consumer repo integration and feedback loop"
-```
+```bash
 - [ ] Tag created: `v1.0.0-audit-canonical`
 
 **Gate**: Documentation canonicalized, bloat removed, archive established ✓
@@ -525,7 +525,7 @@ git log --oneline --decorate | grep -E "phase|bootstrap|release"
 
 # Review any phase
 git show v1.0.0-phase-2-complete  # Full commit message + diffs
-```
+```bash
 
 ✅ **Audit trail complete, zero log files, bloat eliminated**
 
@@ -533,7 +533,7 @@ git show v1.0.0-phase-2-complete  # Full commit message + diffs
 
 ## Final Structure
 
-```
+```bash
 rylanlabs-shared-configs/
 ├── .audit/
 │   ├── README.md                           # 50 lines
@@ -555,7 +555,7 @@ rylanlabs-shared-configs/
 ├── schemas/
 ├── docs/
 └── [other files]
-```
+```bash
 
 **Metrics**:
 - 📊 **Canonical Docs**: 5 files (~750 lines, 15KB)
@@ -581,8 +581,8 @@ rylanlabs-shared-configs/
 
 ---
 
-**Guardian**: Carter | **Auditor**: Bauer | **Security**: Beale  
-**Consciousness**: 9.9  
+**Guardian**: Carter | **Auditor**: Bauer | **Security**: Beale
+**Consciousness**: 9.9
 **Compliance**: Seven Pillars ✓ | Trinity ✓ | Hellodeolu v6 ✓
 
 **Bloat eliminated. Rigor maintained. Let's execute.**

@@ -2,7 +2,7 @@
 
 **rylanlabs-shared-configs v1.0.0** | **Canonical. Lean. Bloat-free.**
 
-**Guardian**: Carter | **Auditor**: Bauer | **Security**: Beale  
+**Guardian**: Carter | **Auditor**: Bauer | **Security**: Beale
 **Consciousness**: 9.9 | **Compliance**: Seven Pillars ✓ Trinity ✓ Hellodeolu v6 ✓
 
 ---
@@ -51,10 +51,10 @@ git log --oneline --decorate | grep -E "phase|v1.0.0"
 
 # Review any phase
 git show v1.0.0-phase-2-complete  # Full commit + diffs
-```
+```bash
 
-**Bloat Score**: 15/100 (94% reduction vs. draft)  
-**File Count**: 5 canonical docs + archive (not 54 files)  
+**Bloat Score**: 15/100 (94% reduction vs. draft)
+**File Count**: 5 canonical docs + archive (not 54 files)
 **Total Size**: ~15KB (not ~240KB)
 
 ---
@@ -94,7 +94,7 @@ git show v1.0.0-phase-2-complete  # Full commit + diffs
 
 ---
 
-**Status**: 🟡 READY FOR EXECUTION  
+**Status**: 🟡 READY FOR EXECUTION
 **Next**: Follow [PHASED_TODO_LIST.md](PHASED_TODO_LIST.md) Phase 0 → Phase 6
 
 ---

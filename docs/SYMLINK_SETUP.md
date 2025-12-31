@@ -18,12 +18,12 @@ Without symlinks, each repository maintains its own copy of:
 
 ### Solution: Symlinks
 
-```
+```text
 rylan-labs-shared-configs (source)
   └── linting/.yamllint
         ↑ (symlink)
     your-repo/.yamllint (pointer)
-```
+```text
 
 **Benefits**:
 - Single update propagates instantly to all repos
@@ -37,7 +37,7 @@ rylan-labs-shared-configs (source)
 
 ### What Gets Symlinked
 
-```
+```text
 Your Repository          Shared Configs (Source)
 ───────────────          ─────────────────────────
 .yamllint         ──→    linting/.yamllint
@@ -45,7 +45,7 @@ pyproject.toml    ──→    linting/pyproject.toml
 .pre-commit-config.yaml ──→ pre-commit/.pre-commit-config.yaml
 .shellcheckrc     ──→    linting/.shellcheckrc       (optional)
 .editorconfig     ──→    linting/.editorconfig       (optional)
-```
+```text
 
 ### What Does NOT Get Symlinked
 
@@ -64,7 +64,7 @@ pyproject.toml    ──→    linting/pyproject.toml
 ```bash
 cd /path/to/your/repo
 /path/to/rylan-labs-shared-configs/scripts/install-to-repo.sh . /path/to/rylan-labs-shared-configs
-```
+```text
 
 **What it does**:
 1. Creates symlinks for required configs
@@ -89,7 +89,7 @@ ln -sf /path/to/rylan-labs-shared-configs/linting/.editorconfig .editorconfig
 # Verify
 ls -la .yamllint pyproject.toml .pre-commit-config.yaml
 # Should show: link -> /path/to/...
-```
+```text
 
 ---
 
@@ -104,7 +104,7 @@ ls -la .yamllint .pre-commit-config.yaml pyproject.toml
 # Output example:
 # lrwxr-xr-x  1 user  staff   75 Dec 30 10:23 .yamllint -> /path/to/rylan-labs-shared-configs/linting/.yamllint
 # lrwxr-xr-x  1 user  staff   88 Dec 30 10:23 pyproject.toml -> /path/to/rylan-labs-shared-configs/linting/pyproject.toml
-```
+```text
 
 ### Read Symlink Target
 
@@ -116,7 +116,7 @@ readlink .yamllint
 # See absolute path
 readlink -f .yamllint
 # Output: /absolute/path/to/rylan-labs-shared-configs/linting/.yamllint
-```
+```text
 
 ### Automated Validation
 
@@ -132,7 +132,7 @@ readlink -f .yamllint
 # ✓ pyproject.toml → linting/pyproject.toml
 # ✓ .pre-commit-config.yaml → pre-commit/.pre-commit-config.yaml
 # === Validation Passed: All symlinks valid ===
-```
+```text
 
 ---
 
@@ -152,7 +152,7 @@ ln -sf /correct/path/to/rylan-labs-shared-configs/linting/.yamllint .yamllint
 
 # Verify
 readlink .yamllint
-```
+```text
 
 ### Symlink Target Deleted
 
@@ -169,7 +169,7 @@ git pull origin main
 cd /path/to/your/repo
 ls -la .yamllint
 readlink .yamllint  # Should now work
-```
+```text
 
 ### Relative vs Absolute Paths
 
@@ -181,7 +181,7 @@ ln -sf /home/user/repos/rylan-labs-shared-configs/linting/.yamllint .yamllint
 
 # RISKY: Relative path (breaks if directory structure changes)
 ln -sf ../../rylan-labs-shared-configs/linting/.yamllint .yamllint
-```
+```text
 
 ---
 
@@ -206,7 +206,7 @@ git status
 # On branch main
 # Changes to be committed:
 #   new file:   .yamllint -> ../../rylan-labs-shared-configs/linting/.yamllint
-```
+```text
 
 ### Checking Out Symlinks
 
@@ -228,7 +228,7 @@ git clone https://github.com/RylanLabs/rylan-labs-shared-configs.git
 # Now symlinks work
 cd your-repo
 cat .yamllint  # Contents displayed (symlink resolved)
-```
+```text
 
 ---
 
@@ -247,7 +247,7 @@ wsl.exe bash
 
 # Create symlinks within WSL
 ln -sf /mnt/c/path/to/rylan-labs-shared-configs/linting/.yamllint .yamllint
-```
+```text
 
 ### Windows (Git Bash / MinGW)
 
@@ -261,7 +261,7 @@ ln -sf /c/path/to/rylan-labs-shared-configs/linting/.yamllint .yamllint
 
 # If fails, use NTFS junctions (Windows alternative)
 mklink /J .yamllint C:\path\to\rylan-labs-shared-configs\linting\.yamllint
-```
+```text
 
 ---
 

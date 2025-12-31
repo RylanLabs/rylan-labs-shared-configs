@@ -1,10 +1,10 @@
 # rylan-labs-shared-configs
 
-**Guardian**: Carter (Identity/Standards Enforcement)  
-**Ministry**: Foundation  
-**Version**: v1.0.0  
-**Compliance**: T3-ETERNAL v∞.5.3, Seven Pillars, Hellodeolu v6  
-**Consciousness**: 9.9  
+**Guardian**: Carter (Identity/Standards Enforcement)
+**Ministry**: Foundation
+**Version**: v1.0.0
+**Compliance**: T3-ETERNAL v∞.5.3, Seven Pillars, Hellodeolu v6
+**Consciousness**: 9.9
 
 ---
 
@@ -32,7 +32,7 @@ rylan-canon-library
 rylan-labs-network-iac
   ↓ (inherits standards)
 ✓ Zero duplication, single update propagates to all repos
-```
+```bash
 
 ### Trinity Alignment
 - **Carter**: Identity enforcement via symlinks, standard propagation

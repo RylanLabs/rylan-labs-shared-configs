@@ -19,7 +19,7 @@ log_audit() {
   local status="$1"
   local message="$2"
   local repo="${3:-}"
-  
+
   # Structured JSON entry
   {
     echo "{"
@@ -37,7 +37,7 @@ log_audit() {
 error_exit() {
   local message="$1"
   local code="${2:-1}"
-  
+
   log_audit "error" "$message"
   echo "❌ ERROR: $message" >&2
   echo "   Audit log: $AUDIT_LOG" >&2
@@ -49,39 +49,39 @@ main() {
   if [[ -z "$SHARED_CONFIGS_VERSION" ]]; then
     error_exit "Version required. Usage: $0 <version> [repos-file]" 2
   fi
-  
+
   if [[ ! -f "$REPOS_FILE" ]]; then
     error_exit "Repos file not found: $REPOS_FILE. Create with one repo path per line (e.g., ../rylan-labs-common)" 3
   fi
-  
+
   log_audit "start" "Propagating shared-configs update"
-  
+
   echo "========================================"
   echo "Bauer Guardian: Propagating Shared Configs Update"
   echo "Version: $SHARED_CONFIGS_VERSION"
   echo "Repos list: $REPOS_FILE"
   echo "Audit log: $AUDIT_LOG"
   echo "========================================"
-  
+
   local updated=0
   local failed=0
-  
+
   while IFS= read -r repo; do
     # Skip empty lines and comments
     [[ -z "$repo" || "$repo" =~ ^# ]] && continue
-    
+
     echo ""
     echo "Processing: $repo"
-    
+
     if [[ ! -d "$repo" ]]; then
       log_audit "warn" "Repository not found" "$repo"
       echo "⚠️ WARN: Repository not found, skipping" >&2
       ((failed++))
       continue
     fi
-    
+
     pushd "$repo" > /dev/null
-    
+
     # Check if symlinks exist (idempotency gate)
     if [[ ! -L .yamllint ]]; then
       log_audit "warn" "No symlinks found (not consuming shared-configs)" "$repo"
@@ -89,7 +89,7 @@ main() {
       popd > /dev/null
       continue
     fi
-    
+
     # Validate symlink targets
     if ! readlink .yamllint | grep -q "rylanlabs-shared-configs"; then
       log_audit "warn" "Symlinks do not point to shared-configs" "$repo"
@@ -97,11 +97,11 @@ main() {
       popd > /dev/null
       continue
     fi
-    
+
     # Create or switch to update branch
     local branch="chore/shared-configs-$SHARED_CONFIGS_VERSION"
     git checkout -b "$branch" 2>/dev/null || git checkout "$branch"
-    
+
     # Idempotent commit (allow-empty if no changes)
     git commit --allow-empty -m "chore: update to rylanlabs-shared-configs $SHARED_CONFIGS_VERSION
 
@@ -111,18 +111,18 @@ Guardian: Bauer | Ministry: Audit
 Compliance: Seven Pillars ✓ | Trinity ✓ | Hellodeolu v6 ✓
 
 Tag: maintenance, shared-configs-update"
-    
+
     log_audit "success" "Update branch created" "$repo"
     echo "✓ Branch created: $branch"
     echo "   Push: git push origin $branch"
     echo "   PR: gh pr create --title \"chore: shared-configs $SHARED_CONFIGS_VERSION\" --body \"Automated update from update-all-repos.sh\""
-    
+
     ((updated++))
     popd > /dev/null
   done < "$REPOS_FILE"
-  
+
   log_audit "complete" "Update propagation finished: $updated updated, $failed failed"
-  
+
   echo ""
   echo "========================================"
   echo "Update Summary"
@@ -130,7 +130,7 @@ Tag: maintenance, shared-configs-update"
   echo "Failed: $failed repositories"
   echo "Audit log: $AUDIT_LOG"
   echo "========================================"
-  
+
   echo ""
   echo "Next Steps:"
   echo "1. Review branches in each repository"

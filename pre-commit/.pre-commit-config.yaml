@@ -45,7 +45,7 @@ repos:
       - id: black
         name: Format Python code
         args: [--line-length=160]
-        language_version: python3.11
+        language_version: python3.12
 
   # === PYTHON LINTING (ruff) ===
   - repo: https://github.com/astral-sh/ruff-pre-commit
@@ -144,9 +144,9 @@ repos:
 
 # === CONFIGURATION ===
 default_language_version:
-  python: python3.11
+  python: python3.12
 
-default_stages: [commit, push]
+default_stages: [pre-commit, pre-push]
 
 fail_fast: false  # Run all hooks even if one fails
 

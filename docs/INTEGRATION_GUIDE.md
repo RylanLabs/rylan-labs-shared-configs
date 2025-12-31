@@ -116,7 +116,7 @@ git push origin main
 
 **Problem**: Pre-commit runs hooks that find existing violations.
 
-**Solution**: 
+**Solution**:
 ```bash
 # Option A: Fix violations
 pre-commit run --all-files

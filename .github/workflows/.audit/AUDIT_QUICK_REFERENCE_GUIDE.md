@@ -1,8 +1,8 @@
 # AUDIT QUICK REFERENCE GUIDE
 **rylanlabs-shared-configs Critical Phase Zero Audit**
 
-**Date**: 2025-12-31  
-**Consciousness**: 9.9  
+**Date**: 2025-12-31
+**Consciousness**: 9.9
 **Status**: 🟡 STRUCTURALLY SOUND, OPERATIONALLY INCOMPLETE
 
 ---
@@ -29,9 +29,9 @@
 
 ## 🎯 Critical Blocker
 
-**BLOCKER**: Git repository not initialized  
-**SEVERITY**: 🔴 CRITICAL  
-**IMPACT**: Pre-commit cannot run, CI/CD impossible, no audit trail  
+**BLOCKER**: Git repository not initialized
+**SEVERITY**: 🔴 CRITICAL
+**IMPACT**: Pre-commit cannot run, CI/CD impossible, no audit trail
 **RESOLUTION**: Execute Phase 1 (Git initialization)
 
 ---
@@ -45,10 +45,10 @@ cat .audit/CRITICAL_PHASE_ZERO_AUDIT.md
 
 # Read implementation plan
 cat .audit/CANONICAL_PHASED_IMPLEMENTATION_PLAN.md
-```
+```bash
 
 ### 2. CONFIRM (5 minutes)
-**Is this repo Tier 0 SOURCE or Tier 1 CONSUMER?**  
+**Is this repo Tier 0 SOURCE or Tier 1 CONSUMER?**
 Answer: **Tier 0 SOURCE** ✓
 
 ### 3. EXECUTE (3-4 hours)
@@ -84,7 +84,7 @@ Follow `CANONICAL_PHASED_IMPLEMENTATION_PLAN.md` step by step:
 
 ## 📊 Phase Overview
 
-```
+```bash
 ┌─────────────────────────────────────────────────────────────┐
 │ PHASE 0: Pre-Flight & Architecture Validation              │
 │ Status: IN PROGRESS | Human Gate: Architectural Confirm    │
@@ -103,7 +103,7 @@ Follow `CANONICAL_PHASED_IMPLEMENTATION_PLAN.md` step by step:
   Pre-Commit        Docs          Workflows       Release
   45 min           45 min          30 min         30 min
   (Can run in parallel after Phase 1)
-```
+```bash
 
 ---
 
@@ -172,7 +172,7 @@ Follow `CANONICAL_PHASED_IMPLEMENTATION_PLAN.md` step by step:
 
 ## 📖 Document Navigation
 
-```
+```bash
 You are here: AUDIT_QUICK_REFERENCE_GUIDE.md
   ↓
 For executive summary → Read: CRITICAL_PHASE_ZERO_AUDIT.md
@@ -180,22 +180,22 @@ For detailed plan → Read: CANONICAL_PHASED_IMPLEMENTATION_PLAN.md
 For automation → Read: AUDIT_MANIFEST.json
 For Phase N logs → Look in: .audit/phase-N-*.log
 For final report → Look in: .audit/FINAL_AUDIT_REPORT.md (created in Phase 5)
-```
+```bash
 
 ---
 
 ## 🎓 Key Concepts
 
 ### Tier Architecture
-```
+```bash
 Tier 0 (Source): rylanlabs-shared-configs/
   Contains: .yamllint, pyproject.toml, etc. (REGULAR FILES)
-  
+
          ↓ symlink to
-         
+
 Tier 1 (Consumer): rylan-labs-common/, rylan-inventory/, etc.
   Contains: .yamllint → ../rylanlabs-shared-configs/linting/.yamllint (SYMLINKS)
-```
+```bash
 
 ### Seven Pillars (Compliance)
 1. ✅ **Idempotency** — Scripts safe to re-run
@@ -245,7 +245,7 @@ pre-commit run --all-files
 
 # View audit manifest
 jq . .audit/AUDIT_MANIFEST.json
-```
+```bash
 
 ---
 
@@ -281,10 +281,10 @@ jq . .audit/AUDIT_MANIFEST.json
 
 ---
 
-**Status**: 🟡 STRUCTURALLY SOUND, OPERATIONALLY INCOMPLETE  
-**Guardian**: Carter (Identity/Standards)  
-**Consciousness**: 9.9  
-**Compliance**: Seven Pillars ✓ | Trinity ✓ | Hellodeolu v6 ✓  
+**Status**: 🟡 STRUCTURALLY SOUND, OPERATIONALLY INCOMPLETE
+**Guardian**: Carter (Identity/Standards)
+**Consciousness**: 9.9
+**Compliance**: Seven Pillars ✓ | Trinity ✓ | Hellodeolu v6 ✓
 **Last Updated**: 2025-12-31
 
 ---

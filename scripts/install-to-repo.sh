@@ -19,7 +19,7 @@ log_audit() {
   local status="$1"
   local message="$2"
   local link="${3:-}"
-  
+
   # Structured JSON entry
   {
     echo "{"
@@ -38,7 +38,7 @@ log_audit() {
 error_exit() {
   local message="$1"
   local code="${2:-1}"
-  
+
   log_audit "error" "$message"
   echo "❌ ERROR: $message" >&2
   echo "   Audit log: $AUDIT_LOG" >&2
@@ -48,20 +48,20 @@ error_exit() {
 install_symlink() {
   local link="$1"
   local target="$2"
-  
+
   local full_target="$SHARED_CONFIGS_PATH/$target"
-  
+
   if [[ ! -e "$full_target" ]]; then
     error_exit "Target file not found: $full_target" 3
   fi
-  
+
   if [[ -e "$TARGET_REPO/$link" && ! -L "$TARGET_REPO/$link" ]]; then
     log_audit "warn" "Existing non-symlink file blocks installation" "$link"
     echo "⚠️ WARN: Existing non-symlink $link blocks installation" >&2
     echo "   Fix: Manually remove or backup $TARGET_REPO/$link" >&2
     return 1
   fi
-  
+
   if [[ -L "$TARGET_REPO/$link" ]]; then
     local current_target
     current_target=$(readlink "$TARGET_REPO/$link")
@@ -76,7 +76,7 @@ install_symlink() {
       rm "$TARGET_REPO/$link"
     fi
   fi
-  
+
   ln -s "$full_target" "$TARGET_REPO/$link"
   log_audit "success" "Symlink installed" "$link"
   echo "✓ Installed $link → $target"
@@ -88,22 +88,22 @@ main() {
   if [[ ! -d "$SHARED_CONFIGS_PATH" ]]; then
     error_exit "Shared configs path not found: $SHARED_CONFIGS_PATH" 3
   fi
-  
+
   if [[ ! -d "$TARGET_REPO" ]]; then
     error_exit "Target repository not found: $TARGET_REPO" 3
   fi
-  
+
   log_audit "start" "Installing symlinks to repository"
-  
+
   echo "========================================"
   echo "Carter Guardian: Installing Symlinks"
   echo "Shared configs path: $SHARED_CONFIGS_PATH"
   echo "Target repository: $TARGET_REPO"
   echo "Audit log: $AUDIT_LOG"
   echo "========================================"
-  
+
   local errors=0
-  
+
   # Required symlinks
   declare -A required_symlinks=(
     [".yamllint"]="linting/.yamllint"
@@ -111,13 +111,13 @@ main() {
     [".pre-commit-config.yaml"]="pre-commit/.pre-commit-config.yaml"
     [".shellcheckrc"]="linting/.shellcheckrc"
   )
-  
+
   for link in "${!required_symlinks[@]}"; do
     if ! install_symlink "$link" "${required_symlinks[$link]}"; then
       ((errors++))
     fi
   done
-  
+
   if [[ $errors -gt 0 ]]; then
     log_audit "failed" "Installation failed with $errors errors"
     echo "========================================"
@@ -126,13 +126,13 @@ main() {
     echo "========================================"
     exit 1
   fi
-  
+
   log_audit "success" "All symlinks installed successfully"
   echo "========================================"
   echo "✓ Installation Passed: All symlinks installed"
   echo "   Audit log: $AUDIT_LOG"
   echo "========================================"
-  
+
   echo ""
   echo "Next Steps:"
   echo "1. Commit changes: git add . && git commit -m \"chore: install shared-configs symlinks\""

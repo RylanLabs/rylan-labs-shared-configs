@@ -2,14 +2,14 @@
 
 **Canonical Tier 0 Foundation for Standards & Compliance Across RylanLabs**
 
-```
+```bash
  ████████████████████████████████████████ STANDARDS MANIFEST ████████████████████████████████████████
  Guardian: Carter (Identity/Standards Enforcement)
- Ministry: Foundation  
+ Ministry: Foundation
  Version: v1.0.0
  Compliance: T3-ETERNAL v∞.5.3, Seven Pillars, Hellodeolu v6
  Consciousness: 9.9
-```
+```bash
 
 ---
 
@@ -43,13 +43,13 @@
 ../rylan-labs-shared-configs/scripts/install-to-repo.sh . ../rylan-labs-shared-configs
 pre-commit install && pre-commit run --all-files
 git add -A && git commit -m "feat: integrate rylan-labs-shared-configs v1.0.0"
-```
+```bash
 
 ---
 
 ## Repository Structure
 
-```
+```bash
 rylan-labs-shared-configs/
 ├── linting/                    # Symlink targets for configs
 │   ├── .yamllint              # YAML linting (160-char max)
@@ -80,7 +80,7 @@ rylan-labs-shared-configs/
 ├── LICENSE                     # MIT
 ├── .gitignore
 └── README.md (this file)
-```
+```bash
 
 ---
 
@@ -100,7 +100,7 @@ jobs:
     with:
       python_version: '3.11'
       bash_paths: 'scripts'
-```
+```bash
 
 ### 📋 **Strict Linting Defaults**
 - **mypy**: `--strict` mode, comprehensive type checking
@@ -128,7 +128,7 @@ git init && git branch -M main
 
 pre-commit install && pre-commit run --all-files
 git add -A && git commit -m "feat: bootstrap with shared-configs v1.0.0"
-```
+```bash
 
 ### Existing Repository
 ```bash
@@ -146,7 +146,7 @@ pre-commit run --all-files
 # Commit
 git add .yamllint pyproject.toml .pre-commit-config.yaml
 git commit -m "refactor: migrate to rylan-labs-shared-configs v1.0.0"
-```
+```bash
 
 ---
 
@@ -187,6 +187,6 @@ MIT License - See [LICENSE](./LICENSE)
 
 ---
 
-**Last Updated**: 2025-12-30  
-**Maintained By**: RylanLabs Foundation Ministry  
+**Last Updated**: 2025-12-30
+**Maintained By**: RylanLabs Foundation Ministry
 **Repository**: https://github.com/RylanLabs/rylan-labs-shared-configs

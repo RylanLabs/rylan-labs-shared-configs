@@ -8,13 +8,11 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# Failure recovery (Pillar 5)
-trap 'echo "❌ INTERRUPTED" >&2; exit 130' INT TERM
-
 # Constants
 readonly SHARED_CONFIGS_PATH="${1:-../rylanlabs-shared-configs}"
 readonly REPO_ROOT="${2:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
-readonly AUDIT_LOG="$REPO_ROOT/.audit/symlink-validation-$(date -Iseconds).json"
+AUDIT_LOG="$REPO_ROOT/.audit/symlink-validation-$(date -Iseconds).json"
+readonly AUDIT_LOG
 
 # Helper functions
 log_audit() {
@@ -61,6 +59,17 @@ validate_symlink() {
   return 0
 }
 
+# Cleanup function (invoked via trap)
+# shellcheck disable=SC2329  # Invoked indirectly via trap; ignore SC2329
+cleanup() {
+  # Optional: Remove temporary files if any
+  true
+}
+
+# Traps for reversibility and error handling
+trap cleanup EXIT
+trap 'echo "❌ INTERRUPTED" >&2; exit 130' INT TERM
+
 # Main execution
 main() {
   local errors=0
@@ -101,13 +110,6 @@ main() {
   echo "========================================"
   exit 0
 }
-
-# Cleanup trap (reversibility)
-cleanup() {
-  # Optional: Remove temporary files if any
-  true
-}
-trap cleanup EXIT
 
 # Execute
 main "$@"
