@@ -52,7 +52,7 @@ git add -A && git commit -m "feat: integrate rylan-labs-shared-configs v1.0.0"
 ```
 rylan-labs-shared-configs/
 ├── linting/                    # Symlink targets for configs
-│   ├── .yamllint              # YAML linting (140-char max)
+│   ├── .yamllint              # YAML linting (160-char max)
 │   ├── pyproject.toml         # Python: mypy --strict, ruff
 │   ├── .shellcheckrc          # Bash linting
 │   └── .editorconfig          # IDE standards
@@ -104,8 +104,8 @@ jobs:
 
 ### 📋 **Strict Linting Defaults**
 - **mypy**: `--strict` mode, comprehensive type checking
-- **ruff**: E, W, F, I, B, C4, UP, D rule sets
-- **yamllint**: 140-char line limit, infrastructure-ready
+- **ruff**: E, W, F, I, B, C4, UP, D, S, BLE rule sets (with security)
+- **yamllint**: 160-char line limit, infrastructure-ready
 - **shellcheck**: All optional checks enabled
 
 ### 🛡️ **Compliance Ready**

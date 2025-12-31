@@ -22,13 +22,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 #### Linting Configurations
-- **`.yamllint`** - YAML linting with 140-char line length
+- **`.yamllint`** - YAML linting with 160-char line length
   - Configured for infrastructure-as-code validation
   - Supports both structured and document-start free YAML
 - **`pyproject.toml`** - Python strict type checking
   - mypy in strict mode with comprehensive type rules
-  - ruff with comprehensive rule coverage (E, W, F, I, B, C4, UP, D)
-  - pytest configuration with coverage reporting
+  - disable_error_code=["misc"] for cleaner output
+  - ruff with comprehensive rule coverage (E, W, F, I, B, C4, UP, D, S, BLE)
+  - bandit configuration for security scanning
 - **`.shellcheckrc`** - Bash/shell script validation
   - All optional checks enabled
   - Configured for bash dialect
@@ -39,12 +40,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Pre-commit Hooks
 - **`.pre-commit-config.yaml`** - Gatekeeper v∞.5.2 equivalent
-  - Standard pre-commit framework hooks (v4.5.0)
-  - YAML linting (yamllint v1.33.0)
-  - Python formatting (black v23.12.1)
-  - Python linting (ruff v0.1.9)
-  - Type checking (mypy v1.8.0)
-  - Shell validation (shellcheck v0.9.0.6, shfmt v3.7.0)
+  - Standard pre-commit framework hooks (v5.0.0)
+  - YAML linting (yamllint v1.35.1)
+  - Python formatting (black v24.10.0, line-length=160)
+  - Python linting (ruff v0.8.4)
+  - Type checking (mypy v1.13.0)
+  - Security scanning (bandit v1.7.10)
+  - Commit validation (commitizen v3.29.1)
+  - Shell validation (shellcheck v0.10.0.1, shfmt v3.10.0)
 
 #### GitHub Actions Workflows
 - **`reusable-trinity-ci.yml`** - Unified CI workflow
