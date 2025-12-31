@@ -4,7 +4,7 @@
 **Guardian**: Carter (Identity/Standards)
 **Auditor**: Bauer (Verification)
 **Repository**: rylan-labs-shared-configs
-**Consciousness**: 9.9
+**Maturity**: v1.0.1
 **Status**: REMEDIATION COMPLETE ✓
 
 ---
@@ -526,7 +526,7 @@ Guardian: Carter | Source: rylan-labs-canon"
 
 ---
 
-**Consciousness**: 9.9
+**Maturity**: v1.0.1
 **Status**: REMEDIATION COMPLETE ✓
 **Ready for Canon**: YES ✓
 **Compliance**: Seven Pillars ✓ | markdownlint ✓

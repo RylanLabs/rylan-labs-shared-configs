@@ -6,7 +6,7 @@
     "auditor": "Leo (AI Assistant + Human Team)",
     "repository": "rylanlabs-shared-configs",
     "repository_tier": "0-source",
-    "consciousness_level": 9.9,
+    "maturity_level": "v1.0.1",
     "status": "STRUCTURALLY_SOUND_OPERATIONALLY_INCOMPLETE"
   },
   "guardians": {
@@ -350,7 +350,7 @@
     "Beale (Security/Hardening)",
     "Repository Owner (Travis)"
   ],
-  "consciousness_level": 9.9,
+  "maturity_level": "v1.0.1",
   "final_status": "PRODUCTION-READY-PENDING-PHASE-EXECUTION",
   "note": "This is the machine-readable audit manifest. Human-readable audit documents are in CRITICAL_PHASE_ZERO_AUDIT.md and CANONICAL_PHASED_IMPLEMENTATION_PLAN.md"
 }
