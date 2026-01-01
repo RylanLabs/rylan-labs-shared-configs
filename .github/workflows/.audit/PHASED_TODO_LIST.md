@@ -1,4 +1,5 @@
 # CANONICAL PHASED TODO LIST: rylanlabs-shared-configs v1.0.0
+
 **Lean. Rigorous. Bloat-free.**
 
 **Guardian**: Carter | **Auditor**: Bauer | **Security**: Beale
@@ -30,16 +31,19 @@
 ## Phase 1: Git Initialization & Bootstrap (30 min)
 
 ### 1.1 Initialize Git ✅
+
 - [x] Git repo initialized: `/home/egx570/repos/rylan-labs-shared-configs/.git`
 - [x] Config set: user.name = "Carter Guardian"
 - [x] All files staged for commit
 
 ### 1.2 Create Bootstrap Commit ✅
+
 - [x] Bootstrap commit created
 - [x] Commit hash: `03c7a26378b17700239185bb3d6d4029b372aed6`
 - [x] 30 files committed (5393 insertions)
 
 ### 1.3 Tag v1.0.0-bootstrap ✅
+
 - [x] Tag created: `v1.0.0-bootstrap`
 - [x] Tag verified via `git tag -l`
 
@@ -50,6 +54,7 @@
 ## Phase 2: Pre-Commit Config Update & Validation (45 min) ✅ COMPLETE
 
 ### 2.0 Pre-Phase: Harden Linting Config (DeepSeek Audit)
+
 ```bash
 git show 867c076 --stat
 ```bash

@@ -1,79 +1,102 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Device Manifest Schema",
   "description": "Canonical schema for device inventory manifests in RylanLabs infrastructure",
-  "version": "2.2.0",
-  "type": "object",
-  "required": ["version", "devices"],
   "properties": {
-    "version": {
-      "type": "string",
-      "enum": ["2.2.0"],
-      "description": "Schema version for this manifest"
-    },
-    "metadata": {
-      "type": "object",
-      "properties": {
-        "environment": {
-          "type": "string",
-          "enum": ["production", "staging", "development"],
-          "description": "Deployment environment"
-        },
-        "region": {
-          "type": "string",
-          "description": "Geographic region identifier"
-        },
-        "owner": {
-          "type": "string",
-          "description": "Team or contact owning this manifest"
-        },
-        "created": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Creation timestamp"
-        }
-      }
-    },
     "devices": {
-      "type": "array",
       "items": {
-        "type": "object",
-        "required": ["id", "hostname", "type"],
         "properties": {
-          "id": {
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_-]+$",
-            "description": "Unique device identifier"
-          },
           "hostname": {
-            "type": "string",
-            "description": "FQDN or hostname"
+            "description": "FQDN or hostname",
+            "type": "string"
           },
-          "type": {
-            "type": "string",
-            "enum": ["server", "workstation", "router", "switch", "firewall"],
-            "description": "Device type classification"
+          "id": {
+            "description": "Unique device identifier",
+            "pattern": "^[a-zA-Z0-9_-]+$",
+            "type": "string"
           },
           "ip_address": {
-            "type": "string",
+            "description": "IPv4 address",
             "format": "ipv4",
-            "description": "IPv4 address"
+            "type": "string"
           },
           "role": {
-            "type": "array",
+            "description": "Assigned roles/tags",
             "items": {
               "type": "string"
             },
-            "description": "Assigned roles/tags"
+            "type": "array"
           },
           "status": {
-            "type": "string",
-            "enum": ["active", "inactive", "deprecated"],
             "default": "active",
-            "description": "Device operational status"
+            "description": "Device operational status",
+            "enum": [
+              "active",
+              "inactive",
+              "deprecated"
+            ],
+            "type": "string"
+          },
+          "type": {
+            "description": "Device type classification",
+            "enum": [
+              "server",
+              "workstation",
+              "router",
+              "switch",
+              "firewall"
+            ],
+            "type": "string"
           }
+        },
+        "required": [
+          "id",
+          "hostname",
+          "type"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "metadata": {
+      "properties": {
+        "created": {
+          "description": "Creation timestamp",
+          "format": "date-time",
+          "type": "string"
+        },
+        "environment": {
+          "description": "Deployment environment",
+          "enum": [
+            "production",
+            "staging",
+            "development"
+          ],
+          "type": "string"
+        },
+        "owner": {
+          "description": "Team or contact owning this manifest",
+          "type": "string"
+        },
+        "region": {
+          "description": "Geographic region identifier",
+          "type": "string"
         }
-      }
+      },
+      "type": "object"
+    },
+    "version": {
+      "description": "Schema version for this manifest",
+      "enum": [
+        "2.2.0"
+      ],
+      "type": "string"
     }
-  }
+  },
+  "required": [
+    "version",
+    "devices"
+  ],
+  "title": "Device Manifest Schema",
+  "type": "object",
+  "version": "2.2.0"
 }

@@ -18,7 +18,7 @@ readonly AUDIT_LOG
 log_audit() {
   local status="$1"
   local message="$2"
-  
+
   # Structured JSON audit entry
   cat << EOF >> "$AUDIT_LOG"
 {
@@ -34,18 +34,18 @@ EOF
 validate_symlink() {
   local link="$1"
   local target="$2"
-  
+
   if [[ ! -L "$REPO_ROOT/$link" ]]; then
     log_audit "error" "$link is not a symlink"
     echo "❌ ERROR: $link is not a symlink" >&2
     echo "   Fix: ln -s $SHARED_CONFIGS_PATH/$target $REPO_ROOT/$link" >&2
     return 1
   fi
-  
+
   local link_target
   link_target=$(readlink "$REPO_ROOT/$link")
   local expected_target="$SHARED_CONFIGS_PATH/$target"
-  
+
   if [[ "$link_target" != "$expected_target" ]]; then
     log_audit "error" "$link points to incorrect target: $link_target (expected $expected_target)"
     echo "❌ ERROR: $link points to $link_target" >&2
@@ -53,14 +53,14 @@ validate_symlink() {
     echo "   Fix: rm $REPO_ROOT/$link && ln -s $expected_target $REPO_ROOT/$link" >&2
     return 1
   fi
-  
+
   log_audit "success" "$link → $target validated"
   echo "✓ $link → $target"
   return 0
 }
 
 # Cleanup function (invoked via trap)
-# shellcheck disable=SC2329  # Invoked indirectly via trap; ignore SC2329
+# shellcheck disable=SC2329,SC2317  # Invoked indirectly via trap; true intentionally present
 cleanup() {
   # Optional: Remove temporary files if any
   true
@@ -73,13 +73,13 @@ trap 'echo "❌ INTERRUPTED" >&2; exit 130' INT TERM
 # Main execution
 main() {
   local errors=0
-  
+
   echo "========================================"
   echo "Carter Guardian: Symlink Validation"
   echo "Shared configs path: $SHARED_CONFIGS_PATH"
   echo "Repository root: $REPO_ROOT"
   echo "========================================"
-  
+
   # Required symlinks (updated for 160-char line length configs)
   declare -A required_symlinks=(
     [".yamllint"]="linting/.yamllint"
@@ -87,13 +87,13 @@ main() {
     [".pre-commit-config.yaml"]="pre-commit/.pre-commit-config.yaml"
     [".shellcheckrc"]="linting/.shellcheckrc"
   )
-  
+
   for link in "${!required_symlinks[@]}"; do
     if ! validate_symlink "$link" "${required_symlinks[$link]}"; then
       ((errors++))
     fi
   done
-  
+
   if [[ $errors -gt 0 ]]; then
     log_audit "failed" "Validation failed with $errors errors"
     echo "========================================"
@@ -102,7 +102,7 @@ main() {
     echo "========================================"
     exit 1
   fi
-  
+
   log_audit "success" "All symlinks validated successfully"
   echo "========================================"
   echo "✓ Validation Passed: All symlinks valid"

@@ -1,73 +1,89 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Tandem Contract Schema",
   "description": "Contract specification for Tandem protocol implementations",
-  "version": "1.0.0",
-  "type": "object",
-  "required": ["contract_id", "version", "parties"],
   "properties": {
     "contract_id": {
-      "type": "string",
+      "description": "Unique contract identifier",
       "pattern": "^[a-zA-Z0-9_-]+$",
-      "description": "Unique contract identifier"
-    },
-    "version": {
-      "type": "string",
-      "pattern": "^\\d+\\.\\d+\\.\\d+$",
-      "description": "Semantic version of contract"
-    },
-    "parties": {
-      "type": "array",
-      "minItems": 2,
-      "items": {
-        "type": "object",
-        "required": ["name", "role"],
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "Party identifier/name"
-          },
-          "role": {
-            "type": "string",
-            "enum": ["provider", "consumer", "validator"],
-            "description": "Role in tandem relationship"
-          },
-          "endpoint": {
-            "type": "string",
-            "format": "uri",
-            "description": "Service endpoint URL"
-          }
-        }
-      }
+      "type": "string"
     },
     "obligations": {
-      "type": "object",
       "description": "Mutual obligations and SLAs",
       "properties": {
         "availability": {
-          "type": "number",
-          "minimum": 0,
+          "description": "Availability SLA percentage",
           "maximum": 100,
-          "description": "Availability SLA percentage"
-        },
-        "response_time_ms": {
-          "type": "integer",
           "minimum": 0,
-          "description": "Maximum response time in milliseconds"
+          "type": "number"
         },
         "error_rate": {
-          "type": "number",
-          "minimum": 0,
+          "description": "Maximum acceptable error rate percentage",
           "maximum": 100,
-          "description": "Maximum acceptable error rate percentage"
+          "minimum": 0,
+          "type": "number"
+        },
+        "response_time_ms": {
+          "description": "Maximum response time in milliseconds",
+          "minimum": 0,
+          "type": "integer"
         }
-      }
+      },
+      "type": "object"
+    },
+    "parties": {
+      "items": {
+        "properties": {
+          "endpoint": {
+            "description": "Service endpoint URL",
+            "format": "uri",
+            "type": "string"
+          },
+          "name": {
+            "description": "Party identifier/name",
+            "type": "string"
+          },
+          "role": {
+            "description": "Role in tandem relationship",
+            "enum": [
+              "provider",
+              "consumer",
+              "validator"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "role"
+        ],
+        "type": "object"
+      },
+      "minItems": 2,
+      "type": "array"
     },
     "status": {
-      "type": "string",
-      "enum": ["draft", "active", "deprecated", "archived"],
       "default": "draft",
-      "description": "Contract lifecycle status"
+      "description": "Contract lifecycle status",
+      "enum": [
+        "draft",
+        "active",
+        "deprecated",
+        "archived"
+      ],
+      "type": "string"
+    },
+    "version": {
+      "description": "Semantic version of contract",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "type": "string"
     }
-  }
+  },
+  "required": [
+    "contract_id",
+    "version",
+    "parties"
+  ],
+  "title": "Tandem Contract Schema",
+  "type": "object",
+  "version": "1.0.0"
 }

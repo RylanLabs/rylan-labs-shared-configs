@@ -100,7 +100,7 @@ main() {
 
     # Create or switch to update branch
     local branch="chore/shared-configs-$SHARED_CONFIGS_VERSION"
-    git checkout -b "$branch" 2>/dev/null || git checkout "$branch"
+    git checkout -b "$branch" 2> /dev/null || git checkout "$branch"
 
     # Idempotent commit (allow-empty if no changes)
     git commit --allow-empty -m "chore: update to rylanlabs-shared-configs $SHARED_CONFIGS_VERSION

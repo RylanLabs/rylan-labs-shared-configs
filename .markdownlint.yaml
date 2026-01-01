@@ -5,12 +5,25 @@
 # Exclude LICENSE (not markdown, but text file)
 MD041: false
 
+# Allow emphasis as headings (agent specs use for examples)
+MD036: false
+
+# Allow multiple H1 headings (agent specs show examples)
+MD025: false
+
+# Allow ordered list with invalid prefixes (examples)
+MD029: false
+
+# Allow missing code fence language (agent specs show examples of violations)
+MD040: false
+
 # Line length - doubled from default 80 to 160
 MD013:
   line_length: 160
   heading_line_length: 160
   code_block_line_length: 160
   tables: false
+  code_blocks: false
 
 # Allow inline HTML for special cases
 MD033: false

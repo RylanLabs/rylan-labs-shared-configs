@@ -107,6 +107,7 @@ git push origin main
 **Problem**: `install-to-repo.sh` creates symlinks, but Windows doesn't support them natively.
 
 **Solution**: Use WSL2 or Git Bash:
+
 ```bash
 # In WSL2 or Git Bash
 /mnt/c/path/to/repo $ bash ../rylan-labs-shared-configs/scripts/install-to-repo.sh . ../rylan-labs-shared-configs
@@ -135,6 +136,7 @@ git commit --no-verify -m "WIP: addressing pre-commit violations"
 **Problem**: Symlinks don't resolve to the correct targets.
 
 **Solution**:
+
 ```bash
 # Check current symlinks
 ls -la .yamllint pyproject.toml .pre-commit-config.yaml

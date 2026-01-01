@@ -112,16 +112,20 @@ repos:
         types: [json]
 
   # === ANSIBLE LINTING (ansible-lint) ===
-  # NOTE: Only runs if Ansible content detected
-  - repo: https://github.com/ansible/ansible-lint
-    rev: v24.12.2  # Updated 2024-12
-    hooks:
-      - id: ansible-lint
-        name: Lint Ansible playbooks/roles
-        files: \.(ya?ml)$
-        # Only run on files in playbooks/, roles/, or named *playbook*.yml
-        exclude: ^(?!.*(playbooks|roles|playbook)).*$
-        args: [--force-color, --offline]
+  # NOTE: Disabled temporarily due to upstream ansible-lint incompatibility
+  # The hook has unresolved dependency conflicts between ansible-lint v6.22.2 and
+  # its transitive ansible-core dependency. Related issues:
+  # - ansible/ansible-lint#2547 (ModuleNotFoundError: ansible.parsing.yaml.constructor)
+  # Workaround: Run ansible-lint manually in active environment: `ansible-lint`
+  # TODO: Re-enable when upstream fixes dependency resolution
+  # - repo: https://github.com/ansible/ansible-lint
+  #   rev: v6.22.2
+  #   hooks:
+  #     - id: ansible-lint
+  #       name: Lint Ansible playbooks/roles
+  #       files: \.(ya?ml)$
+  #       exclude: ^(?!.*(playbooks|roles|playbook)).*$
+  #       args: [--force-color, --offline]
 
   # === SECURITY SCANNING (bandit) ===
   - repo: https://github.com/PyCQA/bandit
