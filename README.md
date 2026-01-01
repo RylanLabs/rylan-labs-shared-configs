@@ -1,6 +1,6 @@
 # rylan-labs-shared-configs
 
-**Canonical Tier 0 Foundation for Standards & Compliance Across RylanLabs**
+## Canonical Tier 0 Foundation for Standards & Compliance Across RylanLabs
 
 ```bash
  ████████████████████████████████████████ STANDARDS MANIFEST ████████████████████████████████████████

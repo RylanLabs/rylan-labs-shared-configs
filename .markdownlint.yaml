@@ -2,6 +2,9 @@
 # Guardian: Carter | Ministry: Standards
 # Maturity: v1.0.1
 
+# Exclude LICENSE (not markdown, but text file)
+MD041: false
+
 # Line length - doubled from default 80 to 160
 MD013:
   line_length: 160

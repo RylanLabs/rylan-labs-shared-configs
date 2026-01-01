@@ -1,15 +1,16 @@
 # Markdown Style Guide - RylanLabs Canonical Standards
 
-**Guardian**: Carter (Identity/Standards)  
-**Version**: 1.0.0  
-**Date**: 2025-12-31  
+**Guardian**: Carter (Identity/Standards)
+**Version**: 1.0.0
+**Date**: 2025-12-31
 **Compliance**: markdownlint ✓ | Seven Pillars ✓
 
 ---
 
 ## Overview
 
-This document defines the canonical markdown formatting standards for all RylanLabs repositories. These rules ensure consistent, lint-compliant documentation across the organization.
+This document defines the canonical markdown formatting standards for all RylanLabs repositories.
+These rules ensure consistent, lint-compliant documentation across the organization.
 
 ## Table Formatting (MD060)
 
@@ -131,17 +132,17 @@ Content starts after blank line.
 
 **❌ INCORRECT**:
 
-```markdown
+````markdown
 Paragraph before code.
 ```bash
 command here
 ```
 Paragraph after code.
-```
+````
 
 **✅ CORRECT**:
 
-```markdown
+````markdown
 Paragraph before code.
 
 ```bash
@@ -149,7 +150,7 @@ command here
 ```
 
 Paragraph after code.
-```
+````
 
 ### Rule: Language Specification (MD040)
 
@@ -157,15 +158,21 @@ Paragraph after code.
 
 **❌ INCORRECT**:
 
-````text
+`````text
+````markdown
+
 ```
 code without language
 ```
+
 ````
+`````
 
 **✅ CORRECT**:
 
-````text
+`````text
+````markdown
+
 ```bash
 echo "Bash code"
 ```
@@ -384,5 +391,5 @@ For any RylanLabs repository adopting these standards:
 
 ---
 
-**Guardian**: Carter | **Maturity**: v1.0.1  
+**Guardian**: Carter | **Maturity**: v1.0.1
 **Status**: CANONICAL ✓ | **Compliance**: markdownlint ✓
