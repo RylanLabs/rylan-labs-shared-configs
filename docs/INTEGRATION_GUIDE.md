@@ -82,7 +82,7 @@ pre-commit run --all-files
 
 # 7. Address any pre-commit failures
 # Fix violations in your code, then re-run:
-# pre-commit run --all-files
+pre-commit run --all-files
 
 # 8. Commit the migration
 git add .yamllint pyproject.toml .pre-commit-config.yaml .editorconfig .shellcheckrc
