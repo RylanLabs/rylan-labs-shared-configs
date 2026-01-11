@@ -47,3 +47,12 @@ name = "cz_conventional_commits"
 version = "1.0.0"
 tag_format = "v$version"
 version_files = ["linting/pyproject.toml:version"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101"]  # Allow assert in tests (pytest convention)
+"**/test_*.py" = ["S101"]   # Allow assert in test files
+"*/tests/*" = ["S101"]      # Allow assert in any tests directory
+
+[[tool.mypy.overrides]]
+module = "pytest.*"
+ignore_missing_imports = true

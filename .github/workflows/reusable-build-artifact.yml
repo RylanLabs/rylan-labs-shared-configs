@@ -1,0 +1,95 @@
+---
+# Reusable Workflow: Build & Artifact
+# Purpose: Build Ansible collection and validate with smoke test
+# Guardian: Bauer (Verification) | Ministry: Verification
+# Compliance: Seven Pillars ✓ | Trinity ✓ | Hellodeolu v6 ✓
+
+name: Reusable Build & Artifact
+
+on:
+  workflow_call:
+    inputs:
+      python_version:
+        description: 'Python version to use'
+        required: false
+        type: string
+        default: '3.11'
+
+jobs:
+  # Job 1: Build collection tarball
+  build-collection:
+    name: Build Collection
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      tarball: ${{ steps.build.outputs.tarball }}
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ inputs.python_version }}
+
+      - name: Install ansible-core
+        run: |
+          pip install --no-cache-dir ansible-core
+
+      - name: Extract version from galaxy.yml
+        id: version
+        run: |
+          VERSION=$(grep "^version:" galaxy.yml | awk '{print $2}')
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "Version: ${VERSION}"
+
+      - name: Build collection
+        id: build
+        run: |
+          echo "Building collection..."
+          ansible-galaxy collection build --force --output-path ./build/
+          TARBALL=$(ls build/*.tar.gz | head -1)
+          TARBALL_NAME=$(basename "$TARBALL")
+          echo "tarball=${TARBALL_NAME}" >> $GITHUB_OUTPUT
+          [ -f "$TARBALL" ] || (echo "Build failed"; exit 1)
+          echo "✓ Collection built"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: collection-build
+          path: build/*.tar.gz
+          retention-days: 30
+
+  # Job 2: Smoke test
+  smoke-test:
+    name: Smoke Test
+    needs: build-collection
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ inputs.python_version }}
+
+      - name: Install ansible-core
+        run: |
+          pip install --no-cache-dir ansible-core
+
+      - name: Download collection artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: collection-build
+          path: ./artifacts/
+
+      - name: Install and verify collection
+        run: |
+          TARBALL=$(ls artifacts/*.tar.gz | head -1)
+          echo "Installing from: $TARBALL"
+          ansible-galaxy collection install "$TARBALL" --force
+          ansible-galaxy collection list | grep -E "rylanlab|rylanlabs"
+          COLLECTION_PATH=$(find ~/.ansible/collections -type d \( -name "common" -o -name "*network*" \) | head -1)
+          [ -d "$COLLECTION_PATH" ] || exit 1
+          echo "✓ Collection verified"

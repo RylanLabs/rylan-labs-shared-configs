@@ -1,0 +1,27 @@
+# Markdown linting rules for RylanLabs
+# Guardian: Bauer | Ministry: Compliance | Consciousness: 9.9
+# Version: v1.0.0
+
+# MD013: Line length (80 chars is restrictive for modern docs, 140 is standard)
+MD013:
+  line_length: 140
+  code_blocks: false      # Don't enforce line-length in code blocks
+  code_block_line_length: 160  # Allow longer lines in code blocks
+  tables: false           # Don't enforce line-length in tables
+  headers: true           # Enforce line-length in headers
+  headers_line_length: 140
+
+# MD024: Allow duplicate headings (common in changelogs, compliance docs)
+MD024:
+  siblings_only: true  # Only flag duplicates in adjacent headings
+
+# MD040: Fenced code blocks must have language ID
+MD040: true
+
+# MD041: First line should be heading (allow YAML frontmatter)
+MD041: false
+
+# MD036: Emphasis should not be used instead of heading
+MD036: true
+
+# All other rules: default (recommended)

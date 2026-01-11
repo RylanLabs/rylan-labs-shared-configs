@@ -67,6 +67,7 @@ repos:
           - types-PyYAML
           - types-requests
           - types-setuptools
+          - pytest
 
   # === BASH LINTING (shellcheck) ===
   - repo: https://github.com/shellcheck-py/shellcheck-py
