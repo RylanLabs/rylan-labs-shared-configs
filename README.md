@@ -1,15 +1,32 @@
-# rylan-labs-shared-configs
+# RylanLabs Shared Configs README
 
-## Canonical Tier 0 Foundation for Standards & Compliance Across RylanLabs
+<!-- markdownlint-disable -->
 
-```bash
- ████████████████████████████████████████ STANDARDS MANIFEST ████████████████████████████████████████
- Guardian: Carter (Identity/Standards Enforcement)
- Ministry: Foundation
- Version: v1.0.0
- Compliance: T3-ETERNAL v∞.5.3, Seven Pillars, Hellodeolu v6
- Maturity: v1.0.1
-```bash
+> Canonical README — RylanLabs Standard
+> Repository: rylan-labs-shared-configs
+> Version: v1.2.0-canon-integrated
+> Date: 2026-01-14
+> Guardian: Carter (Identity/Standards Enforcement)
+> Ministry: Foundation (Tier 0)
+> Consciousness: 9.9
+> Compliance: Hellodeolu v6, Seven Pillars, Trinity Pattern
+> Status: PRODUCTION-READY
+
+---
+
+## Purpose
+
+Tier 0 foundation enforcing single source of truth for linting configs, pre-commit hooks, reusable CI workflows, and schemas across RylanLabs repositories. Eliminates duplication (600% linting, 70% CI overlap) through symlink distribution. Dual-role: Consumes canon enforcement (disciplines/validators) while sourcing linting standards downstream. Supports junior-at-3-AM deployment with zero-drift validation.
+
+**Objectives**:
+- 100% consistency via symlinks.
+- RTO <15min for updates (audit-canon.sh).
+- No-bypass: Pre-commit gates, human confirm for overrides.
+
+**Trinity Alignment**:
+- Carter (Identity): Enforces config naming/standards.
+- Bauer (Verification): Audits symlinks/compliance.
+- Beale (Hardening): Secures linting/CI for minimal attack surface.
 
 ---
 
@@ -19,10 +36,11 @@
 |---------|---------|
 | 📖 [README.md](./docs/README.md) | Complete documentation & architecture |
 | 🚀 [INTEGRATION_GUIDE.md](./docs/INTEGRATION_GUIDE.md) | Installation & troubleshooting |
-| 🔗 [SYMLINK_SETUP.md](./docs/SYMLINK_SETUP.md) | Symlink mechanics & best practices |
+| 🔗 [CANON-INTEGRATION.md](./docs/CANON-INTEGRATION.md) | Dual-role architecture details |
 | 📝 [CHANGELOG.md](./docs/CHANGELOG.md) | Version history & release notes |
-| ⚙️ [linting/](./linting/) | Shared linting configurations |
-| 🎯 [.github/workflows/](./.github/workflows/) | Reusable CI workflows |
+| ⚙️ [.yamllint](./.yamllint) | Shared YAML standards (SOURCE role) |
+| ⚙️ [pyproject.toml](./pyproject.toml) | Python: mypy & ruff standards |
+| 🎯 [.github/workflows/](./.github/workflows/) | Reusable CI workflows (SOURCE role) |
 | 📦 [schemas/](./schemas/) | JSON validation schemas |
 | 🛠️ [scripts/](./scripts/) | Installation & maintenance utilities |
 
@@ -30,20 +48,18 @@
 
 ## One-Minute Overview
 
-**Problem**: 600% linting config duplication & 70% CI workflow overlap across repositories.
+**Problem**: Duplication in linting configs and CI workflows across repos leads to drift and maintenance overhead.
 
-**Solution**: Tier 0 foundation providing **single source of truth** for:
-- Linting configs (.yamllint, pyproject.toml, .shellcheckrc, .editorconfig)
-- Pre-commit hooks (via symlinks)
-- Reusable GitHub Actions workflows
-- Infrastructure schemas
+**Solution**: Tier 0 repo as dual-role hub:
+- **Consumer**: Symlinks to canon-library for disciplines/validators.
+- **Source**: Provides linting configs/CI templates to downstream repos.
 
 **Installation** (30 seconds):
 ```bash
-../rylan-labs-shared-configs/scripts/install-to-repo.sh . ../rylan-labs-shared-configs
+scripts/install-to-repo.sh . ../rylan-labs-shared-configs
 pre-commit install && pre-commit run --all-files
-git add -A && git commit -m "feat: integrate rylan-labs-shared-configs v1.0.0"
-```bash
+git add -A && git commit -m "feat: integrate shared-configs v1.2.0-canon-integrated"
+```
 
 ---
 
@@ -51,67 +67,70 @@ git add -A && git commit -m "feat: integrate rylan-labs-shared-configs v1.0.0"
 
 ```bash
 rylan-labs-shared-configs/
-├── linting/                    # Symlink targets for configs
-│   ├── .yamllint              # YAML linting (160-char max)
-│   ├── pyproject.toml         # Python: mypy --strict, ruff
-│   ├── .shellcheckrc          # Bash linting
-│   └── .editorconfig          # IDE standards
-├── pre-commit/
-│   └── .pre-commit-config.yaml # Gatekeeper v∞.5.2 hooks
-├── .github/workflows/          # Reusable CI workflows
+├── .yamllint              # Shared YAML standards (SOURCE role)
+├── pyproject.toml         # Shared Python standards: mypy, ruff
+├── .pre-commit-config.yaml # Shared Gatekeeper hooks
+├── .shellcheckrc          # Shared Bash standards
+├── .editorconfig          # Shared IDE standards
+├── .markdownlint.json     # [CONSUMER Symlink] Markdown standards
+├── ansible.cfg            # [CONSUMER Symlink] Ansible configuration
+├── .github/workflows/     # Reusable CI workflows (SOURCE role)
 │   ├── reusable-trinity-ci.yml
 │   ├── reusable-python-validate.yml
 │   ├── reusable-bash-validate.yml
 │   ├── reusable-ansible-lint.yml
 │   └── self-validate.yml
-├── schemas/                    # JSON schemas
+├── schemas/               # JSON schemas (SOURCE role)
 │   ├── device-manifest-v2.2.0.json
 │   └── tandem-contract-v1.0.0.json
-├── scripts/                    # Utilities
-│   ├── validate-symlinks.sh
-│   ├── install-to-repo.sh
-│   └── update-all-repos.sh
-├── docs/                       # Documentation
-│   ├── README.md
-│   ├── INTEGRATION_GUIDE.md
-│   ├── SYMLINK_SETUP.md
-│   └── CHANGELOG.md
-├── .audit/                     # Audit trail (future)
-├── LICENSE                     # MIT
-├── .gitignore
-└── README.md (this file)
-```bash
+├── scripts/               # Utilities
+│   ├── install-to-repo.sh # SOURCE: Deployment script
+│   ├── update-all-repos.sh # SOURCE: Propagation utility
+│   ├── validate-symlinks.sh # SOURCE: Consistency auditor
+│   ├── validate-yaml.sh   # [CONSUMER Symlink] YAML auditor
+│   ├── validate-bash.sh   # [CONSUMER Symlink] Shell auditor
+│   ├── validate-ansible.sh # [CONSUMER Symlink] Ansible auditor
+│   ├── validate-python.sh # [CONSUMER Symlink] Python auditor
+│   └── ... (6+ other canonical validators)
+├── docs/                  # Documentation
+│   ├── CANON-INTEGRATION.md # Dual-role architecture details
+│   ├── README.md         # Complete docs center
+│   ├── SYMLINK_SETUP.md  # Symlink mechanics
+│   └── CHANGELOG.md      # Phase-aligned history
+├── .audit/                # Audit trail & archived drafts
+└── README.md              # Root documentation (this file)
+```
 
 ---
 
 ## Key Features
 
 ### 🔗 **Symlink-Based Distribution**
-- Single update → all repos automatically inherit changes
-- Zero duplication, 100% consistency
-- Git tracks symlinks as lightweight pointers
+- Single update propagates changes org-wide.
+- Zero duplication, enforced consistency.
+- Git tracks symlinks as pointers for auditability.
 
 ### ⚡ **Reusable CI Workflows**
 ```yaml
-# Your repo's .github/workflows/ci.yml
+# Example in downstream .github/workflows/ci.yml
 jobs:
   validate:
     uses: RylanLabs/rylan-labs-shared-configs/.github/workflows/reusable-trinity-ci.yml@main
     with:
       python_version: '3.11'
       bash_paths: 'scripts'
-```bash
+```
 
 ### 📋 **Strict Linting Defaults**
-- **mypy**: `--strict` mode, comprehensive type checking
-- **ruff**: E, W, F, I, B, C4, UP, D, S, BLE rule sets (with security)
-- **yamllint**: 160-char line limit, infrastructure-ready
-- **shellcheck**: All optional checks enabled
+- **mypy**: --strict for type safety.
+- **ruff**: E, W, F, I, B, C4, UP, D, S, BLE (security-focused).
+- **yamllint**: 160-char limit, infrastructure standards.
+- **shellcheck**: All checks enabled.
 
 ### 🛡️ **Compliance Ready**
-- ✓ Seven Pillars (Idempotency, Error Handling, Functionality, Audit, Recovery, Security, Documentation)
-- ✓ Hellodeolu v6 (RTO <15min, Junior-Deployable, Human Confirm, Zero PII)
-- ✓ T3-ETERNAL standards
+- ✓ Seven Pillars: Idempotent updates, error handling in scripts.
+- ✓ Hellodeolu v6: RTO <15min, junior-deployable.
+- ✓ T3-ETERNAL: Guardian-tagged changes.
 
 ---
 
@@ -127,52 +146,81 @@ git init && git branch -M main
 ../rylan-labs-shared-configs/scripts/install-to-repo.sh . ../rylan-labs-shared-configs
 
 pre-commit install && pre-commit run --all-files
-git add -A && git commit -m "feat: bootstrap with shared-configs v1.0.0"
-```bash
+git add -A && git commit -m "feat: bootstrap with shared-configs v1.2.0-canon-integrated"
+```
 
 ### Existing Repository
 ```bash
-# Backup current configs
+# Backup configs
 mkdir .backup-configs
 cp .yamllint .pre-commit-config.yaml .backup-configs/ 2>/dev/null || true
 
-# Install shared-configs
+# Install
 ../rylan-labs-shared-configs/scripts/install-to-repo.sh . ../rylan-labs-shared-configs
 
-# Validate & test
+# Validate
 ../rylan-labs-shared-configs/scripts/validate-symlinks.sh ../rylan-labs-shared-configs .
 pre-commit run --all-files
 
 # Commit
 git add .yamllint pyproject.toml .pre-commit-config.yaml
-git commit -m "refactor: migrate to rylan-labs-shared-configs v1.0.0"
-```bash
+git commit -m "refactor: migrate to shared-configs v1.2.0-canon-integrated"
+```
 
 ---
 
 ## Canon Integration (Tier 0 Enforcement)
 
-**Status**: ✅ Integrated with rylan-canon-library v2.0.0 (2026-01-14)
+**Status**: ✅ Integrated with rylan-canon-library v2.0.0 (2026-01-14).
 
-### Dual Role Architecture
+### Dual-Role Architecture Explained
 
-Shared-configs serves **two roles** in the RylanLabs ecosystem:
+Shared-configs operates in dual-role: Consumes enforcement from canon-library (Tier 0 upstream) while sourcing linting/CI standards to downstream repos (Tier 1-3). Ensures zero-drift via symlinks and validation.
 
-1. **Consumer of Canon Enforcement**
-   - Inherits disciplines (vault, rotation, security, network, API, playbook)
-   - Symlinks to canon validation scripts (14 immutable symlinks)
-   - Validated via `audit-canon.sh` for zero-drift
+**Visual Representation**:
 
-2. **Source of Linting Configs**
-   - Provides `.yamllint` to all downstream repos (labs-common, iac, network-iac)
-   - Provides `pyproject.toml` and `.shellcheckrc` for org-wide consistency
-   - Is the authority on linting standards across Tier 1-3
+```mermaid
+graph TD
+    subgraph Tier0_Enforcement [rylan-canon-library v2.0.0]
+        direction TB
+        Disciplines[Disciplines: vault, rotation, security, network, API]
+        Validators[Validators: bash, yaml, python, ansible, playbook]
+    end
+
+    Tier0_Enforcement -- "14 symlinks (CONSUMER role)" --> Tier0_Source
+
+    subgraph Tier0_Source [rylan-labs-shared-configs v1.2-integrated]
+        direction TB
+        subgraph Consumer_Role [CONSUMER ROLE]
+            C1[docs/*.md]
+            C2[scripts/validate-*]
+        end
+        subgraph Source_Role [SOURCE ROLE]
+            S1[.yamllint]
+            S2[pyproject.toml]
+            S3[.shellcheckrc]
+        end
+    end
+
+    Tier0_Source -- "Downstream symlinks (SOURCE role)" --> Tier1_3
+
+    subgraph Tier1_3 [Downstream Repos (Tier 1-3)]
+        direction LR
+        R1[labs-common]
+        R2[labs-iac]
+        R3[network-iac]
+        R4[inventory]
+    end
+
+    style Tier0_Enforcement fill:#f9f,stroke:#333,stroke-width:2px
+    style Tier0_Source fill:#bbf,stroke:#333,stroke-width:2px
+    style Tier1_3 fill:#dfd,stroke:#333,stroke-width:2px
+```
 
 ### Documentation
-
-- **[CANON-INTEGRATION.md](./docs/CANON-INTEGRATION.md)** - Complete architecture, symlink map, sync process
-- **[Canon Library](https://github.com/RylanLabs/rylan-canon-library)** (v2.0.0) - Tier 0 enforcement engine
-- **[.canon-metadata.yml](./.canon-metadata.yml)** - Integration metadata & overrides
+- **[CANON-INTEGRATION.md](./docs/CANON-INTEGRATION.md)**: Architecture, symlink map, sync process.
+- **[Canon Library](https://github.com/RylanLabs/rylan-canon-library)** (v2.0.0): Tier 0 enforcement engine.
+- **[.canon-metadata.yml](./.canon-metadata.yml)**: Integration metadata & overrides.
 
 ### Key Components
 
@@ -190,7 +238,7 @@ Shared-configs serves **two roles** in the RylanLabs ecosystem:
 Your symlinks continue to work unchanged:
 ```bash
 # Existing downstream repo symlink (e.g., rylan-labs-common)
-.yamllint → ../rylanlabs-shared-configs/linting/.yamllint
+.yamllint → ../rylan-labs-shared-configs/linting/.yamllint
 # Still resolves correctly (linting config source unchanged)
 ```
 
@@ -198,11 +246,11 @@ Your symlinks continue to work unchanged:
 
 ## Documentation
 
-- **[README.md](./docs/README.md)** - Architecture, workflows, maintenance
-- **[INTEGRATION_GUIDE.md](./docs/INTEGRATION_GUIDE.md)** - Installation steps & troubleshooting
-- **[CANON-INTEGRATION.md](./docs/CANON-INTEGRATION.md)** - Canon v2.0.0 dual-role architecture
-- **[SYMLINK_SETUP.md](./docs/SYMLINK_SETUP.md)** - Symlink mechanics & platform guides
-- **[CHANGELOG.md](./docs/CHANGELOG.md)** - Version history & release notes
+- **[README.md](./docs/README.md)**: Architecture, workflows, maintenance.
+- **[INTEGRATION_GUIDE.md](./docs/INTEGRATION_GUIDE.md)**: Installation steps & troubleshooting.
+- **[CANON-INTEGRATION.md](./docs/CANON-INTEGRATION.md)**: Canon v2.0.0 dual-role architecture.
+- **[SYMLINK_SETUP.md](./docs/SYMLINK_SETUP.md)**: Symlink mechanics & platform guides.
+- **[CHANGELOG.md](./docs/CHANGELOG.md)**: Version history & release notes.
 
 ---
 
@@ -212,7 +260,7 @@ Your symlinks continue to work unchanged:
 |--------|---------|
 | **Guardian** | Carter (Identity/Standards Enforcement) |
 | **Ministry** | Foundation (Tier 0) |
-| **Version** | v1.0.0 |
+| **Version** | v1.2.0-canon-integrated |
 | **Compliance** | T3-ETERNAL v∞.5.3, Seven Pillars, Hellodeolu v6 |
 | **Maturity** | v1.0.1 |
 
@@ -222,19 +270,22 @@ Your symlinks continue to work unchanged:
 
 **Issues or questions?**
 
-1. Check [INTEGRATION_GUIDE.md](./docs/INTEGRATION_GUIDE.md) troubleshooting section
-2. Review [SYMLINK_SETUP.md](./docs/SYMLINK_SETUP.md) for platform-specific help
-3. Open a GitHub issue with tag: `shared-configs`, `foundation`
-4. Contact Foundation Ministry: Carter
+1. Check [INTEGRATION_GUIDE.md](./docs/INTEGRATION_GUIDE.md) troubleshooting section.
+2. Review [SYMLINK_SETUP.md](./docs/SYMLINK_SETUP.md) for platform-specific help.
+3. Open a GitHub issue with tag: `shared-configs`, `foundation`.
+4. Contact Foundation Ministry: Carter.
 
 ---
 
 ## License
 
-MIT License - See [LICENSE](./LICENSE)
+MIT License - See [LICENSE](./LICENSE).
 
 ---
 
-**Last Updated**: 2025-12-30
+**Last Updated**: 2026-01-14
 **Maintained By**: RylanLabs Foundation Ministry
 **Repository**: <https://github.com/RylanLabs/rylan-labs-shared-configs>
+
+No bypass. No shortcuts. No exceptions.
+The canon is law. The Trinity endures. The fortress stands eternal.

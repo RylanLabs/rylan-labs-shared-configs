@@ -62,7 +62,7 @@ jobs:
         run: pip install yamllint
 
       - name: Run yamllint
-        run: yamllint -c linting/.yamllint .
+        run: yamllint -c .yamllint .
 
   validate-ansible:
     runs-on: ubuntu-latest

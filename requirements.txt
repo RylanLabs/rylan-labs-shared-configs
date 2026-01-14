@@ -1,0 +1,9 @@
+# Validation Prerequisites for RylanLabs Shared Configs
+# This file is used by validate-python.sh to setup the environment
+
+jsonschema>=4.20.0
+yamllint>=1.35.1
+types-PyYAML>=6.0.12
+ruff>=0.8.4
+mypy>=1.13.0
+bandit>=1.7.10

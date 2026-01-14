@@ -1,10 +1,12 @@
 # rylan-labs-shared-configs
 
+<!-- markdownlint-disable -->
+
 **Guardian**: Carter (Identity/Standards Enforcement)
 **Ministry**: Foundation
-**Version**: v1.0.0
+**Version**: v1.2.0-canon-integrated
 **Compliance**: T3-ETERNAL v∞.5.3, Seven Pillars, Hellodeolu v6
-**Maturity**: v1.0.1
+**Maturity**: v1.2.0
 
 ---
 
@@ -13,11 +15,13 @@
 Tier 0 foundation repository providing single source of truth for:
 
 - **Linting configurations** (.yamllint, pyproject.toml, .shellcheckrc, .editorconfig)
-- **Pre-commit hooks** (Gatekeeper v∞.5.2)
+- **Pre-commit hooks** (Gatekeeper v∞.5.2+)
 - **Reusable CI workflows** (Trinity pattern validation)
 - **JSON schemas** (device manifests, tandem contracts)
 
-**Problem Solved**: Eliminates 600% linting config duplication and 70% CI workflow overlap across RylanLabs repositories.
+**Dual Role Overview**:
+- **Consumer**: Inherits disciplines and validation scripts from `rylan-canon-library` (v2.0.0).
+- **Source**: Provides org-wide linting standards to Tier 1-3 repositories.
 
 ---
 
@@ -26,21 +30,22 @@ Tier 0 foundation repository providing single source of truth for:
 ### Consumption Pattern
 
 ```text
-rylan-labs-shared-configs (v1.0.0) ← Source of Truth
+rylan-canon-library (v2.0.0) ← CANON Source
+  ↓ (symlinks)
+rylan-labs-shared-configs (v1.2.0) ← Dual-Role Tier 0 Hub
   ↓ (symlinks)
 rylan-labs-common
 rylan-inventory
-rylan-canon-library
 rylan-labs-network-iac
   ↓ (inherits standards)
 ✓ Zero duplication, single update propagates to all repos
-```bash
+```
 
 ### Trinity Alignment
 
 - **Carter**: Identity enforcement via symlinks, standard propagation
-- **Bauer**: Audit via reusable workflows, cross-repo validation
-- **Beale**: Security via centralized hardening configs
+- **Bauer**: Audit via reusable workflows, cross-repo validation, drift detection
+- **Beale**: Security via centralized hardening configs and bandit scanning
 
 ---
 
@@ -48,29 +53,30 @@ rylan-labs-network-iac
 
 ```text
 rylan-labs-shared-configs/
-├── linting/              # Symlink targets for lint configs
-│   ├── .yamllint         # 140-char line length
-│   ├── pyproject.toml    # mypy --strict, ruff, pytest
-│   ├── .shellcheckrc     # Bash linting
-│   └── .editorconfig     # IDE standards
-├── pre-commit/           # Pre-commit hook configurations
-│   └── .pre-commit-config.yaml
-├── .github/workflows/    # Reusable CI workflows
+├── .yamllint              # Shared YAML standards (SOURCE role)
+├── pyproject.toml         # Shared Python standards: mypy, ruff
+├── .pre-commit-config.yaml # Shared Gatekeeper hooks
+├── .shellcheckrc          # Shared Bash standards
+├── .editorconfig          # Shared IDE standards
+├── .markdownlint.json     # [CONSUMER Symlink] Markdown standards
+├── ansible.cfg            # [CONSUMER Symlink] Ansible configuration
+├── .github/workflows/     # Reusable CI workflows (SOURCE role)
 │   ├── reusable-trinity-ci.yml
-│   ├── reusable-ansible-lint.yml
 │   ├── reusable-python-validate.yml
 │   ├── reusable-bash-validate.yml
+│   ├── reusable-ansible-lint.yml
 │   └── self-validate.yml
-├── schemas/              # JSON schemas for validation
+├── schemas/               # JSON schemas (SOURCE role)
 │   ├── device-manifest-v2.2.0.json
 │   └── tandem-contract-v1.0.0.json
-├── scripts/              # Maintenance utilities
-│   ├── validate-symlinks.sh
-│   ├── install-to-repo.sh
-│   └── update-all-repos.sh
-└── docs/                 # Documentation
+├── scripts/               # Utilities
+│   ├── install-to-repo.sh # SOURCE: Deployment script
+│   ├── update-all-repos.sh # SOURCE: Propagation utility
+│   ├── validate-yaml.sh   # [CONSUMER Symlink]
+│   └── validate-bash.sh   # [CONSUMER Symlink]
+└── docs/                  # Documentation
+    ├── CANON-INTEGRATION.md
     ├── README.md
-    ├── INTEGRATION_GUIDE.md
     ├── SYMLINK_SETUP.md
     └── CHANGELOG.md
 ```

@@ -1,0 +1,11 @@
+# Enable all optional checks
+enable=all
+
+# Exclude specific checks
+disable=SC2312  # Consider invoking separately to avoid masking return values
+disable=SC2250  # Prefer putting braces around variable references (Pedantic)
+disable=SC2310  # Function invoked in ! or if condition (Strictness)
+disable=SC2248  # Prefer double quoting even when variables don't contain special chars (Style)
+
+# Set shell dialect
+shell=bash

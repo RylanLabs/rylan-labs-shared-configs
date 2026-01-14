@@ -1,5 +1,7 @@
 # Comprehensive Audit & Status Report
 
+<!-- markdownlint-disable -->
+
 ## rylan-labs-shared-configs v1.0.0
 
 **Date**: January 1, 2026

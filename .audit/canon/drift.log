@@ -18,3 +18,96 @@
 [2026-01-14 14:08:08] [MISSING] "pyproject.toml"
 [2026-01-14 14:08:08] [MISSING] ".markdownlint.json"
 [2026-01-14 14:08:08] ERROR: Drift detected in Sacred files. Run sync-canon.sh to remediate.
+[2026-01-14 15:05:31] Starting Canon Drift Audit...
+[2026-01-14 15:05:32] [MISSING] "docs/ansible-vault-discipline.md"
+[2026-01-14 15:05:32] [MISSING] "ansible.cfg"
+[2026-01-14 15:05:32] [MISSING] ".yamllint"
+[2026-01-14 15:05:32] [MISSING] "docs/api-coverage-discipline.md"
+[2026-01-14 15:05:33] [MISSING] "scripts/track-endpoint-coverage.py"
+[2026-01-14 15:05:33] [MISSING] "docs/network-versioning-discipline.md"
+[2026-01-14 15:05:33] [MISSING] "group_vars/network_scheme.yml"
+[2026-01-14 15:05:33] [MISSING] "scripts/playbook-structure-linter.py"
+[2026-01-14 15:05:34] [MISSING] "docs/trinity-execution.md"
+[2026-01-14 15:05:34] [MISSING] "docs/rotation-discipline.md"
+[2026-01-14 15:05:34] [MISSING] "scripts/validate-rotation-readiness.sh"
+[2026-01-14 15:05:34] [MISSING] "scripts/validate-security-posture.sh"
+[2026-01-14 15:05:35] [MISSING] "docs/security-posture-discipline.md"
+[2026-01-14 15:05:38] [MISSING] ".pre-commit-config.yaml"
+[2026-01-14 15:05:38] [MISSING] "scripts/validate-bash.sh"
+[2026-01-14 15:05:38] [MISSING] "scripts/validate-ansible.sh"
+[2026-01-14 15:05:38] [MISSING] "pyproject.toml"
+[2026-01-14 15:05:39] [MISSING] ".markdownlint.json"
+[2026-01-14 15:05:39] ERROR: Drift detected in Sacred files. Run sync-canon.sh to remediate.
+[2026-01-14 15:06:52] Starting Canon Drift Audit...
+[2026-01-14 15:06:53] [MISSING] "docs/ansible-vault-discipline.md"
+[2026-01-14 15:06:53] [MISSING] "ansible.cfg"
+[2026-01-14 15:06:53] [MISSING] ".yamllint"
+[2026-01-14 15:06:54] [MISSING] "docs/api-coverage-discipline.md"
+[2026-01-14 15:06:54] [MISSING] "scripts/track-endpoint-coverage.py"
+[2026-01-14 15:06:54] [MISSING] "docs/network-versioning-discipline.md"
+[2026-01-14 15:06:54] [MISSING] "group_vars/network_scheme.yml"
+[2026-01-14 15:06:55] [MISSING] "scripts/playbook-structure-linter.py"
+[2026-01-14 15:06:55] [MISSING] "docs/trinity-execution.md"
+[2026-01-14 15:06:55] [MISSING] "docs/rotation-discipline.md"
+[2026-01-14 15:06:55] [MISSING] "scripts/validate-rotation-readiness.sh"
+[2026-01-14 15:06:56] [MISSING] "scripts/validate-security-posture.sh"
+[2026-01-14 15:06:56] [MISSING] "docs/security-posture-discipline.md"
+[2026-01-14 15:06:56] [MISSING] ".pre-commit-config.yaml"
+[2026-01-14 15:06:56] [MISSING] "scripts/validate-bash.sh"
+[2026-01-14 15:06:57] [MISSING] "scripts/validate-ansible.sh"
+[2026-01-14 15:06:57] [MISSING] "pyproject.toml"
+[2026-01-14 15:06:57] [MISSING] ".markdownlint.json"
+[2026-01-14 15:06:57] ERROR: Drift detected in Sacred files. Run sync-canon.sh to remediate.
+[2026-01-14 15:07:01] Starting Canon Drift Audit...
+[2026-01-14 15:07:02] [MISSING] "docs/ansible-vault-discipline.md"
+[2026-01-14 15:07:02] [MISSING] "ansible.cfg"
+[2026-01-14 15:07:02] [MISSING] ".yamllint"
+[2026-01-14 15:07:02] [MISSING] "docs/api-coverage-discipline.md"
+[2026-01-14 15:07:03] [MISSING] "scripts/track-endpoint-coverage.py"
+[2026-01-14 15:07:03] [MISSING] "docs/network-versioning-discipline.md"
+[2026-01-14 15:07:03] [MISSING] "group_vars/network_scheme.yml"
+[2026-01-14 15:07:03] [MISSING] "scripts/playbook-structure-linter.py"
+[2026-01-14 15:07:04] [MISSING] "docs/trinity-execution.md"
+[2026-01-14 15:07:04] [MISSING] "docs/rotation-discipline.md"
+[2026-01-14 15:07:04] [MISSING] "scripts/validate-rotation-readiness.sh"
+[2026-01-14 15:07:04] [MISSING] "scripts/validate-security-posture.sh"
+[2026-01-14 15:07:05] [MISSING] "docs/security-posture-discipline.md"
+[2026-01-14 15:07:05] [MISSING] ".pre-commit-config.yaml"
+[2026-01-14 15:07:05] [MISSING] "scripts/validate-bash.sh"
+[2026-01-14 15:07:05] [MISSING] "scripts/validate-ansible.sh"
+[2026-01-14 15:07:06] [MISSING] "pyproject.toml"
+[2026-01-14 15:07:06] [MISSING] ".markdownlint.json"
+[2026-01-14 15:07:06] ERROR: Drift detected in Sacred files. Run sync-canon.sh to remediate.
+[2026-01-14 15:23:14] Starting Canon Drift Audit...
+[2026-01-14 15:23:15] [MISSING] "docs/ansible-vault-discipline.md"
+[2026-01-14 15:23:15] [MISSING] "ansible.cfg"
+[2026-01-14 15:23:15] [MISSING] ".yamllint"
+[2026-01-14 15:23:15] [MISSING] "docs/api-coverage-discipline.md"
+[2026-01-14 15:23:16] [MISSING] "scripts/track-endpoint-coverage.py"
+[2026-01-14 15:23:16] [MISSING] "docs/network-versioning-discipline.md"
+[2026-01-14 15:23:16] [MISSING] "group_vars/network_scheme.yml"
+[2026-01-14 15:23:16] [MISSING] "scripts/playbook-structure-linter.py"
+[2026-01-14 15:23:17] [MISSING] "docs/trinity-execution.md"
+[2026-01-14 15:23:17] [MISSING] "docs/rotation-discipline.md"
+[2026-01-14 15:23:17] [MISSING] "scripts/validate-rotation-readiness.sh"
+[2026-01-14 15:23:17] [MISSING] "scripts/validate-security-posture.sh"
+[2026-01-14 15:23:18] [MISSING] "docs/security-posture-discipline.md"
+[2026-01-14 15:23:18] [MISSING] ".pre-commit-config.yaml"
+[2026-01-14 15:23:18] [MISSING] "scripts/validate-bash.sh"
+[2026-01-14 15:23:18] [MISSING] "scripts/validate-ansible.sh"
+[2026-01-14 15:23:18] [MISSING] "pyproject.toml"
+[2026-01-14 15:23:19] [MISSING] ".markdownlint.json"
+[2026-01-14 15:23:19] ERROR: Drift detected in Sacred files. Run sync-canon.sh to remediate.
+[2026-01-14 15:24:14] Starting Canon Drift Audit...
+[2026-01-14 15:24:15] [MISSING] docs/ansible-vault-discipline.md
+[2026-01-14 15:24:15] [DRIFTED] .yamllint (Content mismatch)
+[2026-01-14 15:24:15] [MISSING] docs/api-coverage-discipline.md
+[2026-01-14 15:24:16] [MISSING] docs/network-versioning-discipline.md
+[2026-01-14 15:24:16] [MISSING] group_vars/network_scheme.yml
+[2026-01-14 15:24:16] [MISSING] docs/trinity-execution.md
+[2026-01-14 15:24:17] [MISSING] docs/rotation-discipline.md
+[2026-01-14 15:24:17] [MISSING] docs/security-posture-discipline.md
+[2026-01-14 15:24:18] ERROR: Drift detected in Sacred files. Run sync-canon.sh to remediate.
+[2026-01-14 15:27:11] Starting Canon Drift Audit...
+[2026-01-14 15:27:12] [DRIFTED] .yamllint (Content mismatch)
+[2026-01-14 15:27:19] ERROR: Drift detected in Sacred files. Run sync-canon.sh to remediate.

@@ -3,7 +3,7 @@
 **Repository**: rylanlabs-shared-configs
 **Canon Version**: v2.0.0
 **Integration Date**: 2026-01-14
-**Status**: ✅ Phase 1-3 Complete | Phase 4 (Documentation) | Phases 5-6 Pending
+**Status**: ✅ Phase 1-5 Complete | Phase 6 Pending
 
 ---
 
@@ -25,7 +25,7 @@ The `rylanlabs-shared-configs` repository serves **two distinct roles** in the R
 - **Provides** `.shellcheckrc` for Bash consistency
 - **Is the authority** on linting standards across Tier 1-3 repositories
 
-**Why Dual Role?**
+#### Why Dual Role?
 
 - Linting configs are org-wide standards (not subject to canon enforcement)
 - Canon is an **enforcement engine**, not the linting config library
@@ -36,7 +36,7 @@ The `rylanlabs-shared-configs` repository serves **two distinct roles** in the R
 
 ## Architecture Diagram
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────┐
 │                   RylanLabs Tier 0                              │
 │                  Shared Configs Integration                      │
@@ -55,14 +55,14 @@ The `rylanlabs-shared-configs` repository serves **two distinct roles** in the R
         rylanlabs-shared-configs (Tier 0 Source)
         ┌────────────────────────────────────────┐
         │ Consumer Role:                         │
-        │  docs/disciplines/ → SYMLINKS          │
+        │  docs/*.md → SYMLINKS                  │
         │  scripts/validate-* → SYMLINKS         │
         │  scripts/linters → SYMLINKS            │
         │                                        │
         │ Source Role:                           │
-        │  linting/.yamllint → LOCAL (Original)  │
-        │  linting/pyproject.toml → LOCAL        │
-        │  linting/.shellcheckrc → LOCAL         │
+        │  .yamllint → LOCAL (Original)          │
+        │  pyproject.toml → LOCAL                │
+        │  .shellcheckrc → LOCAL                 │
         └────────────────────────────────────────┘
                       ↓         ↓         ↓
         ┌─────────────┼─────────┼──────────┐
@@ -78,7 +78,7 @@ The `rylanlabs-shared-configs` repository serves **two distinct roles** in the R
 
 ### Consumer Symlinks (FROM Canon)
 
-#### Disciplines (`docs/disciplines/`)
+#### Disciplines (`docs/`)
 
 | File | Canonical Source | Type | Immutable |
 |------|------------------|------|-----------|
@@ -104,7 +104,7 @@ The `rylanlabs-shared-configs` repository serves **two distinct roles** in the R
 
 ### Source Files (LOCAL - NOT Symlinked)
 
-#### Linting Configs (`linting/`)
+#### Linting Configs (Root)
 
 | File | Role | Consumer Repos | Status |
 |------|------|----------------|--------|
@@ -142,8 +142,8 @@ rules:
 
 - Downstream repos symlink **FROM** `shared-configs/.yamllint` (not from canon)
 - Line length 160 is intentional for shared-configs authorship
-- Canon is enforcement; shared-configs is org-wide config library
-- To symlink from canon would break downstream repo chains
+- Path aligned to root (/) to match Canon manifest standard
+- Zero-drift enforcement via `audit-canon-drift` job
 
 **Guardian Approval**: Carter (Identity - symlink source integrity)
 
@@ -173,6 +173,7 @@ line-length = 160
 - ✅ Confirms canon library v2.0.0 availability
 - ✅ Checks `.canon-metadata.yml` exists
 - ✅ Runs on: push to main, PRs
+- ✅ Path Alignment: All sacred files aligned to manifest destinations (docs/, scripts/, /)
 
 ### Phase 1: Linting Validation (`validate-disciplines` job)
 
@@ -202,13 +203,14 @@ line-length = 160
 cd ~/repos/rylan-labs-shared-configs
 
 # 1. Create symlinks to canon
-mkdir -p docs/disciplines scripts
-ln -sf ../../rylan-canon-library/docs/ansible-vault-discipline.md docs/disciplines/
-ln -sf ../../rylan-canon-library/docs/rotation-discipline.md docs/disciplines/
+mkdir -p docs scripts
+ln -sf ../rylan-canon-library/docs/ansible-vault-discipline.md docs/
+ln -sf ../rylan-canon-library/docs/rotation-discipline.md docs/
 # ... (8 more discipline/script symlinks)
 
-# 2. Preserve local linting configs
-# (no changes - .yamllint, pyproject.toml remain LOCAL)
+# 2. Preserve local linting configs (aligned to root)
+mv linting/.yamllint .
+mv linting/pyproject.toml .
 
 # 3. Document overrides
 cat > .canon-metadata.yml << 'EOF'
@@ -218,7 +220,7 @@ role:
   - consumer: "Inherits canon disciplines and validation scripts"
   - source: "Provides linting configs to downstream repos"
 overrides:
-  - file: "linting/.yamllint"
+  - file: ".yamllint"
     reason: "Shared-configs is linting SOURCE, not consumer"
 EOF
 ```
@@ -504,4 +506,4 @@ ln -sf ../rylanlabs-shared-configs/linting/.yamllint .yamllint
 
 ---
 
-*The Trinity endures. Fortress eternal. 🛡️*
+> *The Trinity endures. Fortress eternal. 🛡️*

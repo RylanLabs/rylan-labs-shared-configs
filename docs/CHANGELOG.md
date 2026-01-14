@@ -1,5 +1,7 @@
 # Changelog
 
+<!-- markdownlint-disable MD024 -->
+
 All notable changes to rylan-labs-shared-configs are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -15,6 +17,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ ] Docker/Containerfile linting rules
 - [ ] Kubernetes manifest validation schema
 - [ ] GraphQL schema validation
+
+---
+
+## [v1.2.0-canon-integrated] - 2026-01-14
+
+### Added
+
+- **Canon Integration**: Full integration with `rylan-canon-library v2.0.0`.
+  - **Consumer Role**: Inherits 6 disciplines and 8 validation scripts via symlinks.
+  - **Source Role**: Maintains 5 local linting configs as source of truth for the ecosystem.
+- **Drift Detection**: Added `audit-canon-drift` CI job for zero-drift enforcement.
+- **Dual Role Documentation**: Created `CANON-INTEGRATION.md` and `.canon-metadata.yml`.
+- **Validation**: Integrated `validate-disciplines` job to ensure linting config compatibility.
+
+### Fixed
+
+- **YAML Formatting**: Removed invalid document separators from GitHub workflow files.
+- **Pre-commit**: Resolved hook compatibility issues with ruff and yamllint.
+
+---
+
+## [v1.1.0] - 2026-01-11
+
+### Added
+
+- **Agentic Foundation**: Implementation of Trinity-aligned agent specifications.
+- **Markdown Excellence**: Comprehensive remediation of all Markdown files.
+  - Resolved MD040 (Language ID), MD032 (List spacing), and MD060 (Table formatting).
+  - Added [MARKDOWN_STYLE_GUIDE.md](docs/MARKDOWN_STYLE_GUIDE.md).
+- **Line Length**: Standards updated to 160 characters across all configuration types.
+
+### Changed
+
+- **Maturity Alignment**: Replaced "Consciousness" metric with "Maturity" levels (v1.1.0).
 
 ---
 

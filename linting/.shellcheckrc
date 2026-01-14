@@ -1,8 +1,0 @@
-# Enable all optional checks
-enable=all
-
-# Exclude specific checks
-disable=SC2312  # Consider invoking separately to avoid masking return values
-
-# Set shell dialect
-shell=bash

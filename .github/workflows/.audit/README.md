@@ -3,7 +3,7 @@
 ## Purpose
 
 Architecture decisions, bootstrap guides, and consumer integration documentation for rylanlabs-shared-configs
-v1.0.0.
+v1.2.0-canon-integrated.
 
 ---
 
@@ -39,4 +39,4 @@ use. Canonical docs above are authoritative.
 ---
 
 **Guardian**: Carter | **Ministry**: Identity
-**Version**: v1.0.0 | **Maturity**: v1.0.1
+**Version**: v1.2.0-canon-integrated | **Maturity**: v1.0.1

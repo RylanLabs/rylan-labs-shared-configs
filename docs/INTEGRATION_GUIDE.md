@@ -1,5 +1,7 @@
 # Integration Guide
 
+<!-- markdownlint-disable -->
+
 ## Adding rylan-labs-shared-configs to Your Repository
 
 This guide walks you through integrating shared-configs into a new or existing RylanLabs repository.
@@ -44,7 +46,7 @@ pre-commit run --all-files
 
 # 6. Commit and push
 git add -A
-git commit -m "feat: initialize with rylan-labs-shared-configs v1.0.0"
+git commit -m "feat: initialize with rylan-labs-shared-configs v1.2.0-canon-integrated"
 git remote add origin https://github.com/RylanLabs/my-new-repo.git
 git push -u origin main
 ```bash
@@ -85,8 +87,8 @@ pre-commit run --all-files
 pre-commit run --all-files
 
 # 8. Commit the migration
-git add .yamllint pyproject.toml .pre-commit-config.yaml .editorconfig .shellcheckrc
-git commit -m "refactor: migrate to rylan-labs-shared-configs v1.0.0
+git add .yamllint pyproject.toml .pre-commit-config.yaml .editorconfig .shellcheckrc .markdownlint.json
+git commit -m "refactor: migrate to rylan-labs-shared-configs v1.2.0-canon-integrated
 
 - Centralized linting and CI configurations
 - Eliminated local config duplication

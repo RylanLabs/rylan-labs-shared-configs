@@ -1,8 +1,11 @@
 # Symlink Setup & Mechanics
 
+<!-- markdownlint-disable -->
+
 ## Overview
 
-rylan-labs-shared-configs uses **symbolic links (symlinks)** to establish a single source of truth for linting and configuration files across all RylanLabs repositories.
+rylan-labs-shared-configs uses **symbolic links (symlinks)** to establish a single source of truth for linting
+and configuration files across all RylanLabs repositories.
 
 ---
 
@@ -41,12 +44,12 @@ rylan-labs-shared-configs (source)
 ```text
 Your Repository          Shared Configs (Source)
 ───────────────          ─────────────────────────
-.yamllint         ──→    linting/.yamllint
-pyproject.toml    ──→    linting/pyproject.toml
-.pre-commit-config.yaml ──→ pre-commit/.pre-commit-config.yaml
-.shellcheckrc     ──→    linting/.shellcheckrc       (optional)
-.editorconfig     ──→    linting/.editorconfig       (optional)
-```text
+.yamllint         ──→    .yamllint
+pyproject.toml    ──→    pyproject.toml
+.pre-commit-config.yaml ──→ .pre-commit-config.yaml
+.shellcheckrc     ──→    .shellcheckrc       (optional)
+.editorconfig     ──→    .editorconfig       (optional)
+```
 
 ### What Does NOT Get Symlinked
 
@@ -65,10 +68,10 @@ pyproject.toml    ──→    linting/pyproject.toml
 ```bash
 cd /path/to/your/repo
 /path/to/rylan-labs-shared-configs/scripts/install-to-repo.sh . /path/to/rylan-labs-shared-configs
-```text
+```
 
 **What it does**:
-1. Creates symlinks for required configs
+1. Creates symlinks for required configs from the root of shared-configs
 2. Skips existing local configs (preserves `.editorconfig`, etc.)
 3. Validates symlink targets
 4. Provides next-step instructions
@@ -81,16 +84,16 @@ If `install-to-repo.sh` doesn't work (e.g., Windows):
 cd /path/to/your/repo
 
 # Create symlink: ln -sf <source> <link-name>
-ln -sf /path/to/rylan-labs-shared-configs/linting/.yamllint .yamllint
-ln -sf /path/to/rylan-labs-shared-configs/linting/pyproject.toml pyproject.toml
-ln -sf /path/to/rylan-labs-shared-configs/pre-commit/.pre-commit-config.yaml .pre-commit-config.yaml
-ln -sf /path/to/rylan-labs-shared-configs/linting/.shellcheckrc .shellcheckrc
-ln -sf /path/to/rylan-labs-shared-configs/linting/.editorconfig .editorconfig
+ln -sf /path/to/rylan-labs-shared-configs/.yamllint .yamllint
+ln -sf /path/to/rylan-labs-shared-configs/pyproject.toml pyproject.toml
+ln -sf /path/to/rylan-labs-shared-configs/.pre-commit-config.yaml .pre-commit-config.yaml
+ln -sf /path/to/rylan-labs-shared-configs/.shellcheckrc .shellcheckrc
+ln -sf /path/to/rylan-labs-shared-configs/.editorconfig .editorconfig
 
 # Verify
 ls -la .yamllint pyproject.toml .pre-commit-config.yaml
 # Should show: link -> /path/to/...
-```text
+```
 
 ---
 

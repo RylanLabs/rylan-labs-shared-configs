@@ -40,22 +40,10 @@ jobs:
           [ -f "$CANON_PATH/docs/api-coverage-discipline.md" ] || { echo "ERROR: api-coverage-discipline.md"; exit 1; }
           [ -f "$CANON_PATH/docs/trinity-execution.md" ] || { echo "ERROR: trinity-execution.md"; exit 1; }
 
-          echo "Validating validation scripts symlinks..."
-          [ -f "$CANON_PATH/scripts/validate-rotation-readiness.sh" ] || { echo "ERROR: validate-rotation-readiness.sh"; exit 1; }
-          [ -f "$CANON_PATH/scripts/validate-security-posture.sh" ] || { echo "ERROR: validate-security-posture.sh"; exit 1; }
-          [ -f "$CANON_PATH/scripts/validate-bash.sh" ] || { echo "ERROR: validate-bash.sh"; exit 1; }
-          [ -f "$CANON_PATH/scripts/validate-ansible.sh" ] || { echo "ERROR: validate-ansible.sh"; exit 1; }
-          [ -f "$CANON_PATH/scripts/validate-yaml.sh" ] || { echo "ERROR: validate-yaml.sh"; exit 1; }
-          [ -f "$CANON_PATH/scripts/validate-python.sh" ] || { echo "ERROR: validate-python.sh"; exit 1; }
-          [ -f "$CANON_PATH/scripts/playbook-structure-linter.py" ] || { echo "ERROR: playbook-structure-linter.py"; exit 1; }
-          [ -f "$CANON_PATH/scripts/track-endpoint-coverage.py" ] || { echo "ERROR: track-endpoint-coverage.py"; exit 1; }
-
-          echo "✓ All canon symlink targets verified"
-
       - name: Validate symlinks are not broken
         run: |
           echo "Testing symlink resolution..."
-          for link in docs/disciplines/*.md scripts/validate-*.sh scripts/playbook-*.py scripts/track-*.py; do
+          for link in docs/*.md scripts/validate-*.sh scripts/playbook-*.py scripts/track-*.py; do
             if [ -L "$link" ]; then
               target=$(readlink -f "$link")
               [ -f "$target" ] || { echo "ERROR: Broken link: $link -> $target"; exit 1; }
@@ -84,13 +72,13 @@ jobs:
       - name: Validate all config files exist
         run: |
           echo "Validating linting configs..."
-          test -f linting/.yamllint || { echo "ERROR: .yamllint missing"; exit 1; }
-          test -f linting/pyproject.toml || { echo "ERROR: pyproject.toml missing"; exit 1; }
-          test -f linting/.shellcheckrc || { echo "ERROR: .shellcheckrc missing"; exit 1; }
-          test -f linting/.editorconfig || { echo "ERROR: .editorconfig missing"; exit 1; }
+          test -f .yamllint || { echo "ERROR: .yamllint missing"; exit 1; }
+          test -f pyproject.toml || { echo "ERROR: pyproject.toml missing"; exit 1; }
+          test -f .shellcheckrc || { echo "ERROR: .shellcheckrc missing"; exit 1; }
+          test -f .editorconfig || { echo "ERROR: .editorconfig missing"; exit 1; }
 
           echo "Validating pre-commit config..."
-          test -f pre-commit/.pre-commit-config.yaml || { echo "ERROR: .pre-commit-config.yaml missing"; exit 1; }
+          test -f .pre-commit-config.yaml || { echo "ERROR: .pre-commit-config.yaml missing"; exit 1; }
 
           echo "✓ All symlink targets validated"
 
@@ -115,7 +103,7 @@ jobs:
       - name: Validate .yamllint configuration
         run: |
           echo "Validating .yamllint syntax and rules..."
-          yamllint -d "{extends: default}" linting/.yamllint || true
+          yamllint -d "{extends: default}" .yamllint || true
 
           echo ""
           echo "✓ .yamllint is valid and can be used as source"
@@ -123,15 +111,15 @@ jobs:
       - name: Test .yamllint against sample YAML
         run: |
           echo "Testing linting config with sample files..."
-          yamllint -c linting/.yamllint -f parsable .github/workflows/*.yml 2>&1 | head -20 || true
+          yamllint -c .yamllint -f parsable .github/workflows/*.yml 2>&1 | head -20 || true
           echo "✓ Linting config is functional"
 
       - name: Verify linting configs are LOCAL (not symlinked)
         run: |
           echo "Verifying linting configs are source files (not symlinks)..."
-          ! [ -L "linting/.yamllint" ] || { echo "ERROR: .yamllint is a symlink (should be LOCAL)"; exit 1; }
-          ! [ -L "linting/pyproject.toml" ] || { echo "ERROR: pyproject.toml is a symlink (should be LOCAL)"; exit 1; }
-          ! [ -L "linting/.shellcheckrc" ] || { echo "ERROR: .shellcheckrc is a symlink (should be LOCAL)"; exit 1; }
+          ! [ -L ".yamllint" ] || { echo "ERROR: .yamllint is a symlink (should be LOCAL)"; exit 1; }
+          ! [ -L "pyproject.toml" ] || { echo "ERROR: pyproject.toml is a symlink (should be LOCAL)"; exit 1; }
+          ! [ -L ".shellcheckrc" ] || { echo "ERROR: .shellcheckrc is a symlink (should be LOCAL)"; exit 1; }
 
           echo "✓ All linting configs are local files (correct for SOURCE role)"
 

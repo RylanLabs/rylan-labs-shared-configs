@@ -1,5 +1,12 @@
 ---
 extends: default
+
+ignore: |
+  node_modules/
+  .git/
+  venv/
+  .venv/
+
 rules:
   line-length:
     max: 160
@@ -11,4 +18,4 @@ rules:
     min-spaces-from-content: 1
   document-start: disable
   truthy:
-    allowed-values: ['true', 'false', 'yes', 'no']
+    allowed-values: ['true', 'false', 'yes', 'no', 'on']
