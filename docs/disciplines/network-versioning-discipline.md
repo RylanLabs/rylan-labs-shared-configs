@@ -1,0 +1,1 @@
+../../rylan-canon-library/docs/network-versioning-discipline.md

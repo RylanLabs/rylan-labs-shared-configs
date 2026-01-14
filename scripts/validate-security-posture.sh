@@ -1,0 +1,1 @@
+../../rylan-canon-library/scripts/validate-security-posture.sh

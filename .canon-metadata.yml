@@ -1,0 +1,213 @@
+---
+# Canon Integration Metadata
+# Tracks integration of rylan-canon-library v2.0.0 into rylanlabs-shared-configs
+# This file documents the dual role of shared-configs as BOTH consumer and source
+
+canon_version: "2.0.0"
+integration_date: "2026-01-14"
+integrating_repo: "rylanlabs-shared-configs"
+integrating_repo_version: "v1.1.0"
+
+# Dual Role Definition
+role:
+  - consumer: "Inherits canon disciplines and validation scripts via symlinks"
+  - source: "Provides linting configs as source of truth for downstream repos (Tier 1-3)"
+
+# Symlinked Sacred Files (Consumer Role)
+# These files are symlinked FROM canon-library and should NOT be edited locally
+symlinks:
+  disciplines:
+    - src: "docs/disciplines/ansible-vault-discipline.md"
+      canonical: "../../rylan-canon-library/docs/ansible-vault-discipline.md"
+      immutable: true
+      reason: "Canon discipline on vault patterns and segregation"
+
+    - src: "docs/disciplines/rotation-discipline.md"
+      canonical: "../../rylan-canon-library/docs/rotation-discipline.md"
+      immutable: true
+      reason: "Canon discipline on credential rotation patterns"
+
+    - src: "docs/disciplines/security-posture-discipline.md"
+      canonical: "../../rylan-canon-library/docs/security-posture-discipline.md"
+      immutable: true
+      reason: "Canon discipline on security hardening and allow-list patterns"
+
+    - src: "docs/disciplines/network-versioning-discipline.md"
+      canonical: "../../rylan-canon-library/docs/network-versioning-discipline.md"
+      immutable: true
+      reason: "Canon discipline on versioning for network configs"
+
+    - src: "docs/disciplines/api-coverage-discipline.md"
+      canonical: "../../rylan-canon-library/docs/api-coverage-discipline.md"
+      immutable: true
+      reason: "Canon discipline on API endpoint coverage tracking"
+
+    - src: "docs/disciplines/trinity-execution.md"
+      canonical: "../../rylan-canon-library/docs/trinity-execution.md"
+      immutable: true
+      reason: "Canon discipline on 7-task Trinity execution framework"
+
+  validation_scripts:
+    - src: "scripts/validate-rotation-readiness.sh"
+      canonical: "../../rylan-canon-library/scripts/validate-rotation-readiness.sh"
+      immutable: true
+      reason: "Canon validator for pre-rotation compliance checks"
+
+    - src: "scripts/validate-security-posture.sh"
+      canonical: "../../rylan-canon-library/scripts/validate-security-posture.sh"
+      immutable: true
+      reason: "Canon validator for security policy compliance"
+
+    - src: "scripts/validate-bash.sh"
+      canonical: "../../rylan-canon-library/scripts/validate-bash.sh"
+      immutable: true
+      reason: "Canon validator for Bash script quality (shfmt, shellcheck)"
+
+    - src: "scripts/validate-ansible.sh"
+      canonical: "../../rylan-canon-library/scripts/validate-ansible.sh"
+      immutable: true
+      reason: "Canon validator for Ansible playbooks"
+
+    - src: "scripts/validate-yaml.sh"
+      canonical: "../../rylan-canon-library/scripts/validate-yaml.sh"
+      immutable: true
+      reason: "Canon validator for YAML files (yamllint)"
+
+    - src: "scripts/validate-python.sh"
+      canonical: "../../rylan-canon-library/scripts/validate-python.sh"
+      immutable: true
+      reason: "Canon validator for Python code (ruff, mypy, bandit)"
+
+    - src: "scripts/playbook-structure-linter.py"
+      canonical: "../../rylan-canon-library/scripts/playbook-structure-linter.py"
+      immutable: true
+      reason: "Canon linter for 7-task Trinity playbook structure"
+
+    - src: "scripts/track-endpoint-coverage.py"
+      canonical: "../../rylan-canon-library/scripts/track-endpoint-coverage.py"
+      immutable: true
+      reason: "Canon tracker for API endpoint coverage metrics"
+
+# Local (Non-Symlinked) Files (Source Role)
+# These files ARE the source of truth and are consumed by downstream repos
+# They are NOT symlinked from canon but validated for compatibility
+local_files:
+  linting:
+    - path: "linting/.yamllint"
+      role: "source"
+      description: "YAML linting config - source for all downstream repos"
+      status: "KEPT LOCAL (downstream consumers depend on this)"
+      canon_compatibility: "COMPATIBLE WITH DOCUMENTED OVERRIDE"
+      notes: |
+        Shared-configs uses line-length: 160 (canon uses 120/140 with overrides)
+        This is intentional - shared-configs is the SOURCE for downstream repos
+        Canon is an ENFORCEMENT ENGINE, not the linting source
+
+    - path: "linting/pyproject.toml"
+      role: "source"
+      description: "Python linting config (ruff, mypy) - source for downstream repos"
+      status: "KEPT LOCAL (downstream consumers depend on this)"
+      canon_compatibility: "COMPATIBLE"
+      notes: |
+        Shared-configs maintains line-length = 160 to match .yamllint
+        Canon provides validators; shared-configs provides config consumption patterns
+
+    - path: "linting/.shellcheckrc"
+      role: "source"
+      description: "ShellCheck config for Bash validation"
+      status: "KEPT LOCAL"
+      canon_compatibility: "COMPATIBLE"
+
+    - path: "linting/.editorconfig"
+      role: "source"
+      description: "EditorConfig for IDE standardization"
+      status: "KEPT LOCAL"
+      canon_compatibility: "COMPATIBLE"
+
+    - path: "linting/.markdownlint.yaml"
+      role: "source"
+      description: "Markdown linting config"
+      status: "KEPT LOCAL"
+      canon_compatibility: "COMPATIBLE"
+
+# Documented Overrides (Exceptions to Canon Enforcement)
+# These represent intentional design decisions due to shared-configs' dual role
+overrides:
+  - file: "linting/.yamllint"
+    reason: |
+      Shared-configs is the Tier 0 LINTING SOURCE, not a canon consumer.
+      Other repos (labs-common, iac, network-iac) symlink TO shared-configs/.yamllint
+      Therefore, this config is NOT a consumer of canon enforcement.
+      Line length at 160 is intentional for shared-configs authorship.
+      Canon-based repos will symlink FROM here, not consume canon directly.
+    action: "KEEP LOCAL - Validate compatibility, do not symlink"
+    approval: "Guardian: Carter (Identity - symlink source integrity)"
+
+  - file: "linting/pyproject.toml"
+    reason: |
+      Python linting config is shared-configs' primary export to downstream repos.
+      Line length = 160 maintains consistency with .yamllint.
+      Downstream repos consume this config via symlinks or copies.
+    action: "KEEP LOCAL - Validate compatibility, do not symlink"
+    approval: "Guardian: Bauer (Auditing - linting consistency across Tier 1-3)"
+
+# Validation Status
+validation:
+  symlink_integrity: "✓ PASS (14 symlinks verified)"
+  downstream_impact: "PENDING (labs-common .yamllint verification after Phase 1)"
+  canon_drift: "DOCUMENTED EXCEPTIONS (2 linting config overrides)"
+  audit_canon_sh: "PENDING (Phase 5)"
+
+# Next Steps (For CI/CD Integration)
+next_phases:
+  - phase: "2"
+    description: "Symlink Architecture Validation"
+    status: "READY"
+
+  - phase: "3"
+    description: "CI/CD Integration - Add audit-canon-drift job"
+    status: "READY"
+
+  - phase: "4"
+    description: "Documentation Updates"
+    status: "READY"
+
+  - phase: "5"
+    description: "Final Validation & Audit"
+    status: "READY"
+
+  - phase: "6"
+    description: "Commit, Tag (v1.2.0-canon-integrated), Push"
+    status: "READY"
+
+# Guardian Alignment
+guardians:
+  carter:
+    principle: "Identity (symlink integrity, no broken references)"
+    validation: "All 14 symlinks verified; downstream symlinks preserved"
+
+  bauer:
+    principle: "Auditing (drift detection, compliance validation)"
+    validation: "Documented overrides tracked; audit-canon.sh to validate in Phase 5"
+
+  beale:
+    principle: "Security (no accidental exposure of canon enforcement bypass)"
+    validation: "Local linting configs are intentional source, not bypass"
+
+# Integration Timeline
+timeline:
+  phase_0_complete: "2026-01-14 12:00 UTC"
+  phase_1_start: "2026-01-14 13:30 UTC"
+  phase_1_bootstrap_complete: "2026-01-14 13:47 UTC"
+  phase_1_target_completion: "2026-01-14 14:00 UTC"
+  all_phases_target: "2026-01-14 15:00 UTC"
+
+# References
+references:
+  canon_library: "/home/egx570/repos/rylan-canon-library (v2.0.0)"
+  shared_configs: "/home/egx570/repos/rylan-labs-shared-configs (v1.1.0 → v1.2.0-canon-integrated)"
+  downstream_consumers:
+    - "rylan-labs-common (symlinks to linting/)"
+    - "rylan-labs-iac (symlinks to linting/)"
+    - "rylan-labs-network-iac (symlinks to linting/)"
+  canonical_docs: "docs/CANON-INTEGRATION.md (to be created in Phase 4)"

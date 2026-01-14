@@ -17,6 +17,8 @@ disable_error_code = ["misc"]  # Avoid INTERNAL ERROR noise from mypy
 [tool.ruff]
 line-length = 160
 target-version = "py311"
+
+[tool.ruff.lint]
 select = [
     "E",   # pycodestyle errors
     "W",   # pycodestyle warnings
@@ -35,7 +37,7 @@ ignore = [
     "D400",  # first-line-should-end-with-period
 ]
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
 
 [tool.bandit]

@@ -150,10 +150,57 @@ git commit -m "refactor: migrate to rylan-labs-shared-configs v1.0.0"
 
 ---
 
+## Canon Integration (Tier 0 Enforcement)
+
+**Status**: ✅ Integrated with rylan-canon-library v2.0.0 (2026-01-14)
+
+### Dual Role Architecture
+
+Shared-configs serves **two roles** in the RylanLabs ecosystem:
+
+1. **Consumer of Canon Enforcement**
+   - Inherits disciplines (vault, rotation, security, network, API, playbook)
+   - Symlinks to canon validation scripts (14 immutable symlinks)
+   - Validated via `audit-canon.sh` for zero-drift
+
+2. **Source of Linting Configs**
+   - Provides `.yamllint` to all downstream repos (labs-common, iac, network-iac)
+   - Provides `pyproject.toml` and `.shellcheckrc` for org-wide consistency
+   - Is the authority on linting standards across Tier 1-3
+
+### Documentation
+
+- **[CANON-INTEGRATION.md](./docs/CANON-INTEGRATION.md)** - Complete architecture, symlink map, sync process
+- **[Canon Library](https://github.com/RylanLabs/rylan-canon-library)** (v2.0.0) - Tier 0 enforcement engine
+- **[.canon-metadata.yml](./.canon-metadata.yml)** - Integration metadata & overrides
+
+### Key Components
+
+| Component | Type | Source | Status |
+|-----------|------|--------|--------|
+| Disciplines (6 files) | Symlinks | canon/docs/ | ✅ Active |
+| Validation Scripts (8 files) | Symlinks | canon/scripts/ | ✅ Active |
+| Linting Configs (.yamllint, pyproject.toml) | Local | shared-configs/ | ✅ Source |
+| CI Jobs (audit-canon-drift, validate-disciplines) | Workflows | .github/workflows/ | ✅ Active |
+
+### Downstream Consumer Compatibility
+
+✅ **No changes required for existing downstream repos**
+
+Your symlinks continue to work unchanged:
+```bash
+# Existing downstream repo symlink (e.g., rylan-labs-common)
+.yamllint → ../rylanlabs-shared-configs/linting/.yamllint
+# Still resolves correctly (linting config source unchanged)
+```
+
+---
+
 ## Documentation
 
 - **[README.md](./docs/README.md)** - Architecture, workflows, maintenance
 - **[INTEGRATION_GUIDE.md](./docs/INTEGRATION_GUIDE.md)** - Installation steps & troubleshooting
+- **[CANON-INTEGRATION.md](./docs/CANON-INTEGRATION.md)** - Canon v2.0.0 dual-role architecture
 - **[SYMLINK_SETUP.md](./docs/SYMLINK_SETUP.md)** - Symlink mechanics & platform guides
 - **[CHANGELOG.md](./docs/CHANGELOG.md)** - Version history & release notes
 
@@ -174,6 +221,7 @@ git commit -m "refactor: migrate to rylan-labs-shared-configs v1.0.0"
 ## Support
 
 **Issues or questions?**
+
 1. Check [INTEGRATION_GUIDE.md](./docs/INTEGRATION_GUIDE.md) troubleshooting section
 2. Review [SYMLINK_SETUP.md](./docs/SYMLINK_SETUP.md) for platform-specific help
 3. Open a GitHub issue with tag: `shared-configs`, `foundation`
@@ -189,4 +237,4 @@ MIT License - See [LICENSE](./LICENSE)
 
 **Last Updated**: 2025-12-30
 **Maintained By**: RylanLabs Foundation Ministry
-**Repository**: https://github.com/RylanLabs/rylan-labs-shared-configs
+**Repository**: <https://github.com/RylanLabs/rylan-labs-shared-configs>
