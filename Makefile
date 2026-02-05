@@ -47,9 +47,9 @@ cascade: ## Topic-driven secret distribution across the mesh
 publish: validate ## Heartbeat: Sign, Tag, and Push changes
 	@git add .
 	@read -p "Commit message: " msg; \
-	git commit -S -m "$$msg"
-	@git tag -s v$$(date +%Y%m%d-%H%M%S) -m "Mesh heartbeat"
-	@git push origin main --tags
+	git commit -m "$$msg"
+	@git tag -a v$$(date +%Y%m%d-%H%M%S) -m "Mesh heartbeat"
+	@git push origin master --tags
 
 clean: ## Clean local artifacts
 	@rm -rf .cache/ .tmp/ .audit/compliance/*

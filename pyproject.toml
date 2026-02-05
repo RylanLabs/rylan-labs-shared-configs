@@ -7,8 +7,11 @@
 requires = ["setuptools>=65.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools]
+packages = ["plugins"]
+
 [project]
-name = "rylan-project"
+name = "rylanlab-common"
 version = "0.1.0"
 description = "Project description here"
 requires-python = ">=3.11"

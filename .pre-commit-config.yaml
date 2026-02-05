@@ -2,6 +2,8 @@
 # .pre-commit-config.yaml
 # Pre-commit hooks for rylan-labs-network-iac
 
+exclude: ^\.ansible/
+
 repos:
   - repo: local
     hooks:
