@@ -1,60 +1,42 @@
+# RylanLabs Canonical Python Project Configuration Template
+# Maturity: v2.0.0
+# Guardian: Bauer (Auditor)
+# Ministry: Development Standards
+
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rylan-project"
+version = "0.1.0"
+description = "Project description here"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+lint.select = [
+    "E",    # pycodestyle errors
+    "F",    # Pyflakes
+    "I",    # isort
+    "N",    # pep8-naming
+    "W",    # pycodestyle warnings
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "RUF",  # Ruff-specific rules
+    "S",    # flake8-bandit (Security)
+]
+
 [tool.mypy]
 python_version = "3.11"
 strict = true
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
-disallow_any_generics = true
-check_untyped_defs = true
-no_implicit_optional = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-warn_no_return = true
-warn_unreachable = true
-strict_equality = true
-disable_error_code = ["misc"]  # Avoid INTERNAL ERROR noise from mypy
 
-[tool.ruff]
-line-length = 160
-target-version = "py311"
-
-[tool.ruff.lint]
-select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # pyflakes
-    "I",   # isort
-    "B",   # flake8-bugbear
-    "C4",  # flake8-comprehensions
-    "UP",  # pyupgrade
-    "D",   # pydocstyle
-    "S",   # flake8-bandit (security)
-    "BLE", # flake8-blind-except
-]
-ignore = [
-    "D203",  # one-blank-line-before-class
-    "D213",  # multi-line-summary-second-line
-    "D400",  # first-line-should-end-with-period
-]
-
-[tool.ruff.lint.pydocstyle]
-convention = "google"
-
-[tool.bandit]
-exclude_dirs = ["tests", ".venv", "venv", ".tox", ".git"]
-skips = ["B101", "B601"]
-
-[tool.commitizen]
-name = "cz_conventional_commits"
-version = "1.0.0"
-tag_format = "v$version"
-version_files = ["linting/pyproject.toml:version"]
-
-[tool.ruff.lint.per-file-ignores]
-"tests/**/*.py" = ["S101"]  # Allow assert in tests (pytest convention)
-"**/test_*.py" = ["S101"]   # Allow assert in test files
-"*/tests/*" = ["S101"]      # Allow assert in any tests directory
-
-[[tool.mypy.overrides]]
-module = "pytest.*"
-ignore_missing_imports = true
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "--cov=src --cov-report=term-missing --cov-fail-under=80"

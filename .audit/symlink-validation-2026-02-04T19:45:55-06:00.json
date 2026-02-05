@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-02-04T19:45:55-06:00",
+  "status": "error",
+  "message": ".yamllint points to incorrect target: ../../rylan-labs-shared-configs/.yamllint (expected ../rylanlabs-shared-configs/.yamllint)",
+  "shared_path": "../rylanlabs-shared-configs",
+  "repo_root": "/home/egx570/repos/rylan-labs-shared-configs"
+}

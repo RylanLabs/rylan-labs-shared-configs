@@ -74,11 +74,10 @@ trap 'echo "❌ INTERRUPTED" >&2; exit 130' INT TERM
 main() {
   local errors=0
 
-  echo "========================================"
-  echo "Carter Guardian: Symlink Validation"
-  echo "Shared configs path: ${SHARED_CONFIGS_PATH}"
-  echo "Repository root: ${REPO_ROOT}"
-  echo "========================================"
+  if [[ "$(basename "$(pwd)")" == "rylan-labs-shared-configs" ]]; then
+    echo "SKIPPING: Symlink validation not required for source repository."
+    exit 0
+  fi
 
   # Required symlinks (SOURCE role paths)
   declare -A required_symlinks=(

@@ -1,5 +1,6 @@
+---
 # Markdown linting rules for RylanLabs
-# Guardian: Bauer | Ministry: Compliance | Consciousness: 9.9
+# Guardian: Audit | Ministry: Compliance | Consciousness: 9.9
 # Version: v1.0.0
 
 # MD013: Line length (80 chars is restrictive for modern docs, 140/160 is standard)

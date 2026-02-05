@@ -32,7 +32,7 @@
 
 ### 1.1 Initialize Git ✅
 
-- [x] Git repo initialized: `/home/egx570/repos/rylan-labs-shared-configs/.git`
+- [x] Git repo initialized: `~/repos/rylan-labs-shared-configs/.git`
 - [x] Config set: user.name = "Carter Guardian"
 - [x] All files staged for commit
 

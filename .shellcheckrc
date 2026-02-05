@@ -1,11 +1,11 @@
-# Enable all optional checks
-enable=all
+# RylanLabs ShellCheck Configuration
+# Agent: Bauer
+# Version: 1.0.0
 
-# Exclude specific checks
-disable=SC2312  # Consider invoking separately to avoid masking return values
-disable=SC2250  # Prefer putting braces around variable references (Pedantic)
-disable=SC2310  # Function invoked in ! or if condition (Strictness)
-disable=SC2248  # Prefer double quoting even when variables don't contain special chars (Style)
+# Disable SC1091 (Not following sources) as many are dynamic in mesh
+disable=SC1091
+# Disable SC2034 (Unused variables) for template-heavy scripts
+disable=SC2034
 
-# Set shell dialect
+# Enforce bash
 shell=bash

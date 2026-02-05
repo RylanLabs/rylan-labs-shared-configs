@@ -392,7 +392,7 @@ git tag -l
 ```bash
 VERIFICATION 1: Git Initialization
 $ git rev-parse --show-toplevel
-Should show: /home/egx570/repos/rylan-labs-shared-configs
+Should show: ~/repos/rylan-labs-shared-configs
   [ ] CONFIRMED ✓
 
 VERIFICATION 2: Bootstrap Commit

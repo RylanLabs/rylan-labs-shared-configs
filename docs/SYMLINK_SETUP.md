@@ -177,11 +177,11 @@ readlink .yamllint  # Should now work
 
 ### Relative vs Absolute Paths
 
-**Recommendation**: Use absolute paths to avoid confusion
+**Recommendation**: Use home-relative paths to avoid user-specific hardcoding
 
 ```bash
-# GOOD: Absolute path
-ln -sf /home/user/repos/rylan-labs-shared-configs/linting/.yamllint .yamllint
+# GOOD: Home-relative path
+ln -sf ~/repos/rylan-labs-shared-configs/linting/.yamllint .yamllint
 
 # RISKY: Relative path (breaks if directory structure changes)
 ln -sf ../../rylan-labs-shared-configs/linting/.yamllint .yamllint

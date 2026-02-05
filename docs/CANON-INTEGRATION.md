@@ -361,7 +361,7 @@ cat .canon-metadata.yml | head -5
 ```bash
 # 1. Check symlinks
 readlink -f docs/disciplines/ansible-vault-discipline.md
-# Should resolve to: /home/egx570/repos/rylan-canon-library/docs/...
+# Should resolve to: ~/repos/rylan-canon-library/docs/...
 
 # 2. Check linting source
 file linting/.yamllint
@@ -462,7 +462,7 @@ git checkout .yamllint
 ```bash
 cd ~/repos/rylan-labs-common
 readlink -f .yamllint
-# Should resolve to: /home/egx570/repos/rylanlabs-shared-configs/linting/.yamllint
+# Should resolve to: ~/repos/rylanlabs-shared-configs/linting/.yamllint
 
 # If not: Recreate symlink
 rm .yamllint

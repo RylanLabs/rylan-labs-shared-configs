@@ -1,0 +1,1 @@
+../../rylan-canon-library/scripts/auto-migrate.sh

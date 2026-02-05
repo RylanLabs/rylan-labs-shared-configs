@@ -204,8 +204,8 @@ timeline:
 
 # References
 references:
-  canon_library: "/home/egx570/repos/rylan-canon-library (v2.0.0)"
-  shared_configs: "/home/egx570/repos/rylan-labs-shared-configs (v1.1.0 → v1.2.0-canon-integrated)"
+  canon_library: "~/repos/rylan-canon-library (v2.0.0)"
+  shared_configs: "~/repos/rylan-labs-shared-configs (v1.1.0 → v1.2.0-canon-integrated)"
   downstream_consumers:
     - "rylan-labs-common (symlinks to linting/)"
     - "rylan-labs-iac (symlinks to linting/)"

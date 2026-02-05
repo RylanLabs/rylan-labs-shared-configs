@@ -9,6 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [v2026.02.04] - 2026-02-04
+
+### Added
+
+- Established `shared-configs` as Tier 0 SSOT for linting configurations.
+- Integrated `repo-governance.yml` for autonomous drift detection.
+- Added `VLAN 80` (GUEST) to `network_scheme.yml` with isolation enforcement.
+- Generated `MESH-MAN.md` mapping for mesh-wide operations.
+
+### Changed
+
+- Converted core scripts to symlinks to `rylan-canon-library` (Sovereignty).
+- Updated `validate-symlinks.sh` to support source-repo bypass.
+- Fixed YAML linting and document start violations across core configs.
+- Hardened security posture with `default_posture: deny-all`.
+
+### Fixed
+
+- Fixed broken symlinks in root configs (`.yamllint`, `.gitleaks.toml`).
+- Resolved `validate-rotation-readiness.sh` failures by establishing baseline backups.
+
 ## [Unreleased]
 
 ### Planned
